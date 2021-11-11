@@ -6,32 +6,33 @@ a {
 }
 
 header {
-	background-color: #1C1C21;
+	background-color: #6f6f74;
+
 	
 
 
 }
 
+
+
 body {
-	background-color: #000000;
+	background-color: #1C1C21;
 	min-width: 700px;
 }
 
 
 .header__container {
-	max-width: 1240px;
+	min-width: 1280px;
+	max-width: 1280px;
 	margin: 0 auto;
-	padding: 0 -20px;
-	background-color: #36363b;
+	padding: 5px -20px;
+
 	display: flex;
 	align-items: center;
 	justify-content: center;
 
 }
 
-.header__container-compensate {
-
-}
 
 
 

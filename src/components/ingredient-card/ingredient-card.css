@@ -1,0 +1,28 @@
+.image {
+	border-style: solid;
+	margin: 0 auto;
+}
+.ingredient-card__container {
+	max-width: 272px;
+	margin: 0 auto;
+	margin: 0 5px 32px 5px;
+	border-style: solid;
+	text-align: center;
+	background-color: #51516d;
+	position: relative;
+}
+
+.ingredient-card__description {
+	min-height: 48px;
+}
+.ingredient-card__container {
+	/*max-width: 272px;*/
+	/* margin: 0 auto;*/
+
+}
+
+.ingredient-card__price {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}

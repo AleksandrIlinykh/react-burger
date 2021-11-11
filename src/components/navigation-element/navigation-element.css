@@ -1,0 +1,29 @@
+a.navigation-element__link-active {
+	text-decoration-skip-ink: auto;
+	text-decoration:none;
+	color: #F2F2F3;
+}
+
+a.navigation-element__link {
+	text-decoration-skip-ink: auto;
+	text-decoration:none;
+	color: #8585AD
+}
+
+
+
+
+.navigation-element {
+	/*border-style: solid;*/
+	border-radius: 40px;
+	display: inline-flex;
+	align-items: center;
+}
+
+
+
+.navigation-element__icon {
+
+}
+
+
