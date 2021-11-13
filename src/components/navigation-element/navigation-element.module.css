@@ -1,10 +1,10 @@
-a.navigation-element__link-active {
+a.navigationelement__link-active {
 	text-decoration-skip-ink: auto;
 	text-decoration:none;
 	color: #F2F2F3;
 }
 
-a.navigation-element__link {
+a.navigationelement__link {
 	text-decoration-skip-ink: auto;
 	text-decoration:none;
 	color: #8585AD
@@ -13,7 +13,7 @@ a.navigation-element__link {
 
 
 
-.navigation-element {
+.navigationelement {
 	/*border-style: solid;*/
 	border-radius: 40px;
 	display: inline-flex;

@@ -3,31 +3,43 @@ import React from 'react';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import { Counter } from '@ya.praktikum/react-developer-burger-ui-components'
 
-
-import './ingredient-card.css';
+import { ingredientCardTypes } from "../../utils/types"
+import ingredientCardStyles from './ingredient-card.module.css';
 
 const IngredientCard = (props) => {
+	const [orderCount, setOrderCount] = React.useState(0);
+
+	function handleClick(event) {
+		setOrderCount(orderCount + 1);
+		console.log(orderCount);
+		props.onIngredientСhoice(event);
+	}
+
 	return (
-
-		<div className="ingredient-card__container">
-
-			<div className="ingredient-card__image-container">
-				<Counter count={1} size="default" />
+		<div className={ingredientCardStyles.ingredientcard__container} id={props.id} onClick={handleClick}>
+			<div>
+				{
+					(orderCount === 0) || <Counter count={orderCount} size="default" />
+				}
 				<img src={props.image} alt={props.name} className="ml-4 mr-4" />
 			</div>
-			<div className="ingredient-card__price mt-1 mb-1">
-				<p className="text text_type_digits-default">
-					{props.price}
-				</p>
-				<CurrencyIcon type="primary" />
+			<div className="mt-1 mb-1">
+				<div className={ingredientCardStyles.ingredientcard__price}>
+					<p className="text text_type_digits-default">
+						{props.price}
+					</p>
+					<CurrencyIcon type="primary" />
+				</div>
 			</div>
-			<div className="ingredient-card__description">
-				<p className="ingredient-card__description-text text text_type_main-small">
+			<div className={ingredientCardStyles.ingredientcard__description}>
+				<p className="text text_type_main-small">
 					{props.name}
 				</p>
 			</div>
-		</div>
+		</div >
 	)
 }
+
+IngredientCard.propTypes = ingredientCardTypes;
 
 export default IngredientCard;

@@ -1,0 +1,21 @@
+.image {
+	margin: 0 auto;
+}
+.ingredientcard__container {
+	max-width: 272px;
+
+	text-align: center;
+	background-color: #131316;
+	position: relative;
+}
+
+.ingredientcard__description {
+	min-height: 48px;
+}
+
+
+.ingredientcard__price {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}

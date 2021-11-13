@@ -1,16 +1,12 @@
 import React from 'react';
-import { Button } from '@ya.praktikum/react-developer-burger-ui-components'
-import { Logo } from '@ya.praktikum/react-developer-burger-ui-components'
-import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import { BurgerIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import { ListIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import { ProfileIcon } from '@ya.praktikum/react-developer-burger-ui-components'
-
-
-import './navigation-element.css';
+import { navigationElementTypes } from "../../utils/types"
+import navigationElementStyles from './navigation-element.module.css';
 
 function NavigationElement(props) {
-
+	{/*
 	let linkClassName = 'ml-2 text text_type_main-small navigation-element__link';
 	let iconType = "secondary"
 	let icon;
@@ -19,17 +15,32 @@ function NavigationElement(props) {
 		linkClassName = 'ml-2 text text_type_main-small navigation-element__link-active';
 		iconType = "primary";
 	}
+*/}
+	let linkClassName = navigationElementStyles.navigationelement__link;
+	let iconType = "secondary"
+	let icon;
 
+	if (props.isActive === "true") {
+		linkClassName = navigationElementStyles.navigationelement__linkactive;
+		iconType = "primary";
+	}
 	props.type === "constructor" && (icon = <BurgerIcon type={iconType} />)
 	props.type === "order list" && (icon = <ListIcon type={iconType} />)
 	props.type === "personal cabinet" && (icon = <ProfileIcon type={iconType} />)
 
 	return (
-		<li className="navigation-element pt-4 pr-5 pb-4 pl-5" >
-			{icon}
-			<a href="" className={linkClassName}>{props.name}</a>
-		</li>
+		<div className="pt-4 pr-5 pb-4 pl-5">
+			<li className={navigationElementStyles.navigationelement} >
+				{icon}
+				<div className="ml-2 text text_type_main-small">
+					<a href="" className={linkClassName}>{props.name}</a>
+				</div>
+
+			</li>
+		</div>
 	)
 }
+
+NavigationElement.propTypes = navigationElementTypes;
 
 export default NavigationElement;
