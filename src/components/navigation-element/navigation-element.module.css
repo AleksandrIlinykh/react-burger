@@ -10,20 +10,12 @@ a.navigationelement__link {
 	color: #8585AD
 }
 
-
-
-
 .navigationelement {
-	/*border-style: solid;*/
 	border-radius: 40px;
 	display: inline-flex;
 	align-items: center;
 }
 
 
-
-.navigation-element__icon {
-
-}
 
 

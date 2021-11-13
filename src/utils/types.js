@@ -17,7 +17,7 @@ export const ingredientCardTypes = {
 	onIngredientСhoice: PropTypes.func,
 }
 
-export const burgerIngredientsTypes = {
+export const IngredientsTypes = {
 	data: PropTypes.arrayOf(
 		PropTypes.shape({
 			name: PropTypes.string,
@@ -36,22 +36,4 @@ export const burgerIngredientsTypes = {
 	onIngredientСhoice: PropTypes.func,
 }
 
-export const burgerConstructorTypes = {
-	data: PropTypes.arrayOf(
-		PropTypes.shape({
-			name: PropTypes.string,
-			type: PropTypes.string,
-			proteins: PropTypes.number,
-			fat: PropTypes.number,
-			carbohydrates: PropTypes.number,
-			calories: PropTypes.number,
-			price: PropTypes.number,
-			image: PropTypes.string,
-			image_mobile: PropTypes.string,
-			image_large: PropTypes.string,
-			__v: PropTypes.number,
-		}),
-	),
-	onIngredientСhoice: PropTypes.func,
-}
 

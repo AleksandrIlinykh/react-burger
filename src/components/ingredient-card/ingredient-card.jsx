@@ -16,7 +16,7 @@ const IngredientCard = (props) => {
 	}
 
 	return (
-		<div className={ingredientCardStyles.ingredientcard__container} id={props.id} onClick={handleClick}>
+		<div className={ingredientCardStyles.ingredientcard__container} onClick={handleClick}>
 			<div>
 				{
 					(orderCount === 0) || <Counter count={orderCount} size="default" />

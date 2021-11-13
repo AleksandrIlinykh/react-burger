@@ -6,16 +6,7 @@ import { navigationElementTypes } from "../../utils/types"
 import navigationElementStyles from './navigation-element.module.css';
 
 function NavigationElement(props) {
-	{/*
-	let linkClassName = 'ml-2 text text_type_main-small navigation-element__link';
-	let iconType = "secondary"
-	let icon;
 
-	if (props.isActive === "true") {
-		linkClassName = 'ml-2 text text_type_main-small navigation-element__link-active';
-		iconType = "primary";
-	}
-*/}
 	let linkClassName = navigationElementStyles.navigationelement__link;
 	let iconType = "secondary"
 	let icon;

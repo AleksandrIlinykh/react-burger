@@ -17,7 +17,7 @@ function AppHeader() {
                         </div>
                         <NavigationElement type="order list" name="Лента заказов" isActive="false" />
                     </div>
-                    <Logo className="menu__logo" />
+                    <Logo />
                     <div className={appHeaderStyles.header__rightlinks}>
                         <NavigationElement type="personal cabinet" name="Личный кабинет" isActive="false" />
                     </div>
