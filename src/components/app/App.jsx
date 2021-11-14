@@ -5,7 +5,6 @@ import BurgerIngredients from '../burger-ingredients/burger-ingredients';
 import BurgerConstructor from '../burger-constructor/burger-constructor'
 import burgerData from '../../utils/data';
 import chosenIngredientsData from '../../utils/chosenIngredientsData';
-
 import appStyles from './app.module.css';
 
 function App() {
