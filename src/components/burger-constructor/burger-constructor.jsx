@@ -25,7 +25,7 @@ const BurgerConstructor = (props) => {
 				{
 					props.data.slice(1, -1)
 						.map((ingredientData, index) =>
-							<div className={burgerConstructorStyles.element} key={ingredientData._id}>
+							<div className={burgerConstructorStyles.element} key={index}>
 								<ConstructorElement
 									text={ingredientData.name}
 									price={ingredientData.price}
