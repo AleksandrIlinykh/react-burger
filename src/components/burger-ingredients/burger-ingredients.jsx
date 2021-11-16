@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components'
 import IngredientCard from '../ingredient-card/ingredient-card';
-import { IngredientsTypes } from "../../utils/types"
+import { ingredientsTypes } from "../../utils/types"
 import burgerIngredientsStyles from './burger-ingredients.module.css';
 
 const BurgerIngredients = (props) => {
@@ -64,10 +64,14 @@ const BurgerIngredients = (props) => {
 								)
 									.map((cardData, index) => (
 										<div key={cardData._id}>
-											<IngredientCard image={cardData.image} name={cardData.name}
-												price={cardData.price} onIngredientСhoice={props.onIngredientСhoice} key={cardData._id} />
+											<IngredientCard image={cardData.image} image_large={cardData.image_large}
+												name={cardData.name} price={cardData.price} calories={cardData.calories}
+												proteins={cardData.proteins} fat={cardData.fat}
+												carbohydrates={cardData.carbohydrates}
+												onIngredientСhoice={props.onIngredientСhoice} key={cardData._id} />
 										</div>
 									))
+
 							}
 						</div>
 					</div>
@@ -85,8 +89,11 @@ const BurgerIngredients = (props) => {
 								)
 									.map((cardData, index) => (
 										<div key={cardData._id}>
-											<IngredientCard image={cardData.image} name={cardData.name} id={cardData._id}
-												price={cardData.price} onIngredientСhoice={props.onIngredientСhoice} key={cardData._id} />
+											<IngredientCard image={cardData.image} image_large={cardData.image_large}
+												name={cardData.name} price={cardData.price} calories={cardData.calories}
+												proteins={cardData.proteins} fat={cardData.fat}
+												carbohydrates={cardData.carbohydrates}
+												onIngredientСhoice={props.onIngredientСhoice} key={cardData._id} />
 										</div>
 									))
 							}
@@ -105,8 +112,11 @@ const BurgerIngredients = (props) => {
 								)
 									.map((cardData, index) => (
 										<div key={cardData._id}>
-											<IngredientCard image={cardData.image} name={cardData.name} id={cardData._id}
-												price={cardData.price} onIngredientСhoice={props.onIngredientСhoice} key={cardData._id} />
+											<IngredientCard image={cardData.image} image_large={cardData.image_large}
+												name={cardData.name} price={cardData.price} calories={cardData.calories}
+												proteins={cardData.proteins} fat={cardData.fat}
+												carbohydrates={cardData.carbohydrates}
+												onIngredientСhoice={props.onIngredientСhoice} key={cardData._id} />
 										</div>
 									))
 							}
@@ -119,7 +129,7 @@ const BurgerIngredients = (props) => {
 	)
 }
 
-BurgerIngredients.propTypes = IngredientsTypes;
+BurgerIngredients.propTypes = ingredientsTypes;
 
 export default BurgerIngredients;
 

@@ -11,13 +11,19 @@ export const navigationElementTypes = {
 
 export const ingredientCardTypes = {
 	image: PropTypes.any,
+	image_large: PropTypes.any,
 	name: PropTypes.string,
 	id: PropTypes.string,
 	price: PropTypes.number,
+	calories: PropTypes.number,
+	proteins: PropTypes.number,
+	fat: PropTypes.number,
+	carbohydrates: PropTypes.number,
 	onIngredientСhoice: PropTypes.func,
 }
 
-export const IngredientsTypes = {
+
+export const ingredientsTypes = {
 	data: PropTypes.arrayOf(
 		PropTypes.shape({
 			name: PropTypes.string,
@@ -37,3 +43,17 @@ export const IngredientsTypes = {
 }
 
 
+export const modalTypes = {
+	stasus: PropTypes.number,
+	handleModalClose: PropTypes.func,
+}
+
+export const orderDetailsTypes = {
+	image: PropTypes.string,
+	image_large: PropTypes.string,
+	name: PropTypes.string,
+	proteins: PropTypes.number,
+	fat: PropTypes.number,
+	carbohydrates: PropTypes.number,
+	calories: PropTypes.number,
+}

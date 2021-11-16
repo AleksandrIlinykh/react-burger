@@ -3,23 +3,22 @@ import ReactDOM from 'react-dom';
 import modalStyles from './modal.module.css'
 import closeIcon from '../../images/close-icon.svg'
 import ModalOverlay from '../modal-overlay/modal-overlay';
+import { modalTypes } from "../../utils/types"
 
 function Modal(props) {
 
 	const modal = React.useRef(null);
 
 	React.useEffect(() => {
-		console.log("Это я")
-		console.log(modal.current)
-		modal.current.focus();
+		const onKeypress = e => props.handleModalClose(e);
+		document.addEventListener('keydown', onKeypress)
+		return () => {
+			document.removeEventListener('keydown', onKeypress)
+		}
 	}, []);
 
 	function onClose(e) {
-		props.handleClose(e);
-	}
-
-	function onCloseEsc(e) {
-		console.log(e.target)
+		props.handleModalClose(e);
 	}
 
 	function stopPropagation(e) {
@@ -29,7 +28,7 @@ function Modal(props) {
 
 	return ReactDOM.createPortal(
 		<ModalOverlay onClick={onClose} >
-			<div ref={modal} onKeyPress={onCloseEsc} onClick={stopPropagation} className={modalStyles.modal}>
+			<div ref={modal} onClick={stopPropagation} className={modalStyles.modal}>
 				<img onClick={onClose} className={modalStyles.closeicon} src={closeIcon} alt="x" />
 				{props.children}
 			</div>
@@ -40,4 +39,7 @@ function Modal(props) {
 	)
 }
 
+Modal.propTypes = modalTypes;
+
 export default Modal;
+
