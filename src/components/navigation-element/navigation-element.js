@@ -24,7 +24,7 @@ function NavigationElement(props) {
 			<li className={navigationElementStyles.navigationelement} >
 				{icon}
 				<div className="ml-2 text text_type_main-small">
-					<a href="" className={linkClassName}>{props.name}</a>
+					<p className={linkClassName}>{props.name}</p>
 				</div>
 
 			</li>

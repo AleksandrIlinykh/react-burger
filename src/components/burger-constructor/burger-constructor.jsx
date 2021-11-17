@@ -19,7 +19,7 @@ const BurgerConstructor = (props) => {
 	}
 
 	function handleModalClose(e) {
-		if (e.target.id = "overlay") {
+		if (e.target.id === "overlay") {
 			setDetailsIsHidden(1);
 		}
 		if (e.key === "Escape") {

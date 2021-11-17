@@ -1,4 +1,3 @@
-import ReactDOM from 'react-dom';
 import ingredientDetailsStyles from './ingredient-details.module.css'
 
 

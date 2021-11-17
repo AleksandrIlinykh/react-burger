@@ -1,4 +1,3 @@
-import ReactDOM from 'react-dom';
 import orderDetailsStyles from './order-details.module.css'
 import doneGif from '../../images/done.gif'
 import { orderDetailsTypes } from "../../utils/types"

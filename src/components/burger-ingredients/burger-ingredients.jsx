@@ -8,30 +8,9 @@ import burgerIngredientsStyles from './burger-ingredients.module.css';
 const BurgerIngredients = (props) => {
 	const [current, setCurrent] = React.useState('one')
 
-	{/*
-	const [linkOneClassName, setlinkOneClassName] = React.useState('link-active')
-	const [linkTwoClassName, setlinkTwoClassName] = React.useState('link-inactive')
-	const [linkThreeClassName, setlinkThreeClassName] = React.useState('link-inactive')
-*/}
 	function handleTab(e) {
 		console.log(e)
 		setCurrent(e);
-
-		{/*}
-		if (e === "one") {
-			setlinkOneClassName('link-active');
-			setlinkTwoClassName('link-inactive');
-			setlinkThreeClassName('link-inactive');
-		} else if (e === "two") {
-			setlinkOneClassName('link-inactive');
-			setlinkTwoClassName('link-active');
-			setlinkThreeClassName('link-inactive');
-		} else if (e === "three") {
-			setlinkOneClassName('link-inactive');
-			setlinkTwoClassName('link-inactive');
-			setlinkThreeClassName('link-active');
-		}
-*/}
 	}
 
 
@@ -68,7 +47,7 @@ const BurgerIngredients = (props) => {
 												name={cardData.name} price={cardData.price} calories={cardData.calories}
 												proteins={cardData.proteins} fat={cardData.fat}
 												carbohydrates={cardData.carbohydrates}
-												onIngredientСhoice={props.onIngredientСhoice} key={cardData._id} />
+												key={cardData._id} />
 										</div>
 									))
 
@@ -93,7 +72,7 @@ const BurgerIngredients = (props) => {
 												name={cardData.name} price={cardData.price} calories={cardData.calories}
 												proteins={cardData.proteins} fat={cardData.fat}
 												carbohydrates={cardData.carbohydrates}
-												onIngredientСhoice={props.onIngredientСhoice} key={cardData._id} />
+												key={cardData._id} />
 										</div>
 									))
 							}
@@ -116,7 +95,7 @@ const BurgerIngredients = (props) => {
 												name={cardData.name} price={cardData.price} calories={cardData.calories}
 												proteins={cardData.proteins} fat={cardData.fat}
 												carbohydrates={cardData.carbohydrates}
-												onIngredientСhoice={props.onIngredientСhoice} key={cardData._id} />
+												key={cardData._id} />
 										</div>
 									))
 							}

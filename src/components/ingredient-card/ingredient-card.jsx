@@ -15,13 +15,11 @@ const IngredientCard = (props) => {
 
 	function handleClick(event) {
 		setDetailsIsHidden(0);
-		//setOrderCount(orderCount + 1);
-		console.log(orderCount);
-		props.onIngredientСhoice(event);
+		setOrderCount(1)
 	}
 
 	function handleModalClose(e) {
-		if (e.target.id = "overlay") {
+		if (e.target.id === "overlay") {
 			setDetailsIsHidden(1);
 		}
 		if (e.key === "Escape") {

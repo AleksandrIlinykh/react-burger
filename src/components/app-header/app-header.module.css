@@ -1,30 +1,6 @@
-html, body {
-    height:100%;
-    width:100%;
-}
-
-a {
-	text-decoration-skip-ink: auto;
-	text-decoration:none;
-	color: white;
-}
-
-header {
-	background-color: #1C1C21;
-	margin: 0 auto;
-	display: flex;
-	justify-content: center;
-}
-
 .header {
 	min-width: 1920px;
 	max-width: 1920px;
-	display: flex;
-	justify-content: center;
-}
-
-body {
-	min-width: 700px;
 	display: flex;
 	justify-content: center;
 }
@@ -49,7 +25,7 @@ body {
 .header__rightlinks{
 	flex: 0 1 50%;
 	display: flex;
-	justify-content: end;
+	justify-content: flex-end;
 }
 
 .menu__item {

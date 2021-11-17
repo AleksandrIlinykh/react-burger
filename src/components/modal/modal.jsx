@@ -15,7 +15,7 @@ function Modal(props) {
 		return () => {
 			document.removeEventListener('keydown', onKeypress)
 		}
-	}, []);
+	});
 
 	function onClose(e) {
 		props.handleModalClose(e);

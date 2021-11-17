@@ -3,16 +3,10 @@ import React from 'react';
 import AppHeader from '../app-header/app-header';
 import BurgerIngredients from '../burger-ingredients/burger-ingredients';
 import BurgerConstructor from '../burger-constructor/burger-constructor'
-import burgerData from '../../utils/data';
 import chosenIngredientsData from '../../utils/chosenIngredientsData';
-import Modal from '../modal/modal'
-import IngredientDetails from '../ingredient-details/ingredient-details';
 import appStyles from './app.module.css';
-import OrderDetails from '../order-details/order-details';
-
 
 const url = "https://norma.nomoreparties.space/api/ingredients"
-const badUrl = "https://norma.nomo2reparties.space/api/ingredients"
 
 function App() {
   const [chosenIngredients, setchosenIngredients] = React.useState(chosenIngredientsData);
@@ -20,14 +14,6 @@ function App() {
     ingredients: [],
     loading: true
   })
-
-  function handleChoosingIngredients(e) {
-    {/*
-    setchosenIngredients([...chosenIngredients, ...burgerData.filter(cardData => cardData._id === e.currentTarget.id)]);
-    console.log(JSON.stringify(chosenIngredients))
-*/}
-  }
-
 
   const getIngredients = async () => {
     fetch(url)
@@ -59,6 +45,7 @@ function App() {
 
   React.useEffect(() => {
     getIngredients();
+    setchosenIngredients(chosenIngredientsData);
     console.log("App is mounted")
   }, [])
 
@@ -72,8 +59,7 @@ function App() {
       <div className={appStyles.content}>
         <div className={appStyles.contentleft}>
           <h1 className="text text_type_main-large mt-10 mb-5"> Соберите бургер</h1>
-          <BurgerIngredients data={data.ingredients} onIngredientСhoice={handleChoosingIngredients} />
-          {/*<IngredientCard image={burgerData[0].image} name={burgerData[0].name} price={burgerData[0].price} />*/}
+          <BurgerIngredients data={data.ingredients} />
         </div>
         <div className={appStyles.contentleft}>
           <BurgerConstructor data={chosenIngredients} />
