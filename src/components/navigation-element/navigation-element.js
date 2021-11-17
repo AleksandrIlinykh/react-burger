@@ -11,13 +11,24 @@ function NavigationElement(props) {
 	let iconType = "secondary"
 	let icon;
 
-	if (props.isActive === "true") {
+	if (props.isActive) {
 		linkClassName = navigationElementStyles.navigationelement__linkactive;
 		iconType = "primary";
 	}
-	props.type === "constructor" && (icon = <BurgerIcon type={iconType} />)
-	props.type === "order list" && (icon = <ListIcon type={iconType} />)
-	props.type === "personal cabinet" && (icon = <ProfileIcon type={iconType} />)
+
+	switch (props.type) {
+		case "constructor":
+			(icon = <BurgerIcon type={iconType} />)
+			break;
+		case "order list":
+			(icon = <ListIcon type={iconType} />)
+			break;
+		case "personal cabinet":
+			(icon = <ProfileIcon type={iconType} />)
+			break;
+		default:
+	}
+
 
 	return (
 		<div className="pt-4 pr-5 pb-4 pl-5">

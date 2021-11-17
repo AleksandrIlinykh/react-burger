@@ -6,7 +6,7 @@ export const appHeaderTypes = {
 export const navigationElementTypes = {
 	type: PropTypes.string,
 	name: PropTypes.string,
-	isActive: PropTypes.string,
+	isActive: PropTypes.bool,
 }
 
 export const ingredientCardTypes = {
@@ -19,7 +19,6 @@ export const ingredientCardTypes = {
 	proteins: PropTypes.number,
 	fat: PropTypes.number,
 	carbohydrates: PropTypes.number,
-	onIngredientСhoice: PropTypes.func,
 }
 
 

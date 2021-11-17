@@ -9,22 +9,17 @@ import Modal from '../modal/modal'
 import OrderDetails from '../order-details/order-details'
 
 const BurgerConstructor = (props) => {
-	const [detailsIsHidden, setDetailsIsHidden] = React.useState(1)
+	const [detailsIsHidden, setDetailsIsHidden] = React.useState(true)
 
 	const topElement = props.data.slice(0, 1)[0];
 	const bottomElement = props.data.slice(-1)[0];
 
 	function handleMakeOrderClick(event) {
-		setDetailsIsHidden(0);
+		setDetailsIsHidden(false);
 	}
 
-	function handleModalClose(e) {
-		if (e.target.id === "overlay") {
-			setDetailsIsHidden(1);
-		}
-		if (e.key === "Escape") {
-			setDetailsIsHidden(1);
-		}
+	function handleModalClose() {
+		setDetailsIsHidden(1);
 	}
 
 	return (
@@ -36,12 +31,11 @@ const BurgerConstructor = (props) => {
 					</Modal>
 				)
 			}
-
 			<div className={burgerConstructorStyles.container + " mt-25 ml-16"}>
 				<div className={burgerConstructorStyles.element}>
 					<ConstructorElement
 						type="top"
-						isLocked={true}
+						isLocked
 						text={topElement.name + " (верх)"}
 						price={topElement.price}
 						thumbnail={topElement.image}
@@ -65,7 +59,7 @@ const BurgerConstructor = (props) => {
 				<div className={burgerConstructorStyles.element}>
 					<ConstructorElement
 						type="bottom"
-						isLocked={true}
+						isLocked
 						text={bottomElement.name + " (низ)"}
 						price={bottomElement.price}
 						thumbnail={bottomElement.image}
@@ -77,7 +71,6 @@ const BurgerConstructor = (props) => {
 							props.data.map((elem) => elem.price)
 								.reduce((sum, price) => (sum + price))
 						}
-
 					</p>
 					<div className="mr-10">
 						<CurrencyIcon className="mr-10" type="primary" />

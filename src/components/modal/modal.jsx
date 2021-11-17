@@ -10,26 +10,29 @@ function Modal(props) {
 	const modal = React.useRef(null);
 
 	React.useEffect(() => {
-		const onKeypress = e => props.handleModalClose(e);
+		const onKeypress = e => {
+			if (e.key === "Escape") {
+				props.handleModalClose();
+			}
+		}
 		document.addEventListener('keydown', onKeypress)
 		return () => {
 			document.removeEventListener('keydown', onKeypress)
 		}
 	});
 
-	function onClose(e) {
-		props.handleModalClose(e);
+	const onClose = e => {
+		props.handleModalClose();
 	}
 
 	function stopPropagation(e) {
 		e.stopPropagation();
 	}
 
-
 	return ReactDOM.createPortal(
-		<ModalOverlay onClick={onClose} >
+		<ModalOverlay handleModalClose={props.handleModalClose} onClick={onClose} >
 			<div ref={modal} onClick={stopPropagation} className={modalStyles.modal}>
-				<img onClick={onClose} className={modalStyles.closeicon} src={closeIcon} alt="x" />
+				<img onClick={onClose} className={modalStyles.closeicon} src={closeIcon} alt="close button" />
 				{props.children}
 			</div>
 

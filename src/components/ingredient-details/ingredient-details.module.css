@@ -16,7 +16,7 @@
 	align-content: center;
 	justify-content: center;
 	gap: 20px;
-	list-style-type: none; /* Убираем маркеры */
+	list-style-type: none; 
 }
 
 .img {
@@ -26,5 +26,5 @@
 }
 
 .parameters {
-    padding-left: 0; /* Сдвигаем список влево */
+    padding-left: 0; 
 }

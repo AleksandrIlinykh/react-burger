@@ -5,7 +5,6 @@
 .ingredientscontainer {
 	flex-grow: 1;
 	overflow-y: auto;
-	/* for Firefox */
 	min-height: 0;
 	overflow-x:hidden;
 }

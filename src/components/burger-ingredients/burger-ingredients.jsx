@@ -9,11 +9,8 @@ const BurgerIngredients = (props) => {
 	const [current, setCurrent] = React.useState('one')
 
 	function handleTab(e) {
-		console.log(e)
 		setCurrent(e);
 	}
-
-
 
 	return (
 		<>
@@ -28,8 +25,6 @@ const BurgerIngredients = (props) => {
 					<a className={burgerIngredientsStyles.linkinactive} href="#main"> Начинки </a>
 				</Tab>
 			</div>
-
-
 			<div className={burgerIngredientsStyles.ingredientscontainer}>
 				<div>
 					<h1 className="mt-10" id="bun">Булки</h1>
@@ -50,12 +45,10 @@ const BurgerIngredients = (props) => {
 												key={cardData._id} />
 										</div>
 									))
-
 							}
 						</div>
 					</div>
 				</div>
-
 				<div>
 					<h1 className="mt-10" id="sauce">Соусы</h1>
 					<div className="ml-4 mt-6 mb-10">
@@ -104,7 +97,6 @@ const BurgerIngredients = (props) => {
 				</div>
 			</div>
 		</>
-
 	)
 }
 

@@ -18,15 +18,9 @@ const IngredientCard = (props) => {
 		setOrderCount(1)
 	}
 
-	function handleModalClose(e) {
-		if (e.target.id === "overlay") {
-			setDetailsIsHidden(1);
-		}
-		if (e.key === "Escape") {
-			setDetailsIsHidden(1);
-		}
+	function handleModalClose() {
+		setDetailsIsHidden(1);
 	}
-
 
 	return (
 		<>
@@ -38,7 +32,6 @@ const IngredientCard = (props) => {
 							fat={props.fat} carbohydrates={props.carbohydrates} />
 					</Modal>
 				)
-
 			}
 			<div className={ingredientCardStyles.ingredientcard__container} onClick={handleClick}>
 				<div>
