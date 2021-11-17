@@ -47,7 +47,12 @@ export const modalTypes = {
 	handleModalClose: PropTypes.func,
 }
 
-export const orderDetailsTypes = {
+export const modalOverlayTypes = {
+	onClick: PropTypes.func,
+	handleModalClose: PropTypes.func,
+}
+
+export const ingredientDetailsTypes = {
 	image: PropTypes.string,
 	image_large: PropTypes.string,
 	name: PropTypes.string,

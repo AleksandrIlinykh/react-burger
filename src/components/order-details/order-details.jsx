@@ -1,6 +1,5 @@
 import orderDetailsStyles from './order-details.module.css'
 import doneGif from '../../images/done.gif'
-import { orderDetailsTypes } from "../../utils/types"
 
 function OrderDetails() {
 	return (
@@ -23,5 +22,3 @@ function OrderDetails() {
 }
 
 export default OrderDetails;
-
-OrderDetails.propTypes = orderDetailsTypes;
