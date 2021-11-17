@@ -1,10 +1,10 @@
-a.navigationelement__link-active {
+.navigationelement__link-active {
 	text-decoration-skip-ink: auto;
 	text-decoration:none;
 	color: #F2F2F3;
 }
 
-a.navigationelement__link {
+.navigationelement__link {
 	text-decoration-skip-ink: auto;
 	text-decoration:none;
 	color: #8585AD
