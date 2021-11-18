@@ -11,22 +11,22 @@ import ingredientCardStyles from './ingredient-card.module.css';
 
 const IngredientCard = (props) => {
 	const [orderCount, setOrderCount] = React.useState(0);
-	const [detailsIsHidden, setDetailsIsHidden] = React.useState(1);
+	const [IsDetailsHidden, setIsDetailsHidden] = React.useState(1);
 
 	function handleClick(event) {
-		setDetailsIsHidden(0);
+		setIsDetailsHidden(0);
 		setOrderCount(1)
 	}
 
 	function handleModalClose() {
-		setDetailsIsHidden(1);
+		setIsDetailsHidden(1);
 	}
 
 	return (
 		<>
-			{!detailsIsHidden &&
+			{!IsDetailsHidden &&
 				(
-					<Modal stasus={detailsIsHidden} handleModalClose={handleModalClose}>
+					<Modal stasus={IsDetailsHidden} handleModalClose={handleModalClose}>
 						<IngredientDetails image={props.image} image_large={props.image_large}
 							name={props.name} calories={props.calories} proteins={props.proteins}
 							fat={props.fat} carbohydrates={props.carbohydrates} />

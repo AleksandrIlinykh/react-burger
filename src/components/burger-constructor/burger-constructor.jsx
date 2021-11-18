@@ -9,24 +9,24 @@ import Modal from '../modal/modal'
 import OrderDetails from '../order-details/order-details'
 
 const BurgerConstructor = (props) => {
-	const [detailsIsHidden, setDetailsIsHidden] = React.useState(true)
+	const [IsDetailsHidden, setIsDetailsHidden] = React.useState(true)
 
 	const topElement = props.data.slice(0, 1)[0];
 	const bottomElement = props.data.slice(-1)[0];
 
 	function handleMakeOrderClick(event) {
-		setDetailsIsHidden(false);
+		setIsDetailsHidden(false);
 	}
 
 	function handleModalClose() {
-		setDetailsIsHidden(1);
+		setIsDetailsHidden(1);
 	}
 
 	return (
 		<>
-			{!detailsIsHidden &&
+			{!IsDetailsHidden &&
 				(
-					<Modal stasus={detailsIsHidden} handleModalClose={handleModalClose}>
+					<Modal stasus={setIsDetailsHidden} handleModalClose={handleModalClose}>
 						<OrderDetails />
 					</Modal>
 				)
