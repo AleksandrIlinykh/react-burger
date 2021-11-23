@@ -1,0 +1,41 @@
+.header {
+	min-width: 1920px;
+	max-width: 1920px;
+	display: flex;
+	justify-content: center;
+}
+
+.header__container {
+	min-width: 1280px;
+	max-width: 1280px;
+	margin: 0 auto;
+	padding: 5px -20px;
+	display: flex;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.header__leftlinks {
+	list-style: none;
+	flex: 0 1 50%;
+	display: flex;
+}
+
+.header__rightlinks{
+	flex: 0 1 50%;
+	display: flex;
+	justify-content: flex-end;
+}
+
+.menu__item {
+	display:flex;
+	align-items: center;
+	
+}
+
+.menu__list-right {
+	list-style: none;
+	padding:0;
+	text-align:end;
+}

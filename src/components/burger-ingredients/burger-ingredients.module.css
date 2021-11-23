@@ -1,0 +1,26 @@
+.tab {
+	display: flex;
+}
+
+.ingredientscontainer {
+	flex-grow: 1;
+	overflow-y: auto;
+	min-height: 0;
+	overflow-x:hidden;
+}
+
+.ingredientconteinercontent {
+	display: flex;
+	justify-content:flex-start;
+	flex-wrap:wrap;
+	gap: 24px;
+}
+
+
+.linkactive {
+	color: #ffffff;
+}
+
+.linkinactive {
+	color: #8585AD;
+}
