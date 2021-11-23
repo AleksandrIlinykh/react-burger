@@ -9,8 +9,8 @@ import Modal from '../modal/modal'
 import OrderDetails from '../order-details/order-details'
 
 const BurgerConstructor = (props) => {
-	const [IsDetailsHidden, setIsDetailsHidden] = React.useState(true)
 
+	const [IsDetailsHidden, setIsDetailsHidden] = React.useState(true)
 	const topElement = props.data.slice(0, 1)[0];
 	const bottomElement = props.data.slice(-1)[0];
 
