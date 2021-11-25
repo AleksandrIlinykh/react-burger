@@ -1,11 +1,12 @@
 import orderDetailsStyles from './order-details.module.css'
 import doneGif from '../../images/done.gif'
+import { orderDetailsTypes } from '../../utils/types'
 
-function OrderDetails() {
+function OrderDetails(props) {
 	return (
 		<section className={orderDetailsStyles.orderdetails}>
 			<p className="text text_type_digits-large mt-30">
-				034536
+				{props.orderNumber}
 			</p>
 			<p className="text text_type_main-medium mt-8">
 				идентификатор заказа
@@ -20,5 +21,7 @@ function OrderDetails() {
 		</section>
 	)
 }
+
+OrderDetails.propTypes = orderDetailsTypes;
 
 export default OrderDetails;

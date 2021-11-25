@@ -8,30 +8,43 @@ import { Counter } from '@ya.praktikum/react-developer-burger-ui-components'
 
 import { ingredientCardTypes } from "../../utils/types"
 import ingredientCardStyles from './ingredient-card.module.css';
-import { BurgerConstructorContext } from '../../context/burger-constructor';
+import { BurgerConstructorContext, TotalPriceContext } from '../../context/burger-constructor';
 
 const IngredientCard = (props) => {
 	const [orderCount, setOrderCount] = React.useState(0);
-	const [IsDetailsHidden, setIsDetailsHidden] = React.useState(1);
+	const [isDetailsHidden, setIsDetailsHidden] = React.useState(true);
 	const [chosenIngredients, setChosenIngredients] = React.useContext(BurgerConstructorContext);
 
+	const { totalPriceDispatcher } = React.useContext(TotalPriceContext);
+
 	function handleClick(event) {
-		setIsDetailsHidden(0);
-		setOrderCount(1);
-		setChosenIngredients([...chosenIngredients, props])
-		console.log(chosenIngredients)
-		console.log(props)
+		setIsDetailsHidden(false);
+		totalPriceDispatcher({
+			type: 'recalculate',
+			payload: props.price,
+		})
+
+		if (props.type === "bun") {
+			if (props.bunCounter === 0) {
+				setChosenIngredients([...chosenIngredients, props])
+				setOrderCount(orderCount + 1);
+			}
+			props.setBunCounter(props.bunCounter + 1);
+		} else {
+			setChosenIngredients([...chosenIngredients, props])
+			setOrderCount(orderCount + 1);
+		}
 	}
 
 	function handleModalClose() {
-		setIsDetailsHidden(1);
+		setIsDetailsHidden(true);
 	}
 
 	return (
 		<>
-			{!IsDetailsHidden &&
+			{!isDetailsHidden &&
 				(
-					<Modal stasus={IsDetailsHidden} handleModalClose={handleModalClose}>
+					<Modal stasus={isDetailsHidden} handleModalClose={handleModalClose}>
 						<IngredientDetails image={props.image} image_large={props.image_large}
 							name={props.name} calories={props.calories} proteins={props.proteins}
 							fat={props.fat} carbohydrates={props.carbohydrates} />

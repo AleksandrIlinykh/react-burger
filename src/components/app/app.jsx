@@ -2,16 +2,31 @@ import React from 'react';
 import AppHeader from '../app-header/app-header';
 import BurgerIngredients from '../burger-ingredients/burger-ingredients';
 import BurgerConstructor from '../burger-constructor/burger-constructor'
-import chosenIngredientsData from '../../utils/chosenIngredientsData';
 import appStyles from './app.module.css';
-import { BurgerConstructorContext } from '../../context/burger-constructor';
+import { BurgerConstructorContext, TotalPriceContext } from '../../context/burger-constructor';
 
 const INGREDIENTS_URL = "https://norma.nomoreparties.space/api/ingredients";
 
+
+const initialState = { price: 0 };
+
+function reducer(state, action) {
+	switch (action.type) {
+		case "recalculate":
+			{
+				return { price: state.price + action.payload }
+			}
+		default:
+
+
+
+	}
+}
+
 function App() {
 	const chosenIngredientsState = React.useState([]);
-	//const [chosenIngredients, setchosenIngredients] = React.useState(chosenIngredientsData);
 	const [ingredientsData, setIngredientsData] = React.useState([])
+	const [totalPriceState, totalPriceDispatcher] = React.useReducer(reducer, initialState, undefined);
 
 	const getIngredients = async () => {
 		fetch(INGREDIENTS_URL)
@@ -40,17 +55,19 @@ function App() {
 	return (
 		<>
 			<AppHeader />
-			<BurgerConstructorContext.Provider value={chosenIngredientsState} >
-				<div className={appStyles.content}>
-					<div className={appStyles.contentleft}>
-						<h1 className="text text_type_main-large mt-10 mb-5"> Соберите бургер</h1>
-						<BurgerIngredients data={ingredientsData} />
+			<TotalPriceContext.Provider value={{ totalPriceState, totalPriceDispatcher }}>
+				<BurgerConstructorContext.Provider value={chosenIngredientsState} >
+					<div className={appStyles.content}>
+						<div className={appStyles.contentleft}>
+							<h1 className="text text_type_main-large mt-10 mb-5"> Соберите бургер</h1>
+							<BurgerIngredients data={ingredientsData} />
+						</div>
+						<div className={appStyles.contentleft}>
+							<BurgerConstructor />
+						</div>
 					</div>
-					<div className={appStyles.contentleft}>
-						<BurgerConstructor />
-					</div>
-				</div>
-			</BurgerConstructorContext.Provider>
+				</BurgerConstructorContext.Provider>
+			</TotalPriceContext.Provider>
 		</>
 	);
 

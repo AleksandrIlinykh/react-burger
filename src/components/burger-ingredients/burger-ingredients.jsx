@@ -7,24 +7,48 @@ import burgerIngredientsStyles from './burger-ingredients.module.css';
 
 const BurgerIngredients = (props) => {
 	const [current, setCurrent] = React.useState('one')
+	const [bunCounter, setBunCounter] = React.useState(0);
+	const [link1Style, setLink1Style] = React.useState(burgerIngredientsStyles.linkactive);
+	const [link2Style, setLink2Style] = React.useState(burgerIngredientsStyles.linkinactive);
+	const [link3Style, setLink3Style] = React.useState(burgerIngredientsStyles.linkinactive);
 
 	function handleTab(e) {
 		setCurrent(e);
+		switch (e) {
+			case "one":
+				setLink1Style(burgerIngredientsStyles.linkactive)
+				setLink2Style(burgerIngredientsStyles.linkinactive)
+				setLink3Style(burgerIngredientsStyles.linkinactive)
+				break;
+			case "two":
+				setLink1Style(burgerIngredientsStyles.linkinactive)
+				setLink2Style(burgerIngredientsStyles.linkactive)
+				setLink3Style(burgerIngredientsStyles.linkinactive)
+				break;
+			case "three":
+				setLink1Style(burgerIngredientsStyles.linkinactive)
+				setLink2Style(burgerIngredientsStyles.linkinactive)
+				setLink3Style(burgerIngredientsStyles.linkactive)
+				break;
+			default:
+				break;
+		}
 	}
 
 	return (
 		<>
 			<div className={burgerIngredientsStyles.tab}>
 				<Tab value="one" active={current === 'one'} onClick={handleTab}>
-					<a className={burgerIngredientsStyles.linkactive} href="#bun"> Булки </a>
+					<a className={link1Style} href="#bun"> Булки </a>
 				</Tab>
 				<Tab value="two" active={current === 'two'} onClick={handleTab}>
-					<a className={burgerIngredientsStyles.linkinactive} href="#sauce"> Соусы </a>
+					<a className={link2Style} href="#sauce"> Соусы </a>
 				</Tab>
 				<Tab value="three" active={current === 'three'} onClick={handleTab}>
-					<a className={burgerIngredientsStyles.linkinactive} href="#main"> Начинки </a>
+					<a className={link3Style} href="#main"> Начинки </a>
 				</Tab>
 			</div>
+
 			<div className={burgerIngredientsStyles.ingredientscontainer}>
 				<div>
 					<h1 className="mt-10" id="bun">Булки</h1>
@@ -33,7 +57,6 @@ const BurgerIngredients = (props) => {
 							{
 								props.data.filter(
 									cardData =>
-										// note: this is only passed when in top level of document
 										cardData.type === "bun"
 								)
 									.map((cardData, index) => (
@@ -41,8 +64,8 @@ const BurgerIngredients = (props) => {
 											<IngredientCard image={cardData.image} image_large={cardData.image_large}
 												name={cardData.name} price={cardData.price} calories={cardData.calories}
 												proteins={cardData.proteins} fat={cardData.fat}
-												carbohydrates={cardData.carbohydrates}
-												key={cardData._id} />
+												carbohydrates={cardData.carbohydrates} _id={cardData._id}
+												key={cardData._id} type={cardData.type} setBunCounter={setBunCounter} bunCounter={bunCounter} />
 										</div>
 									))
 							}
@@ -56,7 +79,6 @@ const BurgerIngredients = (props) => {
 							{
 								props.data.filter(
 									cardData =>
-										// note: this is only passed when in top level of document
 										cardData.type === "sauce"
 								)
 									.map((cardData, index) => (
@@ -64,7 +86,7 @@ const BurgerIngredients = (props) => {
 											<IngredientCard image={cardData.image} image_large={cardData.image_large}
 												name={cardData.name} price={cardData.price} calories={cardData.calories}
 												proteins={cardData.proteins} fat={cardData.fat}
-												carbohydrates={cardData.carbohydrates}
+												carbohydrates={cardData.carbohydrates} _id={cardData._id}
 												key={cardData._id} />
 										</div>
 									))
@@ -79,7 +101,6 @@ const BurgerIngredients = (props) => {
 							{
 								props.data.filter(
 									cardData =>
-										// note: this is only passed when in top level of document
 										cardData.type === "main"
 								)
 									.map((cardData, index) => (
@@ -87,7 +108,7 @@ const BurgerIngredients = (props) => {
 											<IngredientCard image={cardData.image} image_large={cardData.image_large}
 												name={cardData.name} price={cardData.price} calories={cardData.calories}
 												proteins={cardData.proteins} fat={cardData.fat}
-												carbohydrates={cardData.carbohydrates}
+												carbohydrates={cardData.carbohydrates} _id={cardData._id}
 												key={cardData._id} />
 										</div>
 									))
