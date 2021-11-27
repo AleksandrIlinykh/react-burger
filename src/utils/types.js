@@ -7,15 +7,15 @@ export const navigationElementTypes = {
 }
 
 export const ingredientCardTypes = {
-	image: PropTypes.string,
-	image_large: PropTypes.string,
-	name: PropTypes.string,
-	price: PropTypes.number,
-	calories: PropTypes.number,
-	proteins: PropTypes.number,
-	fat: PropTypes.number,
-	carbohydrates: PropTypes.number,
-	_id: PropTypes.string,
+	image: PropTypes.string.isRequired,
+	image_large: PropTypes.string.isRequired,
+	name: PropTypes.string.isRequired,
+	price: PropTypes.number.isRequired,
+	calories: PropTypes.number.isRequired,
+	proteins: PropTypes.number.isRequired,
+	fat: PropTypes.number.isRequired,
+	carbohydrates: PropTypes.number.isRequired,
+	_id: PropTypes.string.isRequired,
 	type: PropTypes.string,
 	setBunCounter: PropTypes.func,
 	bunCounter: PropTypes.number
@@ -37,31 +37,35 @@ export const ingredientsTypes = {
 			__v: PropTypes.number,
 		}),
 	),
-	onIngredientСhoice: PropTypes.func,
+	onIngredientСhoice: PropTypes.func.isRequired,
 }
 
 
 export const modalTypes = {
-	stasus: PropTypes.bool,
-	handleModalClose: PropTypes.func,
+	stasus: PropTypes.bool.isRequired,
+	handleModalClose: PropTypes.func.isRequired,
 }
 
 export const modalOverlayTypes = {
-	onClick: PropTypes.func,
-	handleModalClose: PropTypes.func,
+	onClick: PropTypes.func.isRequired,
+	handleModalClose: PropTypes.func.isRequired,
 }
 
 export const ingredientDetailsTypes = {
-	image: PropTypes.string,
-	image_large: PropTypes.string,
-	name: PropTypes.string,
-	proteins: PropTypes.number,
-	fat: PropTypes.number,
-	carbohydrates: PropTypes.number,
-	calories: PropTypes.number,
+	image: PropTypes.string.isRequired,
+	image_large: PropTypes.string.isRequired,
+	name: PropTypes.string.isRequired,
+	proteins: PropTypes.number.isRequired,
+	fat: PropTypes.number.isRequired,
+	carbohydrates: PropTypes.number.isRequired,
+	calories: PropTypes.number.isRequired,
 }
 
 
 export const orderDetailsTypes = {
-	orderNumber: PropTypes.number
+	orderNumber: PropTypes.number.isRequired
+}
+
+export const burgerConstructorTypes = {
+	endpoint: PropTypes.string.isRequired
 }

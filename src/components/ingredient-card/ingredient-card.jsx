@@ -8,12 +8,12 @@ import { Counter } from '@ya.praktikum/react-developer-burger-ui-components'
 
 import { ingredientCardTypes } from "../../utils/types"
 import ingredientCardStyles from './ingredient-card.module.css';
-import { BurgerConstructorContext, TotalPriceContext } from '../../context/burger-constructor';
+import { ChosenIngredientsContext, TotalPriceContext } from '../../context/burger-context';
 
 const IngredientCard = (props) => {
 	const [orderCount, setOrderCount] = React.useState(0);
 	const [isDetailsHidden, setIsDetailsHidden] = React.useState(true);
-	const [chosenIngredients, setChosenIngredients] = React.useContext(BurgerConstructorContext);
+	const [chosenIngredients, setChosenIngredients] = React.useContext(ChosenIngredientsContext);
 
 	const { totalPriceDispatcher } = React.useContext(TotalPriceContext);
 

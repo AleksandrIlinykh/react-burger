@@ -2,17 +2,19 @@ import React from 'react';
 
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components'
 import IngredientCard from '../ingredient-card/ingredient-card';
-import { ingredientsTypes } from "../../utils/types"
 import burgerIngredientsStyles from './burger-ingredients.module.css';
+import { BurgerConstructorContext } from '../../context/burger-context';
 
-const BurgerIngredients = (props) => {
+const BurgerIngredients = () => {
 	const [current, setCurrent] = React.useState('one')
 	const [bunCounter, setBunCounter] = React.useState(0);
 	const [link1Style, setLink1Style] = React.useState(burgerIngredientsStyles.linkactive);
 	const [link2Style, setLink2Style] = React.useState(burgerIngredientsStyles.linkinactive);
 	const [link3Style, setLink3Style] = React.useState(burgerIngredientsStyles.linkinactive);
+	const ingredientsData = React.useContext(BurgerConstructorContext);
 
 	function handleTab(e) {
+		console.log(ingredientsData);
 		setCurrent(e);
 		switch (e) {
 			case "one":
@@ -55,7 +57,7 @@ const BurgerIngredients = (props) => {
 					<div className="ml-4 mt-6 mb-10">
 						<div className={burgerIngredientsStyles.ingredientconteinercontent}>
 							{
-								props.data.filter(
+								ingredientsData.filter(
 									cardData =>
 										cardData.type === "bun"
 								)
@@ -77,7 +79,7 @@ const BurgerIngredients = (props) => {
 					<div className="ml-4 mt-6 mb-10">
 						<div className={burgerIngredientsStyles.ingredientconteinercontent}>
 							{
-								props.data.filter(
+								ingredientsData.filter(
 									cardData =>
 										cardData.type === "sauce"
 								)
@@ -99,7 +101,7 @@ const BurgerIngredients = (props) => {
 					<div className="ml-4 mt-6 mb-10">
 						<div className={burgerIngredientsStyles.ingredientconteinercontent}>
 							{
-								props.data.filter(
+								ingredientsData.filter(
 									cardData =>
 										cardData.type === "main"
 								)
@@ -120,8 +122,6 @@ const BurgerIngredients = (props) => {
 		</>
 	)
 }
-
-BurgerIngredients.propTypes = ingredientsTypes;
 
 export default BurgerIngredients;
 

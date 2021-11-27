@@ -8,37 +8,34 @@ import burgerConstructorStyles from './burger-constructor.module.css';
 import Modal from '../modal/modal'
 import OrderDetails from '../order-details/order-details'
 
-import { BurgerConstructorContext, TotalPriceContext } from '../../context/burger-constructor';
+import { ChosenIngredientsContext, TotalPriceContext } from '../../context/burger-context';
 
 const BurgerConstructor = (props) => {
 
-	const [IsDetailsHidden, setIsDetailsHidden] = React.useState(true)
-	const [chosenIngredientsData] = React.useContext(BurgerConstructorContext);
+	const [isDetailsHidden, setIsDetailsHidden] = React.useState(true)
+	const [chosenIngredientsData] = React.useContext(ChosenIngredientsContext);
 	const [orderNumber, setOrderNumber] = React.useState(0)
 
 	const { totalPriceState } = useContext(TotalPriceContext);
 
 	function handleMakeOrderClick(event) {
-		console.log(props);
 
 		const bodyData = {
 			"ingredients": chosenIngredientsData.map((ingredientData) => ingredientData._id)
 		}
 
-		let response = async () => {
-			fetch('https://norma.nomoreparties.space/api/orders', {
+		const response = async () => {
+			fetch(`${props.endpoint}/api/orders`, {
 				method: 'POST',
 				headers: { 'Content-Type': 'application/json' },
 				body: JSON.stringify(bodyData)
 			})
 				.then((res) => {
 					if (res.ok) {
-						return res
-					} else {
-						throw new Error('Network response was not OK');
+						return res.json()
 					}
+					return Promise.reject(`Ошибка ${res.status}`);
 				})
-				.then(res => res.json())
 				.then(res => setOrderNumber(res.order.number))
 				.catch((e) => {
 					console.log('Error: ' + e.message);
@@ -72,7 +69,7 @@ const BurgerConstructor = (props) => {
 			<ConstructorElement
 				type="bottom"
 				isLocked
-				text={chosenIngredient.name + + " (низ)"}
+				text={chosenIngredient.name + " (низ)"}
 				price={chosenIngredient.price}
 				thumbnail={chosenIngredient.image}
 				key={chosenIngredient._id}
@@ -83,9 +80,9 @@ const BurgerConstructor = (props) => {
 
 	return (
 		<>
-			{!IsDetailsHidden &&
+			{!isDetailsHidden &&
 				(
-					<Modal stasus={setIsDetailsHidden} handleModalClose={handleModalClose}>
+					<Modal stasus={isDetailsHidden} handleModalClose={handleModalClose}>
 						<OrderDetails orderNumber={orderNumber} />
 					</Modal>
 				)
@@ -100,8 +97,8 @@ const BurgerConstructor = (props) => {
 
 					<div className={burgerConstructorStyles.ingredientsconstructor}>
 						{
-							chosenIngredientsData.filter(chosenIngredient => chosenIngredient.type !== "bun").map(chosenIngredient =>
-								<div className={burgerConstructorStyles.element} key={chosenIngredient._id}>
+							chosenIngredientsData.filter(chosenIngredient => chosenIngredient.type !== "bun").map((chosenIngredient, index) =>
+								<div className={burgerConstructorStyles.element} key={index}>
 									<div className={burgerConstructorStyles.dragIcon + " mr-3"}>
 										<DragIcon type="primary" />
 									</div>
@@ -110,7 +107,7 @@ const BurgerConstructor = (props) => {
 										text={chosenIngredient.name}
 										price={chosenIngredient.price}
 										thumbnail={chosenIngredient.image}
-										key={chosenIngredient._id}
+										key={index}
 									/>
 
 
