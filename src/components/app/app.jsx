@@ -43,28 +43,6 @@ function App() {
     dispatch(getBurgerIngredients());
   }, [dispatch]);
 
-  React.useEffect(() => {
-    const getIngredients = async () => {
-      fetch(`${ENDPOINT}/api/ingredients`)
-        .then((res) => {
-          if (res.ok) {
-            return res;
-          } else {
-            throw new Error("Network response was not OK");
-          }
-        })
-        .then((res) => res.json())
-
-        .then((data) => setIngredientsData(data.data))
-        .catch((e) => {
-          console.log("Error: " + e.message);
-          console.log(e.response);
-        });
-    };
-    getIngredients();
-    //setchosenIngredients(chosenIngredientsData);
-  }, []);
-
   return (
     <>
       <AppHeader />
