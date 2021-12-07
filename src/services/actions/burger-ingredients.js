@@ -39,3 +39,4 @@ export function getBurgerIngredients() {
       .then((data) => dispatch(getIngredientsSuccess(data.data)));
   };
 }
+
