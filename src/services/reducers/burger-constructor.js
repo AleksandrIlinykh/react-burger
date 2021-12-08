@@ -13,15 +13,33 @@ const initialState = {
 export const burgerConstructorReducer = (state = initialState, action) => {
   switch (action.type) {
     case ADD_INGREDIENT: {
-      return {
-        ...state,
-        totalPrice: state.totalPrice + action.payload.price,
-        constructorIngredients: [
-          ...state.constructorIngredients,
-          action.payload,
-        ],
-      };
-    }
+      if (action.payload.type === "bun") 
+        {
+          const isBunChosen = state.constructorIngredients.filter(
+            (ingredient) => ingredient.type === "bun"
+          ).length;
+          if (isBunChosen === 0)
+            return {
+              ...state,
+              totalPrice: state.totalPrice + action.payload.price,
+              constructorIngredients: [
+                ...state.constructorIngredients,
+                action.payload,
+              ],
+            };
+          else return { ...state };
+        }
+        else
+          return {
+            ...state,
+            totalPrice: state.totalPrice + action.payload.price,
+            constructorIngredients: [
+              ...state.constructorIngredients,
+              action.payload,
+            ],
+          };
+      }
+    
     case DELETE_INGREDIENT: {
       return {
         ...state,
