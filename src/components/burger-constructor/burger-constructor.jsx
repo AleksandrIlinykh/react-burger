@@ -10,20 +10,17 @@ import burgerConstructorStyles from "./burger-constructor.module.css";
 import Modal from "../modal/modal";
 import OrderDetails from "../order-details/order-details";
 import { addIngredient } from "../../services/actions/burger-constructor";
-import {
-  ChosenIngredientsContext,
-  TotalPriceContext,
-} from "../../context/burger-context";
+import { ChosenIngredientsContext } from "../../context/burger-context";
 
 const BurgerConstructor = (props) => {
   const [isDetailsHidden, setIsDetailsHidden] = React.useState(true);
   const [chosenIngredientsData] = React.useContext(ChosenIngredientsContext);
   const [orderNumber, setOrderNumber] = React.useState(0);
-  const { totalPriceState } = useContext(TotalPriceContext);
 
-  const chosenIngredients = useSelector(
-    (store) => store.burgerConstructor.constructorIngredients
-  );
+  const { chosenIngredients, totalPrice } = useSelector((store) => ({
+    chosenIngredients: store.burgerConstructor.constructorIngredients,
+    totalPrice: store.burgerConstructor.totalPrice,
+  }));
 
   function handleMakeOrderClick(event) {
     const bodyData = {
@@ -160,9 +157,7 @@ const BurgerConstructor = (props) => {
                   burgerConstructorStyles.priceandconfirmation + " mt-10 mb-10"
                 }
               >
-                <p className="text text_type_digits-medium">
-                  {totalPriceState.price}
-                </p>
+                <p className="text text_type_digits-medium">{totalPrice}</p>
                 <div className="mr-10">
                   <CurrencyIcon className="mr-10" type="primary" />
                 </div>
