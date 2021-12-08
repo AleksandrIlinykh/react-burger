@@ -19,8 +19,11 @@ const BurgerConstructor = (props) => {
   const [isDetailsHidden, setIsDetailsHidden] = React.useState(true);
   const [chosenIngredientsData] = React.useContext(ChosenIngredientsContext);
   const [orderNumber, setOrderNumber] = React.useState(0);
-
   const { totalPriceState } = useContext(TotalPriceContext);
+
+  const chosenIngredients = useSelector(
+    (store) => store.burgerConstructor.constructorIngredients
+  );
 
   function handleMakeOrderClick(event) {
     const bodyData = {
@@ -56,7 +59,7 @@ const BurgerConstructor = (props) => {
     setIsDetailsHidden(true);
   }
 
-  const bunTopIngredient = chosenIngredientsData
+  const bunTopIngredient = chosenIngredients
     .filter((chosenIngredient) => chosenIngredient.type === "bun")
     .map((chosenIngredient) => (
       <div
@@ -74,7 +77,7 @@ const BurgerConstructor = (props) => {
       </div>
     ));
 
-  const bunBottomIngredient = chosenIngredientsData
+  const bunBottomIngredient = chosenIngredients
     .filter((chosenIngredient) => chosenIngredient.type === "bun")
     .map((chosenIngredient) => (
       <div
@@ -117,57 +120,66 @@ const BurgerConstructor = (props) => {
         </Modal>
       )}
 
-      {!chosenIngredientsData.length || (
+      {
         <div
           className={burgerConstructorStyles.container + " mt-25 ml-16"}
           ref={dropTarget}
         >
-          {bunTopIngredient}
+          {!chosenIngredients.length || (
+            <>
+              {bunTopIngredient}
 
-          <div className={burgerConstructorStyles.ingredientsconstructor}>
-            {chosenIngredientsData
-              .filter((chosenIngredient) => chosenIngredient.type !== "bun")
-              .map((chosenIngredient, index) => (
-                <div className={burgerConstructorStyles.element} key={index}>
-                  <div className={burgerConstructorStyles.dragIcon + " mr-3"}>
-                    <DragIcon type="primary" />
-                  </div>
+              <div className={burgerConstructorStyles.ingredientsconstructor}>
+                {chosenIngredients
+                  .filter((chosenIngredient) => chosenIngredient.type !== "bun")
+                  .map((chosenIngredient, index) => (
+                    <div
+                      className={burgerConstructorStyles.element}
+                      key={index}
+                    >
+                      <div
+                        className={burgerConstructorStyles.dragIcon + " mr-3"}
+                      >
+                        <DragIcon type="primary" />
+                      </div>
 
-                  <ConstructorElement
-                    text={chosenIngredient.name}
-                    price={chosenIngredient.price}
-                    thumbnail={chosenIngredient.image}
-                    key={index}
-                  />
-                </div>
-              ))}
-          </div>
+                      <ConstructorElement
+                        text={chosenIngredient.name}
+                        price={chosenIngredient.price}
+                        thumbnail={chosenIngredient.image}
+                        key={index}
+                      />
+                    </div>
+                  ))}
+              </div>
 
-          {bunBottomIngredient}
+              {bunBottomIngredient}
 
-          <div
-            className={
-              burgerConstructorStyles.priceandconfirmation + " mt-10 mb-10"
-            }
-          >
-            <p className="text text_type_digits-medium">
-              {totalPriceState.price}
-            </p>
-            <div className="mr-10">
-              <CurrencyIcon className="mr-10" type="primary" />
-            </div>
-            <div className="mr-8">
-              <Button
-                onClick={handleMakeOrderClick}
-                type="primary"
-                size="large"
+              <div
+                className={
+                  burgerConstructorStyles.priceandconfirmation + " mt-10 mb-10"
+                }
               >
-                Оформить заказ
-              </Button>
-            </div>
-          </div>
+                <p className="text text_type_digits-medium">
+                  {totalPriceState.price}
+                </p>
+                <div className="mr-10">
+                  <CurrencyIcon className="mr-10" type="primary" />
+                </div>
+                <div className="mr-8">
+                  <Button
+                    onClick={handleMakeOrderClick}
+                    type="primary"
+                    size="large"
+                  >
+                    Оформить заказ
+                  </Button>
+                </div>
+              </div>
+            </>
+          )}
         </div>
-      )}
+      }
     </>
   );
 };
