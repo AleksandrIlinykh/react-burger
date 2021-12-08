@@ -16,13 +16,19 @@ export const burgerConstructorReducer = (state = initialState, action) => {
   switch (action.type) {
     case ADD_INGREDIENT: {
       if (action.payload.type === "bun") {
-        if (!state.bun.hasOwnProperty("_id"))
+        if (state.bun.hasOwnProperty("_id"))
+          return {
+            ...state,
+            totalPrice:
+              state.totalPrice - state.bun.price + action.payload.price,
+            bun: action.payload,
+          };
+        else
           return {
             ...state,
             totalPrice: state.totalPrice + action.payload.price,
             bun: action.payload,
           };
-        else return { ...state };
       } else
         return {
           ...state,
