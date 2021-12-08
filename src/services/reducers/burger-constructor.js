@@ -7,6 +7,7 @@ import {
 
 const initialState = {
   constructorIngredients: [],
+  totalPrice: 0,
 };
 
 export const burgerConstructorReducer = (state = initialState, action) => {
@@ -14,6 +15,7 @@ export const burgerConstructorReducer = (state = initialState, action) => {
     case ADD_INGREDIENT: {
       return {
         ...state,
+        totalPrice: state.totalPrice + action.payload.price,
         constructorIngredients: [
           ...state.constructorIngredients,
           action.payload,
