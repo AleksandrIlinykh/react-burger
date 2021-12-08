@@ -48,10 +48,7 @@ const IngredientCard = (props) => {
 
   const [{ isDrag }, dragRef] = useDrag({
     type: "ingredient",
-    item: props._id,
-    collect: (monitor) => ({
-      isDrag: monitor.isDragging(),
-    }),
+    item: { ingredient: props },
     collect: (monitor) => ({
       isDrag: monitor.isDragging(),
     }),

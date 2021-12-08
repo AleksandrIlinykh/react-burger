@@ -35,3 +35,8 @@
 	display: flex;
 	align-items: center;
 }
+
+.isHover{
+	border-style: solid;
+	border-color: rgb(102, 134, 134);
+}
