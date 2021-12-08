@@ -6,10 +6,14 @@ import { ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-comp
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { DragIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
+import { BurgerConstructorElement } from "../burger-constructor-element/burger-constructor-element";
 import burgerConstructorStyles from "./burger-constructor.module.css";
 import Modal from "../modal/modal";
 import OrderDetails from "../order-details/order-details";
-import { addIngredient } from "../../services/actions/burger-constructor";
+import {
+  addIngredient,
+  deleteIngredient,
+} from "../../services/actions/burger-constructor";
 import { ChosenIngredientsContext } from "../../context/burger-context";
 
 const BurgerConstructor = (props) => {
@@ -116,18 +120,28 @@ const BurgerConstructor = (props) => {
           {!sausesAndFillings.length || (
             <div className={burgerConstructorStyles.ingredientsconstructor}>
               {sausesAndFillings.map((chosenIngredient, index) => (
-                <div className={burgerConstructorStyles.element} key={index}>
-                  <div className={burgerConstructorStyles.dragIcon + " mr-3"}>
-                    <DragIcon type="primary" />
-                  </div>
+                <>
+                  {/*<div className={burgerConstructorStyles.element} key={index}>
+                    <div className={burgerConstructorStyles.dragIcon + " mr-3"}>
+                      <DragIcon type="primary" />
+                    </div>
 
-                  <ConstructorElement
-                    text={chosenIngredient.name}
+                    <ConstructorElement
+                      text={chosenIngredient.name}
+                      price={chosenIngredient.price}
+                      thumbnail={chosenIngredient.image}
+                      key={index}
+                    />
+                  </div> */}
+
+                  <BurgerConstructorElement
+                    name={chosenIngredient.name}
                     price={chosenIngredient.price}
-                    thumbnail={chosenIngredient.image}
+                    image={chosenIngredient.image}
+                    index={index}
                     key={index}
                   />
-                </div>
+                </>
               ))}
             </div>
           )}
