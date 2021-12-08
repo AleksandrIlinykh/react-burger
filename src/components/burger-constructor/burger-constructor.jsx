@@ -17,8 +17,9 @@ const BurgerConstructor = (props) => {
   const [chosenIngredientsData] = React.useContext(ChosenIngredientsContext);
   const [orderNumber, setOrderNumber] = React.useState(0);
 
-  const { chosenIngredients, totalPrice } = useSelector((store) => ({
-    chosenIngredients: store.burgerConstructor.constructorIngredients,
+  const { bun, sausesAndFillings, totalPrice } = useSelector((store) => ({
+    bun: store.burgerConstructor.bun,
+    sausesAndFillings: store.burgerConstructor.sausesAndFillings,
     totalPrice: store.burgerConstructor.totalPrice,
   }));
 
@@ -56,41 +57,29 @@ const BurgerConstructor = (props) => {
     setIsDetailsHidden(true);
   }
 
-  const bunTopIngredient = chosenIngredients
-    .filter((chosenIngredient) => chosenIngredient.type === "bun")
-    .map((chosenIngredient) => (
-      <div
-        className={burgerConstructorStyles.element + " pl-8"}
-        key={chosenIngredient._id}
-      >
-        <ConstructorElement
-          type="top"
-          isLocked
-          text={chosenIngredient.name + " (верх)"}
-          price={chosenIngredient.price}
-          thumbnail={chosenIngredient.image}
-          key={chosenIngredient._id}
-        />
-      </div>
-    ));
+  const bunTopIngredient = (
+    <div className={burgerConstructorStyles.element + " pl-8"}>
+      <ConstructorElement
+        type="top"
+        isLocked
+        text={bun.name + " (верх)"}
+        price={bun.price}
+        thumbnail={bun.image}
+      />
+    </div>
+  );
 
-  const bunBottomIngredient = chosenIngredients
-    .filter((chosenIngredient) => chosenIngredient.type === "bun")
-    .map((chosenIngredient) => (
-      <div
-        className={burgerConstructorStyles.element + " pl-8"}
-        key={chosenIngredient._id}
-      >
-        <ConstructorElement
-          type="bottom"
-          isLocked
-          text={chosenIngredient.name + " (низ)"}
-          price={chosenIngredient.price}
-          thumbnail={chosenIngredient.image}
-          key={chosenIngredient._id}
-        />
-      </div>
-    ));
+  const bunBottomIngredient = (
+    <div className={burgerConstructorStyles.element + " pl-8"}>
+      <ConstructorElement
+        type="bottom"
+        isLocked
+        text={bun.name + " (низ)"}
+        price={bun.price}
+        thumbnail={bun.image}
+      />
+    </div>
+  );
 
   const dispatch = useDispatch();
 
@@ -117,64 +106,57 @@ const BurgerConstructor = (props) => {
         </Modal>
       )}
 
-      {
-        <div
-          className={burgerConstructorStyles.container + " mt-25 ml-16"}
-          ref={dropTarget}
-        >
-          {!chosenIngredients.length || (
-            <>
-              {bunTopIngredient}
+      <div
+        className={burgerConstructorStyles.container + " mt-25 ml-16"}
+        ref={dropTarget}
+      >
+        <>
+          {!bun.hasOwnProperty("_id") || bunTopIngredient}
 
-              <div className={burgerConstructorStyles.ingredientsconstructor}>
-                {chosenIngredients
-                  .filter((chosenIngredient) => chosenIngredient.type !== "bun")
-                  .map((chosenIngredient, index) => (
-                    <div
-                      className={burgerConstructorStyles.element}
-                      key={index}
-                    >
-                      <div
-                        className={burgerConstructorStyles.dragIcon + " mr-3"}
-                      >
-                        <DragIcon type="primary" />
-                      </div>
+          {!sausesAndFillings.length || (
+            <div className={burgerConstructorStyles.ingredientsconstructor}>
+              {sausesAndFillings.map((chosenIngredient, index) => (
+                <div className={burgerConstructorStyles.element} key={index}>
+                  <div className={burgerConstructorStyles.dragIcon + " mr-3"}>
+                    <DragIcon type="primary" />
+                  </div>
 
-                      <ConstructorElement
-                        text={chosenIngredient.name}
-                        price={chosenIngredient.price}
-                        thumbnail={chosenIngredient.image}
-                        key={index}
-                      />
-                    </div>
-                  ))}
-              </div>
-
-              {bunBottomIngredient}
-
-              <div
-                className={
-                  burgerConstructorStyles.priceandconfirmation + " mt-10 mb-10"
-                }
-              >
-                <p className="text text_type_digits-medium">{totalPrice}</p>
-                <div className="mr-10">
-                  <CurrencyIcon className="mr-10" type="primary" />
+                  <ConstructorElement
+                    text={chosenIngredient.name}
+                    price={chosenIngredient.price}
+                    thumbnail={chosenIngredient.image}
+                    key={index}
+                  />
                 </div>
-                <div className="mr-8">
-                  <Button
-                    onClick={handleMakeOrderClick}
-                    type="primary"
-                    size="large"
-                  >
-                    Оформить заказ
-                  </Button>
-                </div>
-              </div>
-            </>
+              ))}
+            </div>
           )}
-        </div>
-      }
+
+          {!bun.hasOwnProperty("_id") || bunBottomIngredient}
+
+          {!totalPrice || (
+            <div
+              className={
+                burgerConstructorStyles.priceandconfirmation + " mt-10 mb-10"
+              }
+            >
+              <p className="text text_type_digits-medium">{totalPrice}</p>
+              <div className="mr-10">
+                <CurrencyIcon className="mr-10" type="primary" />
+              </div>
+              <div className="mr-8">
+                <Button
+                  onClick={handleMakeOrderClick}
+                  type="primary"
+                  size="large"
+                >
+                  Оформить заказ
+                </Button>
+              </div>
+            </div>
+          )}
+        </>
+      </div>
     </>
   );
 };

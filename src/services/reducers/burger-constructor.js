@@ -6,6 +6,8 @@ import {
 } from "../actions/burger-constructor";
 
 const initialState = {
+  bun: {},
+  sausesAndFillings: [],
   constructorIngredients: [],
   totalPrice: 0,
 };
@@ -13,39 +15,28 @@ const initialState = {
 export const burgerConstructorReducer = (state = initialState, action) => {
   switch (action.type) {
     case ADD_INGREDIENT: {
-      if (action.payload.type === "bun") 
-        {
-          const isBunChosen = state.constructorIngredients.filter(
-            (ingredient) => ingredient.type === "bun"
-          ).length;
-          if (isBunChosen === 0)
-            return {
-              ...state,
-              totalPrice: state.totalPrice + action.payload.price,
-              constructorIngredients: [
-                ...state.constructorIngredients,
-                action.payload,
-              ],
-            };
-          else return { ...state };
-        }
-        else
+      if (action.payload.type === "bun") {
+        if (!state.bun.hasOwnProperty("_id"))
           return {
             ...state,
             totalPrice: state.totalPrice + action.payload.price,
-            constructorIngredients: [
-              ...state.constructorIngredients,
-              action.payload,
-            ],
+            bun: action.payload,
           };
-      }
-    
+        else return { ...state };
+      } else
+        return {
+          ...state,
+          totalPrice: state.totalPrice + action.payload.price,
+          sausesAndFillings: [...state.sausesAndFillings, action.payload],
+        };
+    }
+
     case DELETE_INGREDIENT: {
       return {
         ...state,
         constructorIngredients: [
           ...state,
-          [...state.constructorIngredients].filter(
+          [...state.sausesAndFillings].filter(
             (ingredient) => ingredient._id !== action.payload.id
           ),
         ],
