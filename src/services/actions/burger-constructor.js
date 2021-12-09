@@ -6,6 +6,8 @@ export const GET_ORDER_NUMBER_REQUEST = "GET_ORDER_NUMBER_REQUEST";
 export const GET_ORDER_NUMBER_SUCCESS = "GET_ORDER_NUMBER_SUCCESS";
 export const GET_ORDER_NUMBER_ERROR = "GET_ORDER_NUMBER_ERROR";
 
+
+
 const ENDPOINT = "https://norma.nomoreparties.space";
 
 export const addIngredient = (ingredient) => {
