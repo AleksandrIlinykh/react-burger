@@ -1,8 +1,10 @@
 import { store } from "../../index";
+import update from "immutability-helper";
 
 import {
   ADD_INGREDIENT,
   DELETE_INGREDIENT,
+  MOVE_INGREDIENTS,
 } from "../actions/burger-constructor";
 
 const initialState = {
@@ -38,17 +40,32 @@ export const burgerConstructorReducer = (state = initialState, action) => {
     }
 
     case DELETE_INGREDIENT: {
+      const deletingPrice = state.sausesAndFillings.filter(
+        (sauseOrFilling) => sauseOrFilling._id === action.payload
+      )[0].price;
       return {
         ...state,
-        constructorIngredients: [
-          ...state,
-          [...state.sausesAndFillings].filter(
-            (ingredient) => ingredient._id !== action.payload.id
-          ),
-        ],
+        totalPrice: state.totalPrice - deletingPrice,
+        sausesAndFillings: [...state.sausesAndFillings].filter(
+          (sauseOrFilling) => sauseOrFilling._id !== action.payload
+        ),
       };
     }
+
+    case MOVE_INGREDIENTS: {
+      const draggingIngredient = state.sausesAndFillings[action.dragIndex];
+      return {
+        ...state,
+        sausesAndFillings: update(state.sausesAndFillings, {
+          $splice: [
+            [action.dragIndex, 1],
+            [action.hoverIndex, 0, draggingIngredient],
+          ],
+        }),
+      };
+    }
+
     default:
-      return state;
+      return { ...state };
   }
 };

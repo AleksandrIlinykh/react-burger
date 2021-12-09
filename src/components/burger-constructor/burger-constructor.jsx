@@ -120,28 +120,14 @@ const BurgerConstructor = (props) => {
           {!sausesAndFillings.length || (
             <div className={burgerConstructorStyles.ingredientsconstructor}>
               {sausesAndFillings.map((chosenIngredient, index) => (
-                <>
-                  {/*<div className={burgerConstructorStyles.element} key={index}>
-                    <div className={burgerConstructorStyles.dragIcon + " mr-3"}>
-                      <DragIcon type="primary" />
-                    </div>
-
-                    <ConstructorElement
-                      text={chosenIngredient.name}
-                      price={chosenIngredient.price}
-                      thumbnail={chosenIngredient.image}
-                      key={index}
-                    />
-                  </div> */}
-
-                  <BurgerConstructorElement
-                    name={chosenIngredient.name}
-                    price={chosenIngredient.price}
-                    image={chosenIngredient.image}
-                    index={index}
-                    key={index}
-                  />
-                </>
+                <BurgerConstructorElement
+                  name={chosenIngredient.name}
+                  price={chosenIngredient.price}
+                  image={chosenIngredient.image}
+                  index={index}
+                  key={index}
+                  id={chosenIngredient._id}
+                />
               ))}
             </div>
           )}

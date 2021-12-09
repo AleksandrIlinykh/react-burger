@@ -13,9 +13,20 @@
 	display: flex;
   align-items: center;
   justify-content: center;
+	min-width: 600px;
+}
+
+.dpopTarget {
+	display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .dragIcon {
 	display: flex;
 	align-items: center;
+}
+
+.onDrugging{
+	opacity: 0.5;
 }
