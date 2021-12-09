@@ -77,7 +77,7 @@ const initialStateOrder = {
   error: "",
 };
 
-export const orderDetailsReducer = (state = initialStateOrder, action) => {
+export const orderDataReducer = (state = initialStateOrder, action) => {
   switch (action.type) {
     case GET_ORDER_NUMBER_REQUEST: {
       return {
