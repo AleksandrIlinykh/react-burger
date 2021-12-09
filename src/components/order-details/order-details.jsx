@@ -2,7 +2,6 @@ import { useMemo } from "react";
 import { useSelector } from "react-redux";
 import orderDetailsStyles from "./order-details.module.css";
 import doneGif from "../../images/done.gif";
-import { orderDetailsTypes } from "../../utils/types";
 
 function OrderDetails() {
   const { isLoading, orderNumber } = useSelector((store) => ({
@@ -32,7 +31,5 @@ function OrderDetails() {
     </section>
   );
 }
-
-OrderDetails.propTypes = orderDetailsTypes;
 
 export default OrderDetails;
