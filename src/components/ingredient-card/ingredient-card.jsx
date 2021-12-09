@@ -17,9 +17,7 @@ import {
 const IngredientCard = (props) => {
   const [orderCount, setOrderCount] = React.useState(0);
   const [isDetailsHidden, setIsDetailsHidden] = React.useState(true);
-  const [chosenIngredients, setChosenIngredients] = React.useContext(
-    ChosenIngredientsContext
-  );
+
 
   const { totalPriceDispatcher } = React.useContext(TotalPriceContext);
 
@@ -29,17 +27,6 @@ const IngredientCard = (props) => {
       type: "recalculate",
       payload: props.price,
     });
-
-    if (props.type === "bun") {
-      if (props.bunCounter === 0) {
-        setChosenIngredients([...chosenIngredients, props]);
-        setOrderCount(orderCount + 1);
-      }
-      props.setBunCounter(props.bunCounter + 1);
-    } else {
-      setChosenIngredients([...chosenIngredients, props]);
-      setOrderCount(orderCount + 1);
-    }
   }
 
   function handleModalClose() {
