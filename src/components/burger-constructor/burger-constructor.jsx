@@ -14,20 +14,30 @@ import {
   deleteIngredient,
   getOrderNumber,
 } from "../../services/actions/burger-constructor";
+import {
+  showOrderDetails,
+  hideOrderDetails,
+} from "../../services/actions/order-details";
+
 import { ChosenIngredientsContext } from "../../context/burger-context";
 
 const BurgerConstructor = (props) => {
   const [isDetailsHidden, setIsDetailsHidden] = React.useState(true);
   //const [orderNumber, setOrderNumber] = React.useState(0);
 
-  const { bun, sausesAndFillings, totalPrice, orderNumber } = useSelector(
-    (store) => ({
-      bun: store.burgerConstructor.bun,
-      sausesAndFillings: store.burgerConstructor.sausesAndFillings,
-      totalPrice: store.burgerConstructor.totalPrice,
-      orderNumber: store.burgerConstructor.orderNumber,
-    })
-  );
+  const {
+    bun,
+    sausesAndFillings,
+    totalPrice,
+    orderNumber,
+    isOrderDetailsHidden,
+  } = useSelector((store) => ({
+    bun: store.burgerConstructor.bun,
+    sausesAndFillings: store.burgerConstructor.sausesAndFillings,
+    totalPrice: store.burgerConstructor.totalPrice,
+    orderNumber: store.burgerConstructor.orderNumber,
+    isOrderDetailsHidden: store.OrderDetails.isOrderDetailsActive,
+  }));
 
   const dispatch = useDispatch();
 
@@ -63,10 +73,12 @@ const BurgerConstructor = (props) => {
     response();
     */
     setIsDetailsHidden(false);
+    dispatch(showOrderDetails());
   }
 
   function handleModalClose() {
     setIsDetailsHidden(true);
+    dispatch(hideOrderDetails());
   }
 
   const bunTopIngredient = (
@@ -110,7 +122,7 @@ const BurgerConstructor = (props) => {
 
   return (
     <>
-      {!isDetailsHidden && (
+      {isOrderDetailsHidden && (
         <Modal handleModalClose={handleModalClose}>
           <OrderDetails orderNumber={orderNumber} />
         </Modal>

@@ -4,7 +4,7 @@ import {
 } from "../actions/order-details";
 
 const orderDetailsInitialState = {
-  iSOrderDetailsActive: false,
+  isOrderDetailsActive: false,
 };
 
 export const orderDetailsReducer = (
@@ -15,13 +15,13 @@ export const orderDetailsReducer = (
     case SHOW_ORDER_DETAILS: {
       return {
         ...state,
-        iSOrderDetailsActive: true,
+        isOrderDetailsActive: true,
       };
     }
     case HIDE_ORDER_DETAILS: {
       return {
         ...state,
-        iSOrderDetailsActive: false,
+        isOrderDetailsActive: false,
       };
     }
     default:
