@@ -3,7 +3,6 @@ import { useSelector, useDispatch } from "react-redux";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import IngredientCard from "../ingredient-card/ingredient-card";
 import burgerIngredientsStyles from "./burger-ingredients.module.css";
-import { BurgerConstructorContext } from "../../context/burger-context";
 import { hideIngredientDetails } from "../../services/actions/ingredient-details";
 import Modal from "../modal/modal";
 import IngredientDetails from "../ingredient-details/ingredient-details";
@@ -20,7 +19,6 @@ const BurgerIngredients = () => {
   const [link3Style, setLink3Style] = React.useState(
     burgerIngredientsStyles.linkinactive
   );
-  const ingredientsData = React.useContext(BurgerConstructorContext);
 
   const { iSIngredientDetailsActive, ingredientDetailsId, ingredients } =
     useSelector((store) => ({
@@ -115,7 +113,7 @@ const BurgerIngredients = () => {
               <div
                 className={burgerIngredientsStyles.ingredientconteinercontent}
               >
-                {ingredientsData
+                {ingredients
                   .filter((cardData) => cardData.type === "bun")
                   .map((cardData, index) => (
                     <div key={cardData._id}>
@@ -147,7 +145,7 @@ const BurgerIngredients = () => {
               <div
                 className={burgerIngredientsStyles.ingredientconteinercontent}
               >
-                {ingredientsData
+                {ingredients
                   .filter((cardData) => cardData.type === "sauce")
                   .map((cardData, index) => (
                     <div key={cardData._id}>
@@ -176,7 +174,7 @@ const BurgerIngredients = () => {
               <div
                 className={burgerIngredientsStyles.ingredientconteinercontent}
               >
-                {ingredientsData
+                {ingredients
                   .filter((cardData) => cardData.type === "main")
                   .map((cardData, index) => (
                     <div key={cardData._id}>
@@ -200,7 +198,7 @@ const BurgerIngredients = () => {
         </div>
       </>
     );
-  }, [isLoading, bunCounter, ingredientsData]);
+  }, [isLoading, bunCounter, ingredients]);
 
   const dispatch = useDispatch();
   const handleModalClose = () => {
