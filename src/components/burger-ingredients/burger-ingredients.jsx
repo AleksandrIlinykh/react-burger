@@ -64,9 +64,10 @@ const BurgerIngredients = () => {
   const refFilling = useRef(null);
 
   const onScroll = (e) => {
-    const bunPosition = refBun.current.getBoundingClientRect().top;
-    const saucePosition = refSauce.current.getBoundingClientRect().top;
-    const fillingPosition = refFilling.current.getBoundingClientRect().top;
+    const bunPosition = refBun.current.getBoundingClientRect().top - 300;
+    const saucePosition = refSauce.current.getBoundingClientRect().top - 300;
+    const fillingPosition =
+      refFilling.current.getBoundingClientRect().top - 300;
     console.log(`${bunPosition}, ${saucePosition}, ${fillingPosition}`);
 
     if (
