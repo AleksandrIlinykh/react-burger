@@ -1,9 +1,8 @@
-import React, { useContext } from 'react';
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useDrop } from "react-dnd";
 import { ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-components";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-import { DragIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import { BurgerConstructorElement } from "../burger-constructor-element/burger-constructor-element";
 import burgerConstructorStyles from "./burger-constructor.module.css";
@@ -11,7 +10,6 @@ import Modal from "../modal/modal";
 import OrderDetails from "../order-details/order-details";
 import {
   addIngredient,
-  deleteIngredient,
   getOrderNumber,
 } from "../../services/actions/burger-constructor";
 import {
@@ -19,25 +17,14 @@ import {
   hideOrderDetails,
 } from "../../services/actions/order-details";
 
-import { ChosenIngredientsContext } from "../../context/burger-context";
-
 const BurgerConstructor = (props) => {
-  const [isDetailsHidden, setIsDetailsHidden] = React.useState(true);
-  //const [orderNumber, setOrderNumber] = React.useState(0);
-
-  const {
-    bun,
-    sausesAndFillings,
-    totalPrice,
-    orderNumber,
-    isOrderDetailsHidden,
-  } = useSelector((store) => ({
-    bun: store.burgerConstructor.bun,
-    sausesAndFillings: store.burgerConstructor.sausesAndFillings,
-    totalPrice: store.burgerConstructor.totalPrice,
-    orderNumber: store.burgerConstructor.orderNumber,
-    isOrderDetailsHidden: store.OrderDetails.isOrderDetailsActive,
-  }));
+  const { bun, sausesAndFillings, totalPrice, isOrderDetailsActive } =
+    useSelector((store) => ({
+      bun: store.burgerConstructor.bun,
+      sausesAndFillings: store.burgerConstructor.sausesAndFillings,
+      totalPrice: store.burgerConstructor.totalPrice,
+      isOrderDetailsActive: store.orderDetails.isOrderDetailsActive,
+    }));
 
   const dispatch = useDispatch();
 
@@ -48,36 +35,11 @@ const BurgerConstructor = (props) => {
         (ingredientData) => ingredientData._id
       ),
     };
-
     dispatch(getOrderNumber(bodyData));
-    /*
-    const response = async () => {
-      fetch(`${props.endpoint}/api/orders`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(bodyData),
-      })
-        .then((res) => {
-          if (res.ok) {
-            return res.json();
-          }
-          return Promise.reject(`Ошибка ${res.status}`);
-        })
-        .then((res) => setOrderNumber(res.order.number))
-        .catch((e) => {
-          console.log("Error: " + e.message);
-          console.log(e.response);
-        });
-    };
-
-    response();
-    */
-    setIsDetailsHidden(false);
     dispatch(showOrderDetails());
   }
 
   function handleModalClose() {
-    setIsDetailsHidden(true);
     dispatch(hideOrderDetails());
   }
 
@@ -105,26 +67,21 @@ const BurgerConstructor = (props) => {
     </div>
   );
 
-  const [{ isHover }, dropTarget] = useDrop({
+  const [, dropTarget] = useDrop({
     accept: "ingredient",
     collect: (monitor) => ({
       isHover: monitor.isOver(),
     }),
     drop(item) {
-      console.log(item);
       dispatch(addIngredient(item.ingredient));
     },
   });
 
-  const propContainerClassName = `${burgerConstructorStyles.container} ${
-    isHover && burgerConstructorStyles.isHover
-  }`;
-
   return (
     <>
-      {isOrderDetailsHidden && (
+      {isOrderDetailsActive && (
         <Modal handleModalClose={handleModalClose}>
-          <OrderDetails orderNumber={orderNumber} />
+          <OrderDetails />
         </Modal>
       )}
 

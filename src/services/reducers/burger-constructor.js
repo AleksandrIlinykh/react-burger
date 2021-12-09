@@ -1,4 +1,3 @@
-import { store } from "../../index";
 import update from "immutability-helper";
 
 import {
@@ -97,4 +96,4 @@ export const orderDataReducer = (state = initialStateOrder, action) => {
     default:
       return { ...state };
   }
-};  
+};

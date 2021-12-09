@@ -23,7 +23,7 @@ const IngredientCard = (props) => {
         .length +
       (bun._id === props._id);
     setOrderCount(theSameIngredientsAmount);
-  }, [sausesAndFillings.length, bun._id]);
+  }, [sausesAndFillings.length, bun._id, props._id, sausesAndFillings]);
 
   const dispatch = useDispatch();
 

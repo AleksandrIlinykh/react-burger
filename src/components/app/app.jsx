@@ -28,7 +28,6 @@ function reducer(state, action) {
 
 function App() {
   const chosenIngredientsState = React.useState([]);
-  const [ingredientsData, setIngredientsData] = React.useState([]);
   const [totalPriceState, totalPriceDispatcher] = React.useReducer(
     reducer,
     initialState,

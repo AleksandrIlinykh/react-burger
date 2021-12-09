@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React, { useMemo, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import IngredientCard from "../ingredient-card/ingredient-card";
@@ -31,7 +31,6 @@ const BurgerIngredients = () => {
     }));
 
   function handleTab(e) {
-    console.log(ingredientsData);
     setCurrent(e);
     switch (e) {
       case "one":
@@ -54,19 +53,61 @@ const BurgerIngredients = () => {
     }
   }
 
-  const { burgerIngredients, isLoading } = useSelector((state) => ({
-    burgerIngredients: state.burgerIngredients.ingredients,
+  const { isLoading } = useSelector((state) => ({
     isLoading: state.burgerIngredients.loading,
   }));
+
+  //---------------------------------------------------------------------
+  //scroll
+  const refBun = useRef(null);
+  const refSauce = useRef(null);
+  const refFilling = useRef(null);
+
+  const onScroll = (e) => {
+    const bunPosition = refBun.current.getBoundingClientRect().top;
+    const saucePosition = refSauce.current.getBoundingClientRect().top;
+    const fillingPosition = refFilling.current.getBoundingClientRect().top;
+    console.log(`${bunPosition}, ${saucePosition}, ${fillingPosition}`);
+
+    if (
+      Math.abs(bunPosition) < Math.abs(saucePosition) &&
+      Math.abs(bunPosition) < Math.abs(fillingPosition)
+    ) {
+      setLink1Style(burgerIngredientsStyles.linkactive);
+      setLink2Style(burgerIngredientsStyles.linkinactive);
+      setLink3Style(burgerIngredientsStyles.linkinactive);
+    }
+
+    if (
+      Math.abs(saucePosition) < Math.abs(bunPosition) &&
+      Math.abs(saucePosition) < Math.abs(fillingPosition)
+    ) {
+      setLink1Style(burgerIngredientsStyles.linkinactive);
+      setLink2Style(burgerIngredientsStyles.linkactive);
+      setLink3Style(burgerIngredientsStyles.linkinactive);
+    }
+
+    if (
+      Math.abs(fillingPosition) < Math.abs(bunPosition) &&
+      Math.abs(fillingPosition) < Math.abs(saucePosition)
+    ) {
+      setLink1Style(burgerIngredientsStyles.linkinactive);
+      setLink2Style(burgerIngredientsStyles.linkinactive);
+      setLink3Style(burgerIngredientsStyles.linkactive);
+    }
+  };
 
   const content = useMemo(() => {
     return isLoading ? (
       <p className="text text_type_main-large">Загрузка...</p>
     ) : (
       <>
-        <div className={burgerIngredientsStyles.ingredientscontainer}>
+        <div
+          className={burgerIngredientsStyles.ingredientscontainer}
+          onScroll={onScroll}
+        >
           <div>
-            <h1 className="mt-10" id="bun">
+            <h1 className="mt-10" id="bun" ref={refBun}>
               Булки
             </h1>
             <div className="ml-4 mt-6 mb-10">
@@ -98,7 +139,7 @@ const BurgerIngredients = () => {
             </div>
           </div>
           <div>
-            <h1 className="mt-10" id="sauce">
+            <h1 className="mt-10" id="sauce" ref={refSauce}>
               Соусы
             </h1>
             <div className="ml-4 mt-6 mb-10">
@@ -127,7 +168,7 @@ const BurgerIngredients = () => {
             </div>
           </div>
           <div>
-            <h1 className="mt-10" id="main">
+            <h1 className="mt-10" id="main" ref={refFilling}>
               Начинки
             </h1>
             <div className="ml-4 mt-6 mb-10">
@@ -158,7 +199,7 @@ const BurgerIngredients = () => {
         </div>
       </>
     );
-  }, [burgerIngredients, isLoading]);
+  }, [isLoading, bunCounter, ingredientsData]);
 
   const dispatch = useDispatch();
   const handleModalClose = () => {
@@ -168,7 +209,6 @@ const BurgerIngredients = () => {
     (ingredient) => ingredient._id === ingredientDetailsId
   )[0];
 
-  const temp = 1;
   return (
     <>
       {!iSIngredientDetailsActive || (

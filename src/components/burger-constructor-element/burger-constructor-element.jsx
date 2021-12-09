@@ -2,7 +2,6 @@ import { useRef } from "react";
 import { useDispatch } from "react-redux";
 import { useDrag, useDrop } from "react-dnd";
 import { ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-components";
-import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { DragIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 
 import burgerConstructorElementStyles from "./burger-constructor-element.module.css";
@@ -26,7 +25,7 @@ export const BurgerConstructorElement = ({ name, price, image, index, id }) => {
     }),
   });
 
-  const [{ isHover }, drop] = useDrop({
+  const [, drop] = useDrop({
     accept: "chosenIngredient",
     collect: (monitor) => ({
       isHover: monitor.isOver(),

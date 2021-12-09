@@ -6,8 +6,8 @@ import { orderDetailsTypes } from "../../utils/types";
 
 function OrderDetails() {
   const { isLoading, orderNumber } = useSelector((store) => ({
-    isLoading: store.orderDetails.loading,
-    orderNumber: store.orderDetails.orderNumber,
+    isLoading: store.orderData.loading,
+    orderNumber: store.orderData.orderNumber,
   }));
 
   const content = useMemo(() => {

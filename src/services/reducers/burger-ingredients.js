@@ -4,8 +4,6 @@ import {
   GET_INGREDIENTS_ERROR,
 } from "../actions/burger-ingredients";
 
-const ENDPOINT = "https://norma.nomoreparties.space";
-
 const ingredientsInitialState = {
   loading: false,
   ingredients: [],
