@@ -7,19 +7,15 @@ import { Counter } from "@ya.praktikum/react-developer-burger-ui-components";
 
 import { ingredientCardTypes } from "../../utils/types";
 import ingredientCardStyles from "./ingredient-card.module.css";
-import { showDetails } from "../../services/actions/burger-ingredients";
+import { showIngredientDetails } from "../../services/actions/ingredient-details";
 
 const IngredientCard = (props) => {
   const [orderCount, setOrderCount] = React.useState(0);
 
-  const { sausesAndFillings, bun, iSIngredientDetailsActive } = useSelector(
-    (store) => ({
-      sausesAndFillings: store.burgerConstructor.sausesAndFillings,
-      bun: store.burgerConstructor.bun,
-      iSIngredientDetailsActive:
-        store.ingredientDetails.iSIngredientDetailsActive,
-    })
-  );
+  const { sausesAndFillings, bun } = useSelector((store) => ({
+    sausesAndFillings: store.burgerConstructor.sausesAndFillings,
+    bun: store.burgerConstructor.bun,
+  }));
 
   useEffect(() => {
     const theSameIngredientsAmount =
@@ -32,7 +28,7 @@ const IngredientCard = (props) => {
   const dispatch = useDispatch();
 
   function handleClick(event) {
-    dispatch(showDetails(props._id));
+    dispatch(showIngredientDetails(props._id));
   }
 
   const [{ isDrag }, dragRef] = useDrag({

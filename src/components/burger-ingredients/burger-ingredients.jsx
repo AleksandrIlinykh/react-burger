@@ -4,7 +4,7 @@ import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import IngredientCard from "../ingredient-card/ingredient-card";
 import burgerIngredientsStyles from "./burger-ingredients.module.css";
 import { BurgerConstructorContext } from "../../context/burger-context";
-import { hideDetails } from "../../services/actions/burger-ingredients";
+import { hideIngredientDetails } from "../../services/actions/ingredient-details";
 import Modal from "../modal/modal";
 import IngredientDetails from "../ingredient-details/ingredient-details";
 
@@ -162,7 +162,7 @@ const BurgerIngredients = () => {
 
   const dispatch = useDispatch();
   const handleModalClose = () => {
-    dispatch(hideDetails());
+    dispatch(hideIngredientDetails());
   };
   const ingredientDetailsData = ingredients.filter(
     (ingredient) => ingredient._id === ingredientDetailsId
