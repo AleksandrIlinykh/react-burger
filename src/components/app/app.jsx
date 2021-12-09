@@ -60,7 +60,7 @@ function App() {
                     {" "}
                     Соберите бургер
                   </h1>
-                  <BurgerIngredients data={ingredientsData} />
+                  <BurgerIngredients />
                 </div>
                 <div className={appStyles.contentleft}>
                   <BurgerConstructor endpoint={ENDPOINT} />

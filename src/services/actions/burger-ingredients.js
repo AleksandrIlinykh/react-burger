@@ -1,6 +1,8 @@
 export const GET_INGREDIENTS_REQUEST = "GET_INGREDIENTS_REQUEST";
 export const GET_INGREDIENTS_SUCCESS = "GET_INGREDIENTS_SUCCESS";
 export const GET_INGREDIENTS_ERROR = "GET_INGREDIENTS_ERROR";
+export const SHOW_DETAILS = "SHOW_DETAILS";
+export const HIDE_DETAILS = "HIDE_DETAILS";
 
 const ENDPOINT = "https://norma.nomoreparties.space";
 
@@ -24,9 +26,23 @@ const getIngredientsError = (error) => {
   };
 };
 
+export const hideDetails = () => {
+  return {
+    type: HIDE_DETAILS,
+  };
+};
+
+export const showDetails = (id) => {
+  return {
+    type: SHOW_DETAILS,
+    payload: id,
+  };
+};
+
 export function getBurgerIngredients() {
   return function (dispatch) {
     dispatch(getIngredientsRequest());
+
     fetch(`${ENDPOINT}/api/ingredients`)
       .then((res) => {
         if (res.ok) {
@@ -39,4 +55,6 @@ export function getBurgerIngredients() {
       .then((data) => dispatch(getIngredientsSuccess(data.data)));
   };
 }
+
+
 

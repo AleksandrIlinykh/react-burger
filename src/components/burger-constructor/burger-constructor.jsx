@@ -1,7 +1,6 @@
 import React, { useContext } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { useDrop } from "react-dnd";
-
 import { ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-components";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { DragIcon } from "@ya.praktikum/react-developer-burger-ui-components";
@@ -13,27 +12,35 @@ import OrderDetails from "../order-details/order-details";
 import {
   addIngredient,
   deleteIngredient,
+  getOrderNumber,
 } from "../../services/actions/burger-constructor";
 import { ChosenIngredientsContext } from "../../context/burger-context";
 
 const BurgerConstructor = (props) => {
   const [isDetailsHidden, setIsDetailsHidden] = React.useState(true);
-  const [chosenIngredientsData] = React.useContext(ChosenIngredientsContext);
-  const [orderNumber, setOrderNumber] = React.useState(0);
+  //const [orderNumber, setOrderNumber] = React.useState(0);
 
-  const { bun, sausesAndFillings, totalPrice } = useSelector((store) => ({
-    bun: store.burgerConstructor.bun,
-    sausesAndFillings: store.burgerConstructor.sausesAndFillings,
-    totalPrice: store.burgerConstructor.totalPrice,
-  }));
+  const { bun, sausesAndFillings, totalPrice, orderNumber } = useSelector(
+    (store) => ({
+      bun: store.burgerConstructor.bun,
+      sausesAndFillings: store.burgerConstructor.sausesAndFillings,
+      totalPrice: store.burgerConstructor.totalPrice,
+      orderNumber: store.burgerConstructor.orderNumber,
+    })
+  );
+
+  const dispatch = useDispatch();
 
   function handleMakeOrderClick(event) {
+    const chosenIngredientsData = [bun, ...sausesAndFillings];
     const bodyData = {
       ingredients: chosenIngredientsData.map(
         (ingredientData) => ingredientData._id
       ),
     };
 
+    dispatch(getOrderNumber(bodyData));
+    /*
     const response = async () => {
       fetch(`${props.endpoint}/api/orders`, {
         method: "POST",
@@ -54,6 +61,7 @@ const BurgerConstructor = (props) => {
     };
 
     response();
+    */
     setIsDetailsHidden(false);
   }
 
@@ -85,8 +93,6 @@ const BurgerConstructor = (props) => {
     </div>
   );
 
-  const dispatch = useDispatch();
-
   const [{ isHover }, dropTarget] = useDrop({
     accept: "ingredient",
     collect: (monitor) => ({
@@ -105,7 +111,7 @@ const BurgerConstructor = (props) => {
   return (
     <>
       {!isDetailsHidden && (
-        <Modal stasus={isDetailsHidden} handleModalClose={handleModalClose}>
+        <Modal handleModalClose={handleModalClose}>
           <OrderDetails orderNumber={orderNumber} />
         </Modal>
       )}

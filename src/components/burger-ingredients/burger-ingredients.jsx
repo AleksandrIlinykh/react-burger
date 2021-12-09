@@ -1,9 +1,12 @@
 import React, { useMemo } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import IngredientCard from "../ingredient-card/ingredient-card";
 import burgerIngredientsStyles from "./burger-ingredients.module.css";
 import { BurgerConstructorContext } from "../../context/burger-context";
+import { hideDetails } from "../../services/actions/burger-ingredients";
+import Modal from "../modal/modal";
+import IngredientDetails from "../ingredient-details/ingredient-details";
 
 const BurgerIngredients = () => {
   const [current, setCurrent] = React.useState("one");
@@ -18,6 +21,14 @@ const BurgerIngredients = () => {
     burgerIngredientsStyles.linkinactive
   );
   const ingredientsData = React.useContext(BurgerConstructorContext);
+
+  const { iSIngredientDetailsActive, ingredientDetailsId, ingredients } =
+    useSelector((store) => ({
+      ingredientDetailsId: store.ingredientDetails.ingredientDetailsId,
+      iSIngredientDetailsActive:
+        store.ingredientDetails.iSIngredientDetailsActive,
+      ingredients: store.burgerIngredients.ingredients,
+    }));
 
   function handleTab(e) {
     console.log(ingredientsData);
@@ -149,8 +160,31 @@ const BurgerIngredients = () => {
     );
   }, [burgerIngredients, isLoading]);
 
+  const dispatch = useDispatch();
+  const handleModalClose = () => {
+    dispatch(hideDetails());
+  };
+  const ingredientDetailsData = ingredients.filter(
+    (ingredient) => ingredient._id === ingredientDetailsId
+  )[0];
+
+  const temp = 1;
   return (
     <>
+      {!iSIngredientDetailsActive || (
+        <Modal handleModalClose={handleModalClose}>
+          <IngredientDetails
+            image={ingredientDetailsData.image}
+            image_large={ingredientDetailsData.image_large}
+            name={ingredientDetailsData.name}
+            calories={ingredientDetailsData.calories}
+            proteins={ingredientDetailsData.proteins}
+            fat={ingredientDetailsData.fat}
+            carbohydrates={ingredientDetailsData.carbohydrates}
+          />
+        </Modal>
+      )}
+
       <div className={burgerIngredientsStyles.tab}>
         <Tab value="one" active={current === "one"} onClick={handleTab}>
           <a className={link1Style} href="#bun">
