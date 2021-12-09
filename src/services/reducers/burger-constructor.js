@@ -40,15 +40,14 @@ export const burgerConstructorReducer = (state = initialState, action) => {
     }
 
     case DELETE_INGREDIENT: {
-      const deletingPrice = state.sausesAndFillings.filter(
-        (sauseOrFilling) => sauseOrFilling._id === action.payload
-      )[0].price;
+      const index = action.index;
+      const deletingPrice = state.sausesAndFillings[index].price;
       return {
         ...state,
         totalPrice: state.totalPrice - deletingPrice,
-        sausesAndFillings: [...state.sausesAndFillings].filter(
-          (sauseOrFilling) => sauseOrFilling._id !== action.payload
-        ),
+        sausesAndFillings: update(state.sausesAndFillings, {
+          $splice: [[action.index, 1]],
+        }),
       };
     }
 

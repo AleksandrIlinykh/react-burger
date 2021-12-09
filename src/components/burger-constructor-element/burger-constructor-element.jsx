@@ -15,7 +15,7 @@ import {
 export const BurgerConstructorElement = ({ name, price, image, index, id }) => {
   const dispatch = useDispatch();
   const handleDeletingIngredient = () => {
-    dispatch(deleteIngredient(id));
+    dispatch(deleteIngredient(index));
   };
 
   const [{ isDrag }, drag] = useDrag({

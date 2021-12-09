@@ -9,10 +9,10 @@ export const addIngredient = (ingredient) => {
   };
 };
 
-export const deleteIngredient = (id) => {
+export const deleteIngredient = (index) => {
   return {
     type: DELETE_INGREDIENT,
-    payload: id,
+    index: index,
   };
 };
 
