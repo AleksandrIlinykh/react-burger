@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect } from "react";
+import { useSelector } from "react-redux";
 import { useDrag } from "react-dnd";
 
 import Modal from "../modal/modal";
@@ -9,17 +10,24 @@ import { Counter } from "@ya.praktikum/react-developer-burger-ui-components";
 
 import { ingredientCardTypes } from "../../utils/types";
 import ingredientCardStyles from "./ingredient-card.module.css";
-import {
-  ChosenIngredientsContext,
-  TotalPriceContext,
-} from "../../context/burger-context";
 
 const IngredientCard = (props) => {
   const [orderCount, setOrderCount] = React.useState(0);
   const [isDetailsHidden, setIsDetailsHidden] = React.useState(true);
 
+  const { sausesAndFillings, bun } = useSelector((store) => ({
+    sausesAndFillings: store.burgerConstructor.sausesAndFillings,
+    bun: store.burgerConstructor.bun,
+  }));
 
+  useEffect(() => {
+    const theSameIngredientsAmount =
+      sausesAndFillings.filter((ingredient) => ingredient._id === props._id)
+        .length +
+      (bun._id === props._id);
 
+    setOrderCount(theSameIngredientsAmount);
+  }, [sausesAndFillings.length, bun._id]);
 
   function handleClick(event) {
     setIsDetailsHidden(false);
