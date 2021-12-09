@@ -19,14 +19,10 @@ const IngredientCard = (props) => {
   const [isDetailsHidden, setIsDetailsHidden] = React.useState(true);
 
 
-  const { totalPriceDispatcher } = React.useContext(TotalPriceContext);
+
 
   function handleClick(event) {
     setIsDetailsHidden(false);
-    totalPriceDispatcher({
-      type: "recalculate",
-      payload: props.price,
-    });
   }
 
   function handleModalClose() {
