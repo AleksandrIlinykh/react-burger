@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { useDrag, useDrop } from "react-dnd";
 import { ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-components";
 import { DragIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-
+import { burgerConstructorElementTypes } from "../../utils/types";
 import burgerConstructorElementStyles from "./burger-constructor-element.module.css";
 
 import {
@@ -11,7 +11,7 @@ import {
   moveIngredients,
 } from "../../services/actions/burger-constructor";
 
-export const BurgerConstructorElement = ({ name, price, image, index, id }) => {
+export const BurgerConstructorElement = ({ name, price, image, index }) => {
   const dispatch = useDispatch();
   const handleDeletingIngredient = () => {
     dispatch(deleteIngredient(index));
@@ -81,3 +81,6 @@ export const BurgerConstructorElement = ({ name, price, image, index, id }) => {
     </div>
   );
 };
+
+BurgerConstructorElement.propTypes = burgerConstructorElementTypes;
+
