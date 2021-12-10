@@ -66,7 +66,3 @@ export const ingredientDetailsTypes = {
   calories: PropTypes.number.isRequired,
 };
 
-
-export const burgerConstructorTypes = {
-	endpoint: PropTypes.string.isRequired
-}

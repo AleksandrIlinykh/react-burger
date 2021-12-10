@@ -1,8 +1,8 @@
+import { ENDPOINT } from "../../utils/api";
+
 export const GET_INGREDIENTS_REQUEST = "GET_INGREDIENTS_REQUEST";
 export const GET_INGREDIENTS_SUCCESS = "GET_INGREDIENTS_SUCCESS";
 export const GET_INGREDIENTS_ERROR = "GET_INGREDIENTS_ERROR";
-
-const ENDPOINT = "https://norma.nomoreparties.space";
 
 const getIngredientsRequest = () => {
   return {
@@ -24,7 +24,6 @@ const getIngredientsError = (error) => {
   };
 };
 
-
 export function getBurgerIngredients() {
   return function (dispatch) {
     dispatch(getIngredientsRequest());
@@ -41,6 +40,3 @@ export function getBurgerIngredients() {
       .then((data) => dispatch(getIngredientsSuccess(data.data)));
   };
 }
-
-
-

@@ -8,7 +8,6 @@ import BurgerConstructor from "../burger-constructor/burger-constructor";
 import appStyles from "./app.module.css";
 
 import { getBurgerIngredients } from "../../services/actions/burger-ingredients";
-const ENDPOINT = "https://norma.nomoreparties.space";
 
 function App() {
   const dispatch = useDispatch();
@@ -30,7 +29,7 @@ function App() {
             <BurgerIngredients />
           </div>
           <div className={appStyles.contentleft}>
-            <BurgerConstructor endpoint={ENDPOINT} />
+            <BurgerConstructor />
           </div>
         </div>
       </DndProvider>

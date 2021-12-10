@@ -1,14 +1,11 @@
+import { ENDPOINT } from "../../utils/api";
+
 export const ADD_INGREDIENT = "ADD_INGREDIENT";
 export const DELETE_INGREDIENT = "DELETE_INGREDIENT";
 export const MOVE_INGREDIENTS = "MOVE_INGREDIENTS";
-
 export const GET_ORDER_NUMBER_REQUEST = "GET_ORDER_NUMBER_REQUEST";
 export const GET_ORDER_NUMBER_SUCCESS = "GET_ORDER_NUMBER_SUCCESS";
 export const GET_ORDER_NUMBER_ERROR = "GET_ORDER_NUMBER_ERROR";
-
-
-
-const ENDPOINT = "https://norma.nomoreparties.space";
 
 export const addIngredient = (ingredient) => {
   return {
