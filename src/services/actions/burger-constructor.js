@@ -63,9 +63,14 @@ export function getOrderNumber(bodyData) {
           return res;
         } else {
           dispatch(getOrderNumberError);
+          throw new Error("Network response was not OK");
         }
       })
       .then((res) => res.json())
-      .then((data) => dispatch(getOrderNumberSuccess(data.order.number)));
+      .then((data) => dispatch(getOrderNumberSuccess(data.order.number)))
+      .catch((e) => {
+        console.log("Error: " + e.message);
+        console.log(e.response);
+      });
   };
 }
