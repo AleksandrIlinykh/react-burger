@@ -19,6 +19,19 @@ import {
 } from "../../services/actions/order-details";
 
 const BurgerConstructor = (props) => {
+
+  const dispatch = useDispatch();
+
+  const [, dropTarget] = useDrop({
+    accept: "ingredient",
+    collect: (monitor) => ({
+      isHover: monitor.isOver(),
+    }),
+    drop(item) {
+      dispatch(addIngredient(item.ingredient));
+    },
+  });
+
   const { bun, sausesAndFillings, totalPrice, isOrderDetailsActive } =
     useSelector((store) => ({
       bun: store.burgerConstructor.bun,
@@ -26,8 +39,6 @@ const BurgerConstructor = (props) => {
       totalPrice: store.burgerConstructor.totalPrice,
       isOrderDetailsActive: store.orderDetails.isOrderDetailsActive,
     }));
-
-  const dispatch = useDispatch();
 
   function handleMakeOrderClick(event) {
     const chosenIngredientsData = [bun, ...sausesAndFillings];
@@ -68,15 +79,7 @@ const BurgerConstructor = (props) => {
     </div>
   );
 
-  const [, dropTarget] = useDrop({
-    accept: "ingredient",
-    collect: (monitor) => ({
-      isHover: monitor.isOver(),
-    }),
-    drop(item) {
-      dispatch(addIngredient(item.ingredient));
-    },
-  });
+
 
   return (
     <>
