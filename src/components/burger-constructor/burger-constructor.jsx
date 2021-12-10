@@ -9,10 +9,9 @@ import { BurgerConstructorElement } from "../burger-constructor-element/burger-c
 import burgerConstructorStyles from "./burger-constructor.module.css";
 import Modal from "../modal/modal";
 import OrderDetails from "../order-details/order-details";
-import {
-  addIngredient,
-  getOrderNumber,
-} from "../../services/actions/burger-constructor";
+import { addIngredient } from "../../services/actions/burger-constructor";
+
+import { getOrderNumber } from "../../services/actions/order-data";
 import {
   showOrderDetails,
   hideOrderDetails,
