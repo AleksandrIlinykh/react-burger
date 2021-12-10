@@ -57,17 +57,10 @@ export const BurgerConstructorElement = ({ name, price, image, index }) => {
   drag(drop(ref));
 
   return (
-    <div
-      className={burgerConstructorElementStyles.dpopTarget}
-      ref={ref}
-      key={index}
-    >
-      <div className={draggingElementClassName} key={index + 2}>
-        <div
-          className={burgerConstructorElementStyles.dragIcon + " mr-3"}
-          key={index + 3}
-        >
-          <DragIcon type="primary" key={index + 4} />
+    <div className={burgerConstructorElementStyles.dpopTarget} ref={ref}>
+      <div className={draggingElementClassName}>
+        <div className={burgerConstructorElementStyles.dragIcon + " mr-3"}>
+          <DragIcon type="primary" />
         </div>
 
         <ConstructorElement
@@ -75,7 +68,6 @@ export const BurgerConstructorElement = ({ name, price, image, index }) => {
           price={price}
           thumbnail={image}
           handleClose={handleDeletingIngredient}
-          key={index + 5}
         />
       </div>
     </div>

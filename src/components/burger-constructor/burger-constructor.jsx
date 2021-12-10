@@ -1,4 +1,5 @@
 import React from "react";
+import { v4 as uuidv4 } from "uuid";
 import { useDispatch, useSelector } from "react-redux";
 import { useDrop } from "react-dnd";
 import { ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-components";
@@ -99,8 +100,7 @@ const BurgerConstructor = (props) => {
                   name={chosenIngredient.name}
                   price={chosenIngredient.price}
                   image={chosenIngredient.image}
-                  index={index}
-                  key={index}
+                  key={uuidv4()}
                   id={chosenIngredient._id}
                 />
               ))}
