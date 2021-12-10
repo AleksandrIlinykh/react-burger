@@ -62,7 +62,7 @@ export const BurgerConstructorElement = ({ name, price, image, index }) => {
       ref={ref}
       key={index}
     >
-      <div className={draggingElementClassName} ref={ref} key={index + 2}>
+      <div className={draggingElementClassName} key={index + 2}>
         <div
           className={burgerConstructorElementStyles.dragIcon + " mr-3"}
           key={index + 3}
