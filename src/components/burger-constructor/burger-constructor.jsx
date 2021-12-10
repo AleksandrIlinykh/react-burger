@@ -35,7 +35,6 @@ const BurgerConstructor = (props) => {
     (store) => ({
       bun: store.burgerConstructor.bun,
       sausesAndFillings: store.burgerConstructor.sausesAndFillings,
-      totalPrice: store.burgerConstructor.totalPrice,
       isOrderDetailsActive: store.orderDetails.isOrderDetailsActive,
     })
   );
@@ -79,6 +78,12 @@ const BurgerConstructor = (props) => {
     </div>
   );
 
+  const totalPrice =
+    (bun.hasOwnProperty("_id") && bun.price) +
+    (sausesAndFillings.length &&
+      sausesAndFillings
+        .map((elem) => elem.price)
+        .reduce((sum, price) => sum + price));
   return (
     <>
       {isOrderDetailsActive && (
@@ -115,13 +120,7 @@ const BurgerConstructor = (props) => {
                 burgerConstructorStyles.priceandconfirmation + " mt-10 mb-10"
               }
             >
-              <p className="text text_type_digits-medium">
-                {(bun.hasOwnProperty("_id") && bun.price) +
-                  (sausesAndFillings.length &&
-                    sausesAndFillings
-                      .map((elem) => elem.price)
-                      .reduce((sum, price) => sum + price))}
-              </p>
+              <p className="text text_type_digits-medium">{totalPrice}</p>
               <div className="mr-10">
                 <CurrencyIcon className="mr-10" type="primary" />
               </div>
