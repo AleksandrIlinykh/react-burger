@@ -31,13 +31,14 @@ const BurgerConstructor = (props) => {
     },
   });
 
-  const { bun, sausesAndFillings, totalPrice, isOrderDetailsActive } =
-    useSelector((store) => ({
+  const { bun, sausesAndFillings, isOrderDetailsActive } = useSelector(
+    (store) => ({
       bun: store.burgerConstructor.bun,
       sausesAndFillings: store.burgerConstructor.sausesAndFillings,
       totalPrice: store.burgerConstructor.totalPrice,
       isOrderDetailsActive: store.orderDetails.isOrderDetailsActive,
-    }));
+    })
+  );
 
   function handleMakeOrderClick(event) {
     const chosenIngredientsData = [bun, ...sausesAndFillings];
@@ -78,8 +79,6 @@ const BurgerConstructor = (props) => {
     </div>
   );
 
-
-
   return (
     <>
       {isOrderDetailsActive && (
@@ -95,9 +94,9 @@ const BurgerConstructor = (props) => {
         <>
           {!bun.hasOwnProperty("_id") || bunTopIngredient}
 
-          {!sausesAndFillings.length || (
-            <div className={burgerConstructorStyles.ingredientsconstructor}>
-              {sausesAndFillings.map((chosenIngredient, index) => (
+          <div className={burgerConstructorStyles.ingredientsconstructor}>
+            {!sausesAndFillings.length ||
+              sausesAndFillings.map((chosenIngredient, index) => (
                 <BurgerConstructorElement
                   name={chosenIngredient.name}
                   price={chosenIngredient.price}
@@ -106,18 +105,23 @@ const BurgerConstructor = (props) => {
                   id={chosenIngredient._id}
                 />
               ))}
-            </div>
-          )}
+          </div>
 
           {!bun.hasOwnProperty("_id") || bunBottomIngredient}
 
-          {!totalPrice || (
+          {
             <div
               className={
                 burgerConstructorStyles.priceandconfirmation + " mt-10 mb-10"
               }
             >
-              <p className="text text_type_digits-medium">{totalPrice}</p>
+              <p className="text text_type_digits-medium">
+                {(bun.hasOwnProperty("_id") && bun.price) +
+                  (sausesAndFillings.length &&
+                    sausesAndFillings
+                      .map((elem) => elem.price)
+                      .reduce((sum, price) => sum + price))}
+              </p>
               <div className="mr-10">
                 <CurrencyIcon className="mr-10" type="primary" />
               </div>
@@ -131,7 +135,7 @@ const BurgerConstructor = (props) => {
                 </Button>
               </div>
             </div>
-          )}
+          }
         </>
       </div>
     </>

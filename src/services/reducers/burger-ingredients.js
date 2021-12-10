@@ -22,7 +22,7 @@ export const ingredientsReducer = (state = ingredientsInitialState, action) => {
       return { ...state, ingredients: action.payload, loading: false };
     }
     case GET_INGREDIENTS_ERROR: {
-      return { ...state, error: true, loading: false };
+      return { ...ingredientsInitialState, error: true, loading: false };
     }
     default:
       return state;

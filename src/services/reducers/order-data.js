@@ -24,7 +24,7 @@ export const orderDataReducer = (state = initialStateOrder, action) => {
     }
 
     case GET_ORDER_NUMBER_ERROR: {
-      return { ...state, error: true, loading: false };
+      return { ...initialStateOrder, error: true, loading: false };
     }
 
     default:
