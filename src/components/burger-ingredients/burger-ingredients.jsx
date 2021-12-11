@@ -8,7 +8,6 @@ import Modal from "../modal/modal";
 import IngredientDetails from "../ingredient-details/ingredient-details";
 
 const BurgerIngredients = () => {
-  const [bunCounter, setBunCounter] = React.useState(0);
   const [activeTabLink, setactiveTabLink] = React.useState("bun");
 
   const { iSIngredientDetailsActive, ingredientDetailsId, ingredients } =
@@ -108,7 +107,6 @@ const BurgerIngredients = () => {
                         _id={cardData._id}
                         key={cardData._id}
                         type={cardData.type}
-                        bunCounter={bunCounter}
                       />
                     </div>
                   ))}
@@ -176,7 +174,7 @@ const BurgerIngredients = () => {
         </div>
       </>
     );
-  }, [isLoading, bunCounter, ingredients]);
+  }, [isLoading, ingredients]);
 
   const dispatch = useDispatch();
   const handleModalClose = () => {
