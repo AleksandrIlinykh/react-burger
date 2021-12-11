@@ -11,15 +11,15 @@
 
 .element {
 	display: flex;
-  align-items: center;
-  justify-content: center;
+  	align-items: center;
+  	justify-content: center;
 	min-width: 600px;
 }
 
 .dpopTarget {
 	display: flex;
-  align-items: center;
-  justify-content: center;
+  	align-items: center;
+  	justify-content: center;
 }
 
 .dragIcon {
