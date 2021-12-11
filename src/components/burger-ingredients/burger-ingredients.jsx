@@ -1,11 +1,11 @@
 import React, { useMemo, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
-import IngredientCard from "../ingredient-card/ingredient-card";
 import burgerIngredientsStyles from "./burger-ingredients.module.css";
 import { hideIngredientDetails } from "../../services/actions/ingredient-details";
 import Modal from "../modal/modal";
 import IngredientDetails from "../ingredient-details/ingredient-details";
+import BurgerIngredientsContainer from "../burger-ingredients-container/burger-ingredients-container";
 
 const BurgerIngredients = () => {
   const [activeTabLink, setactiveTabLink] = React.useState("bun");
@@ -76,103 +76,25 @@ const BurgerIngredients = () => {
 
   const content = useMemo(() => {
     return (
-      <>
-        <div
-          className={burgerIngredientsStyles.ingredientscontainer}
-          onScroll={onScroll}
-        >
-          <div>
-            <h1 className="mt-10" id="bun" ref={refBun}>
-              Булки
-            </h1>
-            <div className="ml-4 mt-6 mb-10">
-              <div
-                className={burgerIngredientsStyles.ingredientconteinercontent}
-              >
-                {ingredients
-                  .filter((cardData) => cardData.type === "bun")
-                  .map((cardData, index) => (
-                    <div key={cardData._id}>
-                      <IngredientCard
-                        image={cardData.image}
-                        image_large={cardData.image_large}
-                        name={cardData.name}
-                        price={cardData.price}
-                        calories={cardData.calories}
-                        proteins={cardData.proteins}
-                        fat={cardData.fat}
-                        carbohydrates={cardData.carbohydrates}
-                        _id={cardData._id}
-                        key={cardData._id}
-                        type={cardData.type}
-                      />
-                    </div>
-                  ))}
-              </div>
-            </div>
-          </div>
-          <div>
-            <h1 className="mt-10" id="sauce" ref={refSauce}>
-              Соусы
-            </h1>
-            <div className="ml-4 mt-6 mb-10">
-              <div
-                className={burgerIngredientsStyles.ingredientconteinercontent}
-              >
-                {ingredients
-                  .filter((cardData) => cardData.type === "sauce")
-                  .map((cardData, index) => (
-                    <div key={cardData._id}>
-                      <IngredientCard
-                        image={cardData.image}
-                        image_large={cardData.image_large}
-                        name={cardData.name}
-                        price={cardData.price}
-                        calories={cardData.calories}
-                        proteins={cardData.proteins}
-                        fat={cardData.fat}
-                        carbohydrates={cardData.carbohydrates}
-                        _id={cardData._id}
-                        key={cardData._id}
-                      />
-                    </div>
-                  ))}
-              </div>
-            </div>
-          </div>
-          <div>
-            <h1 className="mt-10" id="main" ref={refFilling}>
-              Начинки
-            </h1>
-            <div className="ml-4 mt-6 mb-10">
-              <div
-                className={burgerIngredientsStyles.ingredientconteinercontent}
-              >
-                {ingredients
-                  .filter((cardData) => cardData.type === "main")
-                  .map((cardData, index) => (
-                    <div key={cardData._id}>
-                      <IngredientCard
-                        image={cardData.image}
-                        image_large={cardData.image_large}
-                        name={cardData.name}
-                        price={cardData.price}
-                        calories={cardData.calories}
-                        proteins={cardData.proteins}
-                        fat={cardData.fat}
-                        carbohydrates={cardData.carbohydrates}
-                        _id={cardData._id}
-                        key={cardData._id}
-                      />
-                    </div>
-                  ))}
-              </div>
-            </div>
-          </div>
-        </div>
-      </>
+      <div className={burgerIngredientsStyles.ingredients} onScroll={onScroll}>
+        <BurgerIngredientsContainer
+          header={"Булки"}
+          type={"bun"}
+          reference={refBun}
+        />
+        <BurgerIngredientsContainer
+          header={"Соусы"}
+          type={"sauce"}
+          reference={refSauce}
+        />
+        <BurgerIngredientsContainer
+          header={"Начинки"}
+          type={"main"}
+          reference={refFilling}
+        />
+      </div>
     );
-  }, [isLoading, ingredients]);
+  }, [ingredients]);
 
   const dispatch = useDispatch();
   const handleModalClose = () => {
