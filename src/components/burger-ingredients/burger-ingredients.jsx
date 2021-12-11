@@ -74,12 +74,6 @@ const BurgerIngredients = () => {
     }
   };
 
-  const loader = () => {
-    if (isLoading) {
-      return <p className="text text_type_main-large">Загрузка...</p>;
-    }
-  };
-
   const content = useMemo(() => {
     return (
       <>
@@ -247,7 +241,6 @@ const BurgerIngredients = () => {
           </a>
         </Tab>
       </div>
-      {loader}
       {content}
     </>
   );
