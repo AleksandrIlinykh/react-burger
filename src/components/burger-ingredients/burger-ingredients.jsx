@@ -8,17 +8,8 @@ import Modal from "../modal/modal";
 import IngredientDetails from "../ingredient-details/ingredient-details";
 
 const BurgerIngredients = () => {
-  const [current, setCurrent] = React.useState("one");
   const [bunCounter, setBunCounter] = React.useState(0);
-  const [link1Style, setLink1Style] = React.useState(
-    burgerIngredientsStyles.linkactive
-  );
-  const [link2Style, setLink2Style] = React.useState(
-    burgerIngredientsStyles.linkinactive
-  );
-  const [link3Style, setLink3Style] = React.useState(
-    burgerIngredientsStyles.linkinactive
-  );
+  const [activeTabLink, setactiveTabLink] = React.useState("bun");
 
   const { iSIngredientDetailsActive, ingredientDetailsId, ingredients } =
     useSelector((store) => ({
@@ -29,24 +20,18 @@ const BurgerIngredients = () => {
     }));
 
   function handleTab(e) {
-    setCurrent(e);
     switch (e) {
       case "one":
-        setLink1Style(burgerIngredientsStyles.linkactive);
-        setLink2Style(burgerIngredientsStyles.linkinactive);
-        setLink3Style(burgerIngredientsStyles.linkinactive);
+        setactiveTabLink("bun");
         break;
       case "two":
-        setLink1Style(burgerIngredientsStyles.linkinactive);
-        setLink2Style(burgerIngredientsStyles.linkactive);
-        setLink3Style(burgerIngredientsStyles.linkinactive);
+        setactiveTabLink("sauces");
         break;
       case "three":
-        setLink1Style(burgerIngredientsStyles.linkinactive);
-        setLink2Style(burgerIngredientsStyles.linkinactive);
-        setLink3Style(burgerIngredientsStyles.linkactive);
+        setactiveTabLink("fillings");
         break;
       default:
+        setactiveTabLink("bun");
         break;
     }
   }
@@ -72,27 +57,21 @@ const BurgerIngredients = () => {
       Math.abs(bunPosition) < Math.abs(saucePosition) &&
       Math.abs(bunPosition) < Math.abs(fillingPosition)
     ) {
-      setLink1Style(burgerIngredientsStyles.linkactive);
-      setLink2Style(burgerIngredientsStyles.linkinactive);
-      setLink3Style(burgerIngredientsStyles.linkinactive);
+      setactiveTabLink("bun");
     }
 
     if (
       Math.abs(saucePosition) < Math.abs(bunPosition) &&
       Math.abs(saucePosition) < Math.abs(fillingPosition)
     ) {
-      setLink1Style(burgerIngredientsStyles.linkinactive);
-      setLink2Style(burgerIngredientsStyles.linkactive);
-      setLink3Style(burgerIngredientsStyles.linkinactive);
+      setactiveTabLink("sauces");
     }
 
     if (
       Math.abs(fillingPosition) < Math.abs(bunPosition) &&
       Math.abs(fillingPosition) < Math.abs(saucePosition)
     ) {
-      setLink1Style(burgerIngredientsStyles.linkinactive);
-      setLink2Style(burgerIngredientsStyles.linkinactive);
-      setLink3Style(burgerIngredientsStyles.linkactive);
+      setactiveTabLink("fillings");
     }
   };
 
@@ -129,7 +108,6 @@ const BurgerIngredients = () => {
                         _id={cardData._id}
                         key={cardData._id}
                         type={cardData.type}
-                        setBunCounter={setBunCounter}
                         bunCounter={bunCounter}
                       />
                     </div>
@@ -225,20 +203,43 @@ const BurgerIngredients = () => {
       )}
 
       <div className={burgerIngredientsStyles.tab}>
-        <Tab value="one" active={current === "one"} onClick={handleTab}>
-          <a className={link1Style} href="#bun">
+        <Tab value="one" active={activeTabLink === "bun"} onClick={handleTab}>
+          <a
+            className={`${burgerIngredientsStyles.linkinactive} ${
+              activeTabLink === "bun" && burgerIngredientsStyles.linkactive
+            }`}
+            href="#bun"
+          >
             {" "}
             Булки{" "}
           </a>
         </Tab>
-        <Tab value="two" active={current === "two"} onClick={handleTab}>
-          <a className={link2Style} href="#sauce">
+        <Tab
+          value="two"
+          active={activeTabLink === "sauces"}
+          onClick={handleTab}
+        >
+          <a
+            className={`${burgerIngredientsStyles.linkinactive} ${
+              activeTabLink === "sauces" && burgerIngredientsStyles.linkactive
+            }`}
+            href="#sauce"
+          >
             {" "}
             Соусы{" "}
           </a>
         </Tab>
-        <Tab value="three" active={current === "three"} onClick={handleTab}>
-          <a className={link3Style} href="#main">
+        <Tab
+          value="three"
+          active={activeTabLink === "fillings"}
+          onClick={handleTab}
+        >
+          <a
+            className={`${burgerIngredientsStyles.linkinactive} ${
+              activeTabLink === "fillings" && burgerIngredientsStyles.linkactive
+            }`}
+            href="#main"
+          >
             {" "}
             Начинки{" "}
           </a>

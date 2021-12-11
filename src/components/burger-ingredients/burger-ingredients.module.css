@@ -17,10 +17,12 @@
 }
 
 
-.linkactive {
-	color: #ffffff;
-}
+
 
 .linkinactive {
 	color: #8585AD;
+}
+
+.linkactive {
+	color: #ffffff;
 }

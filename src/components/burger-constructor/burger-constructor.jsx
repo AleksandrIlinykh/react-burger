@@ -1,5 +1,4 @@
 import React from "react";
-import { v4 as uuidv4 } from "uuid";
 import { useDispatch, useSelector } from "react-redux";
 import { useDrop } from "react-dnd";
 import { ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-components";
@@ -18,7 +17,6 @@ import {
 } from "../../services/actions/order-details";
 
 const BurgerConstructor = (props) => {
-
   const dispatch = useDispatch();
 
   const [, dropTarget] = useDrop({
@@ -39,7 +37,7 @@ const BurgerConstructor = (props) => {
     })
   );
 
-  function handleMakeOrderClick(event) {
+  function handleMakeOrderClick() {
     const chosenIngredientsData = [bun, ...sausesAndFillings];
     const bodyData = {
       ingredients: chosenIngredientsData.map(
@@ -106,8 +104,8 @@ const BurgerConstructor = (props) => {
                   name={chosenIngredient.name}
                   price={chosenIngredient.price}
                   image={chosenIngredient.image}
-                  key={uuidv4()}
-                  id={chosenIngredient._id}
+                  key={chosenIngredient._id}
+                  index={index}
                 />
               ))}
           </div>
