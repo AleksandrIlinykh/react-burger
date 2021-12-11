@@ -1,4 +1,4 @@
-import React, { useMemo, useRef } from "react";
+import React, { useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import burgerIngredientsStyles from "./burger-ingredients.module.css";
@@ -35,10 +35,6 @@ const BurgerIngredients = () => {
     }
   }
 
-  const { isLoading } = useSelector((state) => ({
-    isLoading: state.burgerIngredients.loading,
-  }));
-
   //---------------------------------------------------------------------
   //scroll
   const refBun = useRef(null);
@@ -73,28 +69,6 @@ const BurgerIngredients = () => {
       setactiveTabLink("fillings");
     }
   };
-
-  const content = useMemo(() => {
-    return (
-      <div className={burgerIngredientsStyles.ingredients} onScroll={onScroll}>
-        <BurgerIngredientsContainer
-          header={"Булки"}
-          type={"bun"}
-          reference={refBun}
-        />
-        <BurgerIngredientsContainer
-          header={"Соусы"}
-          type={"sauce"}
-          reference={refSauce}
-        />
-        <BurgerIngredientsContainer
-          header={"Начинки"}
-          type={"main"}
-          reference={refFilling}
-        />
-      </div>
-    );
-  }, [ingredients]);
 
   const dispatch = useDispatch();
   const handleModalClose = () => {
@@ -163,7 +137,23 @@ const BurgerIngredients = () => {
           </a>
         </Tab>
       </div>
-      {content}
+      <div className={burgerIngredientsStyles.ingredients} onScroll={onScroll}>
+        <BurgerIngredientsContainer
+          header={"Булки"}
+          type={"bun"}
+          reference={refBun}
+        />
+        <BurgerIngredientsContainer
+          header={"Соусы"}
+          type={"sauce"}
+          reference={refSauce}
+        />
+        <BurgerIngredientsContainer
+          header={"Начинки"}
+          type={"main"}
+          reference={refFilling}
+        />
+      </div>
     </>
   );
 };
