@@ -1,0 +1,32 @@
+.ingredientsconstructor
+{
+	display: flex;
+	flex-direction: column;
+	overflow-y: auto;
+	min-height: 0;
+	overflow-x:hidden;
+	flex-grow: 1;
+	gap: 10px;
+}
+
+.element {
+	display: flex;
+  	align-items: center;
+  	justify-content: center;
+	min-width: 600px;
+}
+
+.dpopTarget {
+	display: flex;
+  	align-items: center;
+  	justify-content: center;
+}
+
+.dragIcon {
+	display: flex;
+	align-items: center;
+}
+
+.onDrugging{
+	opacity: 0.5;
+}

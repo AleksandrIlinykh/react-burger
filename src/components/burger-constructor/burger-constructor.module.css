@@ -9,7 +9,6 @@
 	gap: 10px;
 }
 
-
 .container{
 	flex-grow: 1;
 	display: flex;
@@ -19,10 +18,10 @@
 	min-height: 0;
 }
 
-
-
 .element {
 	display: flex;
+
+	
 }
 
 .priceandconfirmation {
@@ -30,4 +29,14 @@
 	align-items: center;
 	justify-self: flex-end;
 	align-self: flex-end;
+}
+
+.dragIcon {
+	display: flex;
+	align-items: center;
+}
+
+.isHover{
+	border-style: solid;
+	border-color: rgb(102, 134, 134);
 }

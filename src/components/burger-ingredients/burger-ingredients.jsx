@@ -1,106 +1,161 @@
-import React from 'react';
+import React, { useRef } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
+import burgerIngredientsStyles from "./burger-ingredients.module.css";
+import { hideIngredientDetails } from "../../services/actions/ingredient-details";
+import Modal from "../modal/modal";
+import IngredientDetails from "../ingredient-details/ingredient-details";
+import BurgerIngredientsContainer from "../burger-ingredients-container/burger-ingredients-container";
 
-import { Tab } from '@ya.praktikum/react-developer-burger-ui-components'
-import IngredientCard from '../ingredient-card/ingredient-card';
-import { ingredientsTypes } from "../../utils/types"
-import burgerIngredientsStyles from './burger-ingredients.module.css';
+const BurgerIngredients = () => {
+  const [activeTabLink, setactiveTabLink] = React.useState("bun");
 
-const BurgerIngredients = (props) => {
-	const [current, setCurrent] = React.useState('one')
+  const { iSIngredientDetailsActive, ingredientDetailsId, ingredients } =
+    useSelector((store) => ({
+      ingredientDetailsId: store.ingredientDetails.ingredientDetailsId,
+      iSIngredientDetailsActive:
+        store.ingredientDetails.iSIngredientDetailsActive,
+      ingredients: store.burgerIngredients.ingredients,
+    }));
 
-	function handleTab(e) {
-		setCurrent(e);
-	}
+  function handleTab(e) {
+    switch (e) {
+      case "one":
+        setactiveTabLink("bun");
+        break;
+      case "two":
+        setactiveTabLink("sauces");
+        break;
+      case "three":
+        setactiveTabLink("fillings");
+        break;
+      default:
+        setactiveTabLink("bun");
+        break;
+    }
+  }
 
-	return (
-		<>
-			<div className={burgerIngredientsStyles.tab}>
-				<Tab value="one" active={current === 'one'} onClick={handleTab}>
-					<a className={burgerIngredientsStyles.linkactive} href="#bun"> Булки </a>
-				</Tab>
-				<Tab value="two" active={current === 'two'} onClick={handleTab}>
-					<a className={burgerIngredientsStyles.linkinactive} href="#sauce"> Соусы </a>
-				</Tab>
-				<Tab value="three" active={current === 'three'} onClick={handleTab}>
-					<a className={burgerIngredientsStyles.linkinactive} href="#main"> Начинки </a>
-				</Tab>
-			</div>
-			<div className={burgerIngredientsStyles.ingredientscontainer}>
-				<div>
-					<h1 className="mt-10" id="bun">Булки</h1>
-					<div className="ml-4 mt-6 mb-10">
-						<div className={burgerIngredientsStyles.ingredientconteinercontent}>
-							{
-								props.data.filter(
-									cardData =>
-										// note: this is only passed when in top level of document
-										cardData.type === "bun"
-								)
-									.map((cardData, index) => (
-										<div key={cardData._id}>
-											<IngredientCard image={cardData.image} image_large={cardData.image_large}
-												name={cardData.name} price={cardData.price} calories={cardData.calories}
-												proteins={cardData.proteins} fat={cardData.fat}
-												carbohydrates={cardData.carbohydrates}
-												key={cardData._id} />
-										</div>
-									))
-							}
-						</div>
-					</div>
-				</div>
-				<div>
-					<h1 className="mt-10" id="sauce">Соусы</h1>
-					<div className="ml-4 mt-6 mb-10">
-						<div className={burgerIngredientsStyles.ingredientconteinercontent}>
-							{
-								props.data.filter(
-									cardData =>
-										// note: this is only passed when in top level of document
-										cardData.type === "sauce"
-								)
-									.map((cardData, index) => (
-										<div key={cardData._id}>
-											<IngredientCard image={cardData.image} image_large={cardData.image_large}
-												name={cardData.name} price={cardData.price} calories={cardData.calories}
-												proteins={cardData.proteins} fat={cardData.fat}
-												carbohydrates={cardData.carbohydrates}
-												key={cardData._id} />
-										</div>
-									))
-							}
-						</div>
-					</div>
-				</div>
-				<div>
-					<h1 className="mt-10" id="main">Начинки</h1>
-					<div className="ml-4 mt-6 mb-10">
-						<div className={burgerIngredientsStyles.ingredientconteinercontent}>
-							{
-								props.data.filter(
-									cardData =>
-										// note: this is only passed when in top level of document
-										cardData.type === "main"
-								)
-									.map((cardData, index) => (
-										<div key={cardData._id}>
-											<IngredientCard image={cardData.image} image_large={cardData.image_large}
-												name={cardData.name} price={cardData.price} calories={cardData.calories}
-												proteins={cardData.proteins} fat={cardData.fat}
-												carbohydrates={cardData.carbohydrates}
-												key={cardData._id} />
-										</div>
-									))
-							}
-						</div>
-					</div>
-				</div>
-			</div>
-		</>
-	)
-}
+  //---------------------------------------------------------------------
+  //scroll
+  const refBun = useRef(null);
+  const refSauce = useRef(null);
+  const refFilling = useRef(null);
 
-BurgerIngredients.propTypes = ingredientsTypes;
+  const onScroll = (e) => {
+    const bunPosition = refBun.current.getBoundingClientRect().top - 300;
+    const saucePosition = refSauce.current.getBoundingClientRect().top - 300;
+    const fillingPosition =
+      refFilling.current.getBoundingClientRect().top - 300;
+    console.log(`${bunPosition}, ${saucePosition}, ${fillingPosition}`);
+
+    if (
+      Math.abs(bunPosition) < Math.abs(saucePosition) &&
+      Math.abs(bunPosition) < Math.abs(fillingPosition)
+    ) {
+      setactiveTabLink("bun");
+    }
+
+    if (
+      Math.abs(saucePosition) < Math.abs(bunPosition) &&
+      Math.abs(saucePosition) < Math.abs(fillingPosition)
+    ) {
+      setactiveTabLink("sauces");
+    }
+
+    if (
+      Math.abs(fillingPosition) < Math.abs(bunPosition) &&
+      Math.abs(fillingPosition) < Math.abs(saucePosition)
+    ) {
+      setactiveTabLink("fillings");
+    }
+  };
+
+  const dispatch = useDispatch();
+  const handleModalClose = () => {
+    dispatch(hideIngredientDetails());
+  };
+  const ingredientDetailsData = ingredients.filter(
+    (ingredient) => ingredient._id === ingredientDetailsId
+  )[0];
+
+  return (
+    <>
+      {!iSIngredientDetailsActive || (
+        <Modal handleModalClose={handleModalClose}>
+          <IngredientDetails
+            image={ingredientDetailsData.image}
+            image_large={ingredientDetailsData.image_large}
+            name={ingredientDetailsData.name}
+            calories={ingredientDetailsData.calories}
+            proteins={ingredientDetailsData.proteins}
+            fat={ingredientDetailsData.fat}
+            carbohydrates={ingredientDetailsData.carbohydrates}
+          />
+        </Modal>
+      )}
+
+      <div className={burgerIngredientsStyles.tab}>
+        <Tab value="one" active={activeTabLink === "bun"} onClick={handleTab}>
+          <a
+            className={`${burgerIngredientsStyles.linkinactive} ${
+              activeTabLink === "bun" && burgerIngredientsStyles.linkactive
+            }`}
+            href="#bun"
+          >
+            {" "}
+            Булки{" "}
+          </a>
+        </Tab>
+        <Tab
+          value="two"
+          active={activeTabLink === "sauces"}
+          onClick={handleTab}
+        >
+          <a
+            className={`${burgerIngredientsStyles.linkinactive} ${
+              activeTabLink === "sauces" && burgerIngredientsStyles.linkactive
+            }`}
+            href="#sauce"
+          >
+            {" "}
+            Соусы{" "}
+          </a>
+        </Tab>
+        <Tab
+          value="three"
+          active={activeTabLink === "fillings"}
+          onClick={handleTab}
+        >
+          <a
+            className={`${burgerIngredientsStyles.linkinactive} ${
+              activeTabLink === "fillings" && burgerIngredientsStyles.linkactive
+            }`}
+            href="#main"
+          >
+            {" "}
+            Начинки{" "}
+          </a>
+        </Tab>
+      </div>
+      <div className={burgerIngredientsStyles.ingredients} onScroll={onScroll}>
+        <BurgerIngredientsContainer
+          header={"Булки"}
+          type={"bun"}
+          reference={refBun}
+        />
+        <BurgerIngredientsContainer
+          header={"Соусы"}
+          type={"sauce"}
+          reference={refSauce}
+        />
+        <BurgerIngredientsContainer
+          header={"Начинки"}
+          type={"main"}
+          reference={refFilling}
+        />
+      </div>
+    </>
+  );
+};
 
 export default BurgerIngredients;
-

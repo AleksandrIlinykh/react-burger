@@ -2,7 +2,7 @@
 	display: flex;
 }
 
-.ingredientscontainer {
+.ingredients {
 	flex-grow: 1;
 	overflow-y: auto;
 	min-height: 0;
@@ -17,10 +17,12 @@
 }
 
 
-.linkactive {
-	color: #ffffff;
-}
+
 
 .linkinactive {
 	color: #8585AD;
+}
+
+.linkactive {
+	color: #ffffff;
 }

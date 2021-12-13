@@ -1,92 +1,142 @@
-import React from 'react';
+import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useDrop } from "react-dnd";
+import { ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-components";
+import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
+import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
+import { BurgerConstructorElement } from "../burger-constructor-element/burger-constructor-element";
+import burgerConstructorStyles from "./burger-constructor.module.css";
+import Modal from "../modal/modal";
+import OrderDetails from "../order-details/order-details";
+import { addIngredient } from "../../services/actions/burger-constructor";
 
-import { ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-components'
-import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components'
-import { Button } from '@ya.praktikum/react-developer-burger-ui-components'
-import burgerConstructorStyles from './burger-constructor.module.css';
-import { ingredientsTypes } from '../../utils/types'
-import Modal from '../modal/modal'
-import OrderDetails from '../order-details/order-details'
+import { getOrderNumber } from "../../services/actions/order-data";
+import {
+  showOrderDetails,
+  hideOrderDetails,
+} from "../../services/actions/order-details";
 
 const BurgerConstructor = (props) => {
-	const [IsDetailsHidden, setIsDetailsHidden] = React.useState(true)
+  const dispatch = useDispatch();
 
-	const topElement = props.data.slice(0, 1)[0];
-	const bottomElement = props.data.slice(-1)[0];
+  const [, dropTarget] = useDrop({
+    accept: "ingredient",
+    collect: (monitor) => ({
+      isHover: monitor.isOver(),
+    }),
+    drop(item) {
+      dispatch(addIngredient(item.ingredient));
+    },
+  });
 
-	function handleMakeOrderClick(event) {
-		setIsDetailsHidden(false);
-	}
+  const { bun, sausesAndFillings, isOrderDetailsActive } = useSelector(
+    (store) => ({
+      bun: store.burgerConstructor.bun,
+      sausesAndFillings: store.burgerConstructor.sausesAndFillings,
+      isOrderDetailsActive: store.orderDetails.isOrderDetailsActive,
+    })
+  );
 
-	function handleModalClose() {
-		setIsDetailsHidden(1);
-	}
+  function handleMakeOrderClick() {
+    const chosenIngredientsData = [bun, ...sausesAndFillings];
+    const bodyData = {
+      ingredients: chosenIngredientsData.map(
+        (ingredientData) => ingredientData._id
+      ),
+    };
+    dispatch(getOrderNumber(bodyData));
+    dispatch(showOrderDetails());
+  }
 
-	return (
-		<>
-			{!IsDetailsHidden &&
-				(
-					<Modal stasus={setIsDetailsHidden} handleModalClose={handleModalClose}>
-						<OrderDetails />
-					</Modal>
-				)
-			}
-			<div className={burgerConstructorStyles.container + " mt-25 ml-16"}>
-				<div className={burgerConstructorStyles.element}>
-					<ConstructorElement
-						type="top"
-						isLocked
-						text={topElement.name + " (верх)"}
-						price={topElement.price}
-						thumbnail={topElement.image}
-					/>
-				</div>
-				<div className={burgerConstructorStyles.ingredientsconstructor}>
-					{
-						props.data.slice(1, -1)
-							.map((ingredientData, index) =>
-								<div className={burgerConstructorStyles.element} key={index}>
-									<ConstructorElement
-										text={ingredientData.name}
-										price={ingredientData.price}
-										thumbnail={ingredientData.image}
-										key={ingredientData._id}
-									/>
-								</div>
-							)
-					}
-				</div>
-				<div className={burgerConstructorStyles.element}>
-					<ConstructorElement
-						type="bottom"
-						isLocked
-						text={bottomElement.name + " (низ)"}
-						price={bottomElement.price}
-						thumbnail={bottomElement.image}
-					/>
-				</div>
-				<div className={burgerConstructorStyles.priceandconfirmation + " mt-10 mb-10"}>
-					<p className="text text_type_digits-medium">
-						{
-							props.data.map((elem) => elem.price)
-								.reduce((sum, price) => (sum + price))
-						}
-					</p>
-					<div className="mr-10">
-						<CurrencyIcon className="mr-10" type="primary" />
-					</div>
-					<div className="mr-8">
-						<Button onClick={handleMakeOrderClick} type="primary" size="large">
-							Оформить заказ
-						</Button>
-					</div>
-				</div>
-			</div>
-		</>
-	)
+  function handleModalClose() {
+    dispatch(hideOrderDetails());
+  }
 
-}
+  const bunTopIngredient = (
+    <div className={burgerConstructorStyles.element + " pl-8"}>
+      <ConstructorElement
+        type="top"
+        isLocked
+        text={bun.name + " (верх)"}
+        price={bun.price}
+        thumbnail={bun.image}
+      />
+    </div>
+  );
 
-BurgerConstructor.propTypes = ingredientsTypes;
+  const bunBottomIngredient = (
+    <div className={burgerConstructorStyles.element + " pl-8"}>
+      <ConstructorElement
+        type="bottom"
+        isLocked
+        text={bun.name + " (низ)"}
+        price={bun.price}
+        thumbnail={bun.image}
+      />
+    </div>
+  );
+
+  const totalPrice =
+    (bun.hasOwnProperty("_id") && bun.price) +
+    (sausesAndFillings.length &&
+      sausesAndFillings
+        .map((elem) => elem.price)
+        .reduce((sum, price) => sum + price));
+  return (
+    <>
+      {isOrderDetailsActive && (
+        <Modal handleModalClose={handleModalClose}>
+          <OrderDetails />
+        </Modal>
+      )}
+
+      <div
+        className={burgerConstructorStyles.container + " mt-25 ml-16"}
+        ref={dropTarget}
+      >
+        <>
+          {!bun.hasOwnProperty("_id") || bunTopIngredient}
+
+          <div className={burgerConstructorStyles.ingredientsconstructor}>
+            {!sausesAndFillings.length ||
+              sausesAndFillings.map((chosenIngredient, index) => (
+                <BurgerConstructorElement
+                  name={chosenIngredient.name}
+                  price={chosenIngredient.price}
+                  image={chosenIngredient.image}
+                  key={chosenIngredient._id}
+                  index={index}
+                />
+              ))}
+          </div>
+
+          {!bun.hasOwnProperty("_id") || bunBottomIngredient}
+
+          {
+            <div
+              className={
+                burgerConstructorStyles.priceandconfirmation + " mt-10 mb-10"
+              }
+            >
+              <p className="text text_type_digits-medium">{totalPrice}</p>
+              <div className="mr-10">
+                <CurrencyIcon className="mr-10" type="primary" />
+              </div>
+              <div className="mr-8">
+                <Button
+                  onClick={handleMakeOrderClick}
+                  type="primary"
+                  size="large"
+                >
+                  Оформить заказ
+                </Button>
+              </div>
+            </div>
+          }
+        </>
+      </div>
+    </>
+  );
+};
 
 export default BurgerConstructor;
