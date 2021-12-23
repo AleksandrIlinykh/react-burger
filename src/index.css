@@ -6,6 +6,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  height: 100%;
 }
 
 code {
@@ -25,6 +26,7 @@ code {
 
 html {
   overflow-x:hidden;
+  height: 100%;
 }
 
 a {

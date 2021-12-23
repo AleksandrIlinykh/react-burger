@@ -6,9 +6,13 @@ import { HTML5Backend } from "react-dnd-html5-backend";
 import BurgerIngredients from "../burger-ingredients/burger-ingredients";
 import BurgerConstructor from "../burger-constructor/burger-constructor";
 import appStyles from "./app.module.css";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 import { getBurgerIngredients } from "../../services/actions/burger-ingredients";
-
+import LogIn from "../auth/log-in/log-in";
+import Registration from "../auth/registration/registration";
+import PasswordRecovery from "../auth/password-recovery/password-recovery";
+import PasswordUpdating from "../auth/password-updating/password-updating";
 function App() {
   const dispatch = useDispatch();
 
@@ -17,6 +21,27 @@ function App() {
   }, [dispatch]);
 
   return (
+    <>
+      <AppHeader />
+      <Router>
+        <Switch>
+          <Route path="/login">
+            <LogIn />
+          </Route>
+          <Route path="/registration">
+            <Registration />
+          </Route>
+          <Route path="/forgot-password">
+            <PasswordRecovery />
+          </Route>
+          <Route path="/password-updating">
+            <PasswordUpdating />
+          </Route>
+        </Switch>
+      </Router>
+    </>
+
+    /*
     <>
       <AppHeader />
       <DndProvider backend={HTML5Backend}>
@@ -34,6 +59,7 @@ function App() {
         </div>
       </DndProvider>
     </>
+    */
   );
 }
 
