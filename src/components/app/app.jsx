@@ -24,9 +24,8 @@ function App() {
 
   return (
     <>
-      <AppHeader />
-
       <Router>
+        <AppHeader />
         <Switch>
           <Route path="/login">
             <LogIn />
