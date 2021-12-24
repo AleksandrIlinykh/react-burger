@@ -5,7 +5,7 @@ import {
   Input,
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { registration } from "../../../services/actions/auth/registration";
+import { registration } from "../../../services/actions/auth/authActions";
 import registrationStyles from "./registration.module.css";
 
 function Registration() {

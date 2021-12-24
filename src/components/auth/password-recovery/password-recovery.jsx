@@ -1,18 +1,31 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import {
   Input,
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import passwordRecoveryStyles from "./password-recovery.module.css";
+import { recoverPassword } from "../../../services/actions/auth/authActions";
 
 function PasswordRecovery() {
-  const [value, setValue] = React.useState("value");
-  const inputRef = React.useRef(null);
+  const [email, setEmail] = React.useState("value");
+  const emailRef = React.useRef(null);
+  /*
   const onIconClick = () => {
     setTimeout(() => inputRef.current.focus(), 0);
     alert("Icon Click Callback");
   };
+*/
+  const dispatch = useDispatch();
+  const handleClick = () => {
+    dispatch(
+      recoverPassword({
+        email: email,
+      })
+    );
+  };
+
   return (
     <section className={passwordRecoveryStyles.passwordRecoveryContainer}>
       <p className="text text_type_main-medium">Восстановление пароля</p>
@@ -20,20 +33,20 @@ function PasswordRecovery() {
         <Input
           type={"text"}
           placeholder={"Укажите e-mail"}
-          onChange={(e) => setValue(e.target.value)}
+          onChange={(e) => setEmail(e.target.value)}
           //icon={"ShowIcon"}
           //value={value}
           name={"name"}
           error={false}
-          ref={inputRef}
-          onIconClick={onIconClick}
+          ref={emailRef}
+          //onIconClick={onIconClick}
           errorText={"Ошибка"}
           size={"default"}
         />
       </div>
 
       <div className="mt-10">
-        <Button type="primary" size="medium">
+        <Button type="primary" size="medium" onClick={handleClick}>
           Восстановить
         </Button>
       </div>

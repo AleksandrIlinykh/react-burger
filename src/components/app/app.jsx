@@ -13,6 +13,8 @@ import LogIn from "../auth/log-in/log-in";
 import Registration from "../auth/registration/registration";
 import PasswordRecovery from "../auth/password-recovery/password-recovery";
 import PasswordUpdating from "../auth/password-updating/password-updating";
+import Profile from "../profile/profile";
+
 function App() {
   const dispatch = useDispatch();
 
@@ -23,6 +25,7 @@ function App() {
   return (
     <>
       <AppHeader />
+
       <Router>
         <Switch>
           <Route path="/login">
@@ -36,6 +39,27 @@ function App() {
           </Route>
           <Route path="/password-updating">
             <PasswordUpdating />
+          </Route>
+          <Route path="/profile">
+            <Profile />
+          </Route>
+          <Route path="/">
+            <>
+              <DndProvider backend={HTML5Backend}>
+                <div className={appStyles.content}>
+                  <div className={appStyles.contentleft}>
+                    <h1 className="text text_type_main-large mt-10 mb-5">
+                      {" "}
+                      Соберите бургер
+                    </h1>
+                    <BurgerIngredients />
+                  </div>
+                  <div className={appStyles.contentleft}>
+                    <BurgerConstructor />
+                  </div>
+                </div>
+              </DndProvider>
+            </>
           </Route>
         </Switch>
       </Router>

@@ -31,16 +31,15 @@ function NavigationElement(props) {
 
 
 	return (
-		<div className="pt-4 pr-5 pb-4 pl-5">
-			<li className={navigationElementStyles.navigationelement} >
-				{icon}
-				<div className="ml-2 text text_type_main-small">
-					<p className={linkClassName}>{props.name}</p>
-				</div>
-
-			</li>
-		</div>
-	)
+    <div className="pt-4 pr-5 pb-4 pl-5">
+      <li className={navigationElementStyles.navigationelement}>
+        {icon}
+        <div className="ml-2 text text_type_main-small">
+          <p className={linkClassName}>{props.name}</p>
+        </div>
+      </li>
+    </div>
+  );
 }
 
 NavigationElement.propTypes = navigationElementTypes;
