@@ -35,7 +35,12 @@ function NavigationElement(props) {
         {icon}
         <div className="ml-2 text text_type_main-small">
           {/*<p className={linkClassName}>{props.name}</p>*/}
-          <NavLink to={props.path} className={linkClassName}>
+          <NavLink
+            exact
+            to={props.path}
+            className={navigationElementStyles.navElement}
+            activeClassName={navigationElementStyles.navElementActive}
+          >
             {props.name}
           </NavLink>
         </div>

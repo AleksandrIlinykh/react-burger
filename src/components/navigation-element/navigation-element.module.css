@@ -10,6 +10,19 @@
 	color: #8585AD
 }
 
+.navElement{
+	text-decoration-skip-ink: auto;
+	text-decoration:none;
+	color: #8585AD
+}
+
+.navElementActive{
+	text-decoration-skip-ink: auto;
+	text-decoration:none;
+	color: #ffffff
+}
+
+
 .navigationelement {
 	border-radius: 40px;
 	display: inline-flex;
