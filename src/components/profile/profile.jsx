@@ -1,5 +1,5 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import {
   EditIcon,
   CloseIcon,
@@ -29,6 +29,8 @@ function Profile() {
     email: store.authData.email,
     name: store.authData.name,
   }));
+
+  const dispatch = useDispatch();
 
   let match = useRouteMatch();
   let { topicId } = useParams();
@@ -71,7 +73,7 @@ function Profile() {
               className={
                 profileStyles.navElement + " text text_type_main-medium"
               }
-              onClick={() => logout()}
+              onClick={() => dispatch(logout())}
             >
               Выход
             </NavLink>

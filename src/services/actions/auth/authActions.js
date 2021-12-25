@@ -1,4 +1,5 @@
 import { AUTH_ENDPOINT } from "../../../utils/api";
+import { setCookie, getCookie } from "../../../utils/cookies";
 
 export const REGISTRATION_REQUEST = "REGISTRATION_REQUEST";
 export const REGISTRATION_SUCCESS = "REGISTRATION_SUCCESS";
@@ -174,17 +175,21 @@ export function updatePassword(newData) {
   };
 }
 
-export function logout(newData) {
+export function logout() {
+  const refreshToken = getCookie("refreshToken");
+  const data = {
+    token: `${refreshToken}`,
+  };
   return function (dispatch) {
     dispatch({
       type: LOGOUT_REQUEST,
     });
-    fetch(`${AUTH_ENDPOINT}/password-reset/reset`, {
+    fetch(`${AUTH_ENDPOINT}/auth/logout`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json;charset=utf-8",
       },
-      body: JSON.stringify(newData),
+      body: JSON.stringify(data),
     })
       .then((res) => {
         if (res.ok) {
