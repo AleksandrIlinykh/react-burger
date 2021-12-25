@@ -174,7 +174,7 @@ export function updatePassword(newData) {
   };
 }
 
-export function logOut(newData) {
+export function logout(newData) {
   return function (dispatch) {
     dispatch({
       type: LOGOUT_REQUEST,

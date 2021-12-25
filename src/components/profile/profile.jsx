@@ -20,6 +20,8 @@ import {
   useParams,
 } from "react-router-dom";
 
+import { logout } from "../../services/actions/auth/authActions";
+
 import profileStyles from "./profile.module.css";
 
 function Profile() {
@@ -69,6 +71,7 @@ function Profile() {
               className={
                 profileStyles.navElement + " text text_type_main-medium"
               }
+              onClick={() => logout()}
             >
               Выход
             </NavLink>
