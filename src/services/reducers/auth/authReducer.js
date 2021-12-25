@@ -119,6 +119,7 @@ export const authReducer = (state = userState, action) => {
     case PASSWORD_RECOVERY_SUCCESS: {
       return {
         ...state,
+        isPasswordRecoverySucess: true,
         isPasswordRecoveryInProcess: false,
         isPasswordRecoveryFailed: false,
       };

@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import AppHeader from "../app-header/app-header";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
@@ -20,6 +20,10 @@ import Profile from "../profile/profile";
 function App() {
   const dispatch = useDispatch();
 
+  const isPasswordRecoverySucess = useSelector(
+    (state) => state.authData.isPasswordRecoverySucess
+  );
+
   useEffect(() => {
     dispatch(getBurgerIngredients());
     dispatch(getUserInfo());
@@ -30,19 +34,28 @@ function App() {
       <Router>
         <AppHeader />
         <Switch>
-          <ProtectedRoute path="/login" forAuth={true}>
+          <ProtectedRoute path="/login" forAuth={true} redirectTo={"/"}>
             <LogIn />
           </ProtectedRoute>
-          <ProtectedRoute path="/registration" forAuth={true}>
+          <ProtectedRoute path="/registration" forAuth={true} redirectTo={"/"}>
             <Registration />
           </ProtectedRoute>
-          <ProtectedRoute path="/forgot-password" forAuth={true}>
+          <ProtectedRoute
+            path="/forgot-password"
+            forAuth={true}
+            redirectTo={"/"}
+          >
             <PasswordRecovery />
           </ProtectedRoute>
-          <ProtectedRoute path="/password-updating" forAuth={true}>
+          <ProtectedRoute
+            path="/password-updating"
+            forAuth={true}
+            redirectTo={"/"}
+            addPermissionCondition={isPasswordRecoverySucess}
+          >
             <PasswordUpdating />
           </ProtectedRoute>
-          <ProtectedRoute path="/profile" forAuth={false}>
+          <ProtectedRoute path="/profile" forAuth={false} redirectTo={"/login"}>
             <Profile />
           </ProtectedRoute>
 
