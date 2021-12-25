@@ -25,6 +25,10 @@ export const GET_USER_INFO_REQUEST = "GET_USER_INFO_REQUEST";
 export const GET_USER_INFO_SUCCESS = "GET_USER_INFO_SUCCESS";
 export const GET_USER_INFO_ERROR = "GET_USER_INFO_ERROR";
 
+export const UPDATE_USER_INFO_REQUEST = "UPDATE_USER_INFO_REQUEST";
+export const UPDATE_USER_INFO_SUCCESS = "UPDATE_USER_INFO_SUCCESS";
+export const UPDATE_USER_INFO_ERROR = "UPDATE_USER_INFO_ERROR";
+
 export function registration(userData) {
   return function (dispatch) {
     dispatch({
@@ -221,7 +225,6 @@ export function logout() {
   };
 }
 
-
 export function getUserInfo() {
   return function (dispatch) {
     dispatch({
@@ -250,6 +253,51 @@ export function getUserInfo() {
         console.log(data);
         dispatch({
           type: GET_USER_INFO_SUCCESS,
+          payload: data,
+        });
+      })
+
+      .catch((e) => {
+        console.log("Error: " + e.message);
+        console.log(e.response);
+      });
+  };
+}
+/*
+export const UPDATE_USER_INFO_REQUEST = "UPDATE_USER_INFO_REQUEST";
+export const UPDATE_USER_INFO_SUCCESS = "UPDATE_USER_INFO_SUCCESS";
+export const UPDATE_USER_INFO_ERROR = "UPDATE_USER_INFO_ERROR";
+*/
+
+export function updateUserInfo(data) {
+  return function (dispatch) {
+    dispatch({
+      type: UPDATE_USER_INFO_REQUEST,
+    });
+    fetch(`${AUTH_ENDPOINT}/auth/user`, {
+      method: "patch",
+      headers: {
+        "Content-Type": "application/json;charset=utf-8",
+        Authorization: "Bearer " + getCookie("acessToken"),
+      },
+      body: JSON.stringify(data),
+    })
+      .then((res) => {
+        if (res.ok) {
+          console.log(res);
+          return res;
+        } else {
+          dispatch({
+            type: UPDATE_USER_INFO_ERROR,
+          });
+          throw new Error("Network response was not OK");
+        }
+      })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        dispatch({
+          type: UPDATE_USER_INFO_SUCCESS,
           payload: data,
         });
       })
