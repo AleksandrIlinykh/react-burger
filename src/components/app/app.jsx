@@ -9,6 +9,7 @@ import appStyles from "./app.module.css";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 import { getBurgerIngredients } from "../../services/actions/burger-ingredients";
+import { getUserInfo } from "../../services/actions/auth/authActions";
 import LogIn from "../auth/log-in/log-in";
 import Registration from "../auth/registration/registration";
 import PasswordRecovery from "../auth/password-recovery/password-recovery";
@@ -20,6 +21,7 @@ function App() {
 
   useEffect(() => {
     dispatch(getBurgerIngredients());
+    dispatch(getUserInfo());
   }, [dispatch]);
 
   return (
