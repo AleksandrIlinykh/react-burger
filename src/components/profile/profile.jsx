@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {
   EditIcon,
@@ -25,16 +25,23 @@ import { logout } from "../../services/actions/auth/authActions";
 import profileStyles from "./profile.module.css";
 
 function Profile() {
-  useSelector((store) => ({
-    email: store.authData.email,
-    name: store.authData.name,
+  const { storeUserEmail, storeUserName } = useSelector((store) => ({
+    storeUserEmail: store.authData.email,
+    storeUserName: store.authData.name,
   }));
+  const [userEmail, setUserEmail] = useState(storeUserEmail);
+  const [userName, setUserName] = useState(storeUserName);
 
   const dispatch = useDispatch();
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    alert(`<kfkfkf>`);
+    alert(userEmail);
+  };
+
+  const handleCancel = (event) => {
+    setUserEmail(storeUserEmail);
+    setUserName(storeUserName);
   };
 
   let match = useRouteMatch();
@@ -100,9 +107,9 @@ function Profile() {
                 <Input
                   type={"text"}
                   placeholder={"Имя"}
-                  //onChange={(e) => setValue(e.target.value)}
+                  onChange={(e) => setUserName(e.target.value)}
                   icon={"EditIcon"}
-                  //value={value}
+                  value={userName}
                   name={"name"}
                   error={false}
                   //ref={inputRef}
@@ -114,9 +121,9 @@ function Profile() {
                   <Input
                     type={"text"}
                     placeholder={"E-mail"}
-                    //onChange={(e) => setValue(e.target.value)}
+                    onChange={(e) => setUserEmail(e.target.value)}
                     icon={"EditIcon"}
-                    //value={value}
+                    value={userEmail}
                     name={"name"}
                     error={false}
                     //ref={inputRef}
@@ -141,7 +148,10 @@ function Profile() {
                   />
                 </div>
                 <div className={profileStyles.profileButtons + " mt-6"}>
-                  <p className="text text_type_main-default text_color_inactive mr-7">
+                  <p
+                    className="text text_type_main-default text_color_inactive mr-7"
+                    onClick={handleCancel}
+                  >
                     Отмена
                   </p>
                   <Button type="primary" size="medium">
