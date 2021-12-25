@@ -21,6 +21,10 @@ export const LOGOUT_REQUEST = "LOGOUT_REQUEST";
 export const LOGOUT_SUCCESS = "LOGOUT_SUCCESS";
 export const LOGOUT_ERROR = "LOGOUT_ERROR";
 
+export const GET_USER_INFO_REQUEST = "GET_USER_INFO_REQUEST";
+export const GET_USER_INFO_SUCCESS = "GET_USER_INFO_SUCCESS";
+export const GET_USER_INFO_ERROR = "GET_USER_INFO_ERROR";
+
 export function registration(userData) {
   return function (dispatch) {
     dispatch({
@@ -217,3 +221,47 @@ export function logout() {
   };
 }
 
+/*
+export const GET_USER_INFO_REQUEST = "GET_USER_INFO_REQUEST";
+export const GET_USER_INFO_SUCCESS = "GET_USER_INFO_SUCCESS";
+export const GET_USER_INFO_ERROR = "GET_USER_INFO_ERROR";
+*/
+
+export function getUserInfo() {
+  return function (dispatch) {
+    dispatch({
+      type: GET_USER_INFO_REQUEST,
+    });
+    fetch(`${AUTH_ENDPOINT}/auth/user`, {
+      method: "get",
+      headers: {
+        "Content-Type": "application/json;charset=utf-8",
+        Authorization: "Bearer " + getCookie("acessToken"),
+      },
+    })
+      .then((res) => {
+        if (res.ok) {
+          console.log(res);
+          return res;
+        } else {
+          dispatch({
+            type: GET_USER_INFO_ERROR,
+          });
+          throw new Error("Network response was not OK");
+        }
+      })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        dispatch({
+          type: GET_USER_INFO_SUCCESS,
+          payload: data,
+        });
+      })
+
+      .catch((e) => {
+        console.log("Error: " + e.message);
+        console.log(e.response);
+      });
+  };
+}
