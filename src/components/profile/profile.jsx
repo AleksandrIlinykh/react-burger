@@ -32,6 +32,11 @@ function Profile() {
 
   const dispatch = useDispatch();
 
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    alert(`<kfkfkf>`);
+  };
+
   let match = useRouteMatch();
   let { topicId } = useParams();
   return (
@@ -88,25 +93,13 @@ function Profile() {
           <Route exact path="/profile/orders">
             <div></div>
           </Route>
+
           <Route path={match.path}>
-            <div className="ml-30">
-              <Input
-                type={"text"}
-                placeholder={"Имя"}
-                //onChange={(e) => setValue(e.target.value)}
-                icon={"EditIcon"}
-                //value={value}
-                name={"name"}
-                error={false}
-                //ref={inputRef}
-                //onIconClick={onIconClick}
-                errorText={"Ошибка"}
-                size={"default"}
-              />
-              <div className="mt-6">
+            <form onSubmit={handleSubmit}>
+              <div className="ml-30">
                 <Input
                   type={"text"}
-                  placeholder={"E-mail"}
+                  placeholder={"Имя"}
                   //onChange={(e) => setValue(e.target.value)}
                   icon={"EditIcon"}
                   //value={value}
@@ -117,31 +110,46 @@ function Profile() {
                   errorText={"Ошибка"}
                   size={"default"}
                 />
+                <div className="mt-6">
+                  <Input
+                    type={"text"}
+                    placeholder={"E-mail"}
+                    //onChange={(e) => setValue(e.target.value)}
+                    icon={"EditIcon"}
+                    //value={value}
+                    name={"name"}
+                    error={false}
+                    //ref={inputRef}
+                    //onIconClick={onIconClick}
+                    errorText={"Ошибка"}
+                    size={"default"}
+                  />
+                </div>
+                <div className="mt-6">
+                  <Input
+                    type={"text"}
+                    placeholder={"Пароль"}
+                    //onChange={(e) => setValue(e.target.value)}
+                    icon={"CloseIcon"}
+                    //value={value}
+                    name={"name"}
+                    error={false}
+                    //ref={inputRef}
+                    //onIconClick={onIconClick}
+                    errorText={"Ошибка"}
+                    size={"default"}
+                  />
+                </div>
+                <div className={profileStyles.profileButtons + " mt-6"}>
+                  <p className="text text_type_main-default text_color_inactive mr-7">
+                    Отмена
+                  </p>
+                  <Button type="primary" size="medium">
+                    Войти
+                  </Button>
+                </div>
               </div>
-              <div className="mt-6">
-                <Input
-                  type={"text"}
-                  placeholder={"Пароль"}
-                  //onChange={(e) => setValue(e.target.value)}
-                  icon={"CloseIcon"}
-                  //value={value}
-                  name={"name"}
-                  error={false}
-                  //ref={inputRef}
-                  //onIconClick={onIconClick}
-                  errorText={"Ошибка"}
-                  size={"default"}
-                />
-              </div>
-              <div className={profileStyles.profileButtons + " mt-6"}>
-                <p className="text text_type_main-default text_color_inactive mr-7">
-                  Отмена
-                </p>
-                <Button type="primary" size="medium">
-                  Войти
-                </Button>
-              </div>
-            </div>
+            </form>
           </Route>
         </Switch>
       </div>
