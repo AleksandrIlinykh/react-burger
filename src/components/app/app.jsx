@@ -5,6 +5,7 @@ import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import BurgerIngredients from "../burger-ingredients/burger-ingredients";
 import BurgerConstructor from "../burger-constructor/burger-constructor";
+import { ProtectedRoute } from "../protected-route/protected-route ";
 import appStyles from "./app.module.css";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
@@ -29,21 +30,22 @@ function App() {
       <Router>
         <AppHeader />
         <Switch>
-          <Route path="/login">
+          <ProtectedRoute path="/login" forAuth={true}>
             <LogIn />
-          </Route>
-          <Route path="/registration">
+          </ProtectedRoute>
+          <ProtectedRoute path="/registration" forAuth={true}>
             <Registration />
-          </Route>
-          <Route path="/forgot-password">
+          </ProtectedRoute>
+          <ProtectedRoute path="/forgot-password" forAuth={true}>
             <PasswordRecovery />
-          </Route>
-          <Route path="/password-updating">
+          </ProtectedRoute>
+          <ProtectedRoute path="/password-updating" forAuth={true}>
             <PasswordUpdating />
-          </Route>
-          <Route path="/profile">
+          </ProtectedRoute>
+          <ProtectedRoute path="/profile" forAuth={false}>
             <Profile />
-          </Route>
+          </ProtectedRoute>
+
           <Route path="/">
             <>
               <DndProvider backend={HTML5Backend}>
