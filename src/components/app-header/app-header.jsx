@@ -15,7 +15,7 @@ function AppHeader() {
                 <NavigationElement
                   type="constructor"
                   name="Конструктор"
-                  path="/"
+                  path="/constructor"
                   isActive
                 />
               </div>

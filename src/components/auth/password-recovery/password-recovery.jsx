@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import {
   Input,
@@ -18,12 +18,15 @@ function PasswordRecovery() {
   };
 */
   const dispatch = useDispatch();
+  const history = useHistory();
+
   const handleClick = () => {
     dispatch(
       recoverPassword({
         email: email,
       })
     );
+    history.replace({ pathname: "/password-updating" });
   };
 
   return (

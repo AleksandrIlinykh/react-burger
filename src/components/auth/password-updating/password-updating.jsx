@@ -1,17 +1,32 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import {
   Input,
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import passwordUpdatingStyles from "./password-updating.module.css";
-
+import { updatePassword } from "../../../services/actions/auth/authActions";
 function PasswordUpdating() {
-  const [value, setValue] = React.useState("value");
+  const [password, setPassword] = React.useState("value");
+  const [token, setToken] = React.useState("value");
   const inputRef = React.useRef(null);
   const onIconClick = () => {
     setTimeout(() => inputRef.current.focus(), 0);
     alert("Icon Click Callback");
+  };
+
+  const dispatch = useDispatch();
+  const history = useHistory();
+
+  const handleClick = () => {
+    dispatch(
+      updatePassword({
+        password: password,
+        token: token,
+      })
+    );
+    history.replace({ pathname: "/login" });
   };
   return (
     <section className={passwordUpdatingStyles.passwordUpdatingContainer}>
@@ -20,7 +35,7 @@ function PasswordUpdating() {
         <Input
           type={"text"}
           placeholder={"Введите новый пароль"}
-          onChange={(e) => setValue(e.target.value)}
+          onChange={(e) => setPassword(e.target.value)}
           icon={"ShowIcon"}
           //value={value}
           name={"name"}
@@ -36,7 +51,7 @@ function PasswordUpdating() {
         <Input
           type={"text"}
           placeholder={"Введите код из письма"}
-          onChange={(e) => setValue(e.target.value)}
+          onChange={(e) => setToken(e.target.value)}
           //icon={"ShowIcon"}
           //value={value}
           name={"name"}
@@ -49,7 +64,7 @@ function PasswordUpdating() {
       </div>
 
       <div className="mt-10">
-        <Button type="primary" size="medium">
+        <Button type="primary" size="medium" onClick={handleClick}>
           Сохранить
         </Button>
       </div>
@@ -57,7 +72,9 @@ function PasswordUpdating() {
       <div className="mt-20">
         <p className="text text_type_main-default text_color_inactive">
           Вспомнили пароль?{" "}
-          <Link className={passwordUpdatingStyles.anchor}>Войти</Link>
+          <Link to="login" className={passwordUpdatingStyles.anchor}>
+            Войти
+          </Link>
         </p>
       </div>
     </section>

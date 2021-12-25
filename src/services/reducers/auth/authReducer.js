@@ -1,8 +1,18 @@
+import { setCookie } from "../../../utils/cookies";
+
 import {
-  REQUEST,
+  REGISTRATION_REQUEST,
   REGISTRATION_SUCCESS,
+  REGISTRATION_ERROR,
+  AUTHORIZATION_REQUEST,
+  AUTHORIZATION_SUCCESS,
+  AUTHORIZATION_ERROR,
+  PASSWORD_RECOVERY_REQUEST,
   PASSWORD_RECOVERY_SUCCESS,
-  ERROR,
+  PASSWORD_RECOVERY_ERROR,
+  PASSWORD_UPDATING_REQUEST,
+  PASSWORD_UPDATING_SUCCESS,
+  PASSWORD_UPDATING_ERROR,
 } from "../../actions/auth/authActions";
 
 const userState = {
@@ -11,18 +21,27 @@ const userState = {
   name: "",
   accessToken: "",
   requestToken: "",
-  loading: false,
+  isRegistrationInProcess: false,
+  isRegistrationSucess: false,
+  isRegistrationFailed: false,
+  isAuthorizationInProcess: false,
+  isAuthorizationSucess: false,
+  isAuthorizationFailed: false,
+  isPasswordRecoveryInProcess: false,
+  isPasswordRecoveryFailed: false,
 };
 
 export const authReducer = (state = userState, action) => {
   switch (action.type) {
-    case REQUEST: {
+    case REGISTRATION_REQUEST: {
       return {
         ...state,
-        loading: true,
+        isRegistrationInProcess: true,
       };
     }
     case REGISTRATION_SUCCESS: {
+      setCookie("acessToken", action.payload.accessToken.split("Bearer ")[1]);
+      setCookie("refreshToken", action.payload.refreshToken);
       return {
         ...state,
         isAuth: true,
@@ -30,17 +49,53 @@ export const authReducer = (state = userState, action) => {
         name: action.payload.user.name,
         accessToken: action.payload.accessToken.split("Bearer ")[1],
         refreshToken: action.payload.refreshToken,
-        loading: false,
-        loading: false,
+        isRegistrationInProcess: false,
+      };
+    }
+    case REGISTRATION_ERROR: {
+      return {
+        ...state,
+        isRegistrationFailed: true,
+        isRegistrationInProcess: false,
+      };
+    }
+    case AUTHORIZATION_REQUEST: {
+      return {
+        ...state,
+        isAuthorizationInProcess: true,
+      };
+    }
+    case AUTHORIZATION_SUCCESS: {
+      setCookie("acessToken", action.payload.accessToken.split("Bearer ")[1]);
+      setCookie("refreshToken", action.payload.refreshToken);
+      console.log(document.cookie);
+      return {
+        ...state,
+        isAuth: true,
+        email: action.payload.user.email,
+        name: action.payload.user.name,
+        accessToken: action.payload.accessToken.split("Bearer ")[1],
+        refreshToken: action.payload.refreshToken,
+        isAuthorizationInProcess: false,
+      };
+    }
+    case REGISTRATION_ERROR: {
+      return {
+        ...state,
+        isAuthorizationFailed: true,
+        isAuthorizationInProcess: false,
+      };
+    }
+
+    case PASSWORD_RECOVERY_SUCCESS: {
+      return {
+        ...state,
       };
     }
     case PASSWORD_RECOVERY_SUCCESS: {
       return {
         ...state,
       };
-    }
-    case ERROR: {
-      return { ...state, error: true, loading: false };
     }
     default:
       return state;

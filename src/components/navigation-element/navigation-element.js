@@ -5,6 +5,7 @@ import { ProfileIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import { navigationElementTypes } from "../../utils/types"
 import navigationElementStyles from './navigation-element.module.css';
 import { NavLink } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 function NavigationElement(props) {
   let linkClassName = navigationElementStyles.navigationelement__link;
@@ -29,6 +30,12 @@ function NavigationElement(props) {
     default:
   }
 
+  const history = useHistory();
+
+  const handleClick = () => {
+    console.log(history.location.pathname);
+  };
+
   return (
     <div className="pt-4 pr-5 pb-4 pl-5">
       <li className={navigationElementStyles.navigationelement}>
@@ -36,10 +43,15 @@ function NavigationElement(props) {
         <div className="ml-2 text text_type_main-small">
           {/*<p className={linkClassName}>{props.name}</p>*/}
           <NavLink
-            exact
             to={props.path}
+            isActive={(match, location) => {
+              if (!location) return false;
+              const { pathname } = location;
+              return pathname.includes(props.path);
+            }}
             className={navigationElementStyles.navElement}
             activeClassName={navigationElementStyles.navElementActive}
+            onClick={handleClick}
           >
             {props.name}
           </NavLink>

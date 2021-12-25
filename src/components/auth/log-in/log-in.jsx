@@ -1,18 +1,41 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import {
   Input,
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import logInStyles from "./log-in.module.css";
+import { authorization } from "../../../services/actions/auth/authActions";
 
 function LogIn() {
-  const [value, setValue] = React.useState("value");
+  const [email, setEmail] = React.useState("value");
+  const [password, setPassword] = React.useState("value");
+
   const inputRef = React.useRef(null);
+  /*
   const onIconClick = () => {
     setTimeout(() => inputRef.current.focus(), 0);
     alert("Icon Click Callback");
   };
+*/
+  const dispatch = useDispatch();
+  const history = useHistory();
+
+  const isAuthorizationSucess = useSelector(
+    (state) => state.authData.isAuthorizationSucess
+  );
+
+  const handleClick = () => {
+    dispatch(
+      authorization({
+        email: email,
+        password: password,
+      })
+    );
+    if (isAuthorizationSucess) history.replace({ pathname: "/" });
+  };
+
   return (
     <section className={logInStyles.logInContainer}>
       <p className="text text_type_main-medium">Вход</p>
@@ -20,13 +43,13 @@ function LogIn() {
         <Input
           type={"text"}
           placeholder={"E-mail"}
-          onChange={(e) => setValue(e.target.value)}
+          onChange={(e) => setEmail(e.target.value)}
           //icon={"ShowIcon"}
           //value={value}
           name={"name"}
           error={false}
           ref={inputRef}
-          onIconClick={onIconClick}
+          //onIconClick={onIconClick}
           errorText={"Ошибка"}
           size={"default"}
         />
@@ -35,19 +58,19 @@ function LogIn() {
         <Input
           type={"text"}
           placeholder={"Пароль"}
-          onChange={(e) => setValue(e.target.value)}
+          onChange={(e) => setPassword(e.target.value)}
           icon={"ShowIcon"}
           //value={value}
           name={"name"}
           error={false}
           ref={inputRef}
-          onIconClick={onIconClick}
+          //onIconClick={onIconClick}
           errorText={"Ошибка"}
           size={"default"}
         />
       </div>
       <div className="mt-10">
-        <Button type="primary" size="medium">
+        <Button type="primary" size="medium" onClick={handleClick}>
           Войти
         </Button>
       </div>
