@@ -16,6 +16,9 @@ import {
   LOGOUT_REQUEST,
   LOGOUT_SUCCESS,
   LOGOUT_ERROR,
+  GET_USER_INFO_REQUEST,
+  GET_USER_INFO_SUCCESS,
+  GET_USER_INFO_ERROR,
 } from "../../actions/auth/authActions";
 
 const userState = {
@@ -34,6 +37,8 @@ const userState = {
   isPasswordRecoveryFailed: false,
   isPasswordUpdatingInProcess: false,
   isPasswordUpdatingFailed: false,
+  getUserInfoInProcess: false,
+  getUserInfoFailed: false,
 };
 
 export const authReducer = (state = userState, action) => {
@@ -157,6 +162,29 @@ export const authReducer = (state = userState, action) => {
         ...state,
         isLogoutInProcess: false,
         isLogoutFailed: true,
+      };
+    }
+    //---------------------------------------------------------------------------GET_USER_INFO-----------------------------
+    case GET_USER_INFO_REQUEST: {
+      return {
+        ...state,
+        getUserInfoInProcess: true,
+      };
+    }
+    case GET_USER_INFO_SUCCESS: {
+      return {
+        ...state,
+        getUserInfoInProcess: false,
+        getUserInfoFailed: false,
+      };
+    }
+    case GET_USER_INFO_ERROR: {
+      return {
+        ...state,
+        getUserInfoInProcess: false,
+        getUserInfoFailed: true,
+        email: action.payload.user.email,
+        name: action.payload.user.name,
       };
     }
 
