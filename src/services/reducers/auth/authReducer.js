@@ -13,6 +13,9 @@ import {
   PASSWORD_UPDATING_REQUEST,
   PASSWORD_UPDATING_SUCCESS,
   PASSWORD_UPDATING_ERROR,
+  LOGOUT_REQUEST,
+  LOGOUT_SUCCESS,
+  LOGOUT_ERROR,
 } from "../../actions/auth/authActions";
 
 const userState = {
@@ -135,7 +138,30 @@ export const authReducer = (state = userState, action) => {
         isPasswordUpdatingFailed: true,
       };
     }
+    //---------------------------------------------------------------------------LOGOUT-----------------------------
+    case LOGOUT_REQUEST: {
+      return {
+        ...state,
+        isLogoutInProcess: true,
+      };
+    }
+    case LOGOUT_SUCCESS: {
+      return {
+        ...userState,
+        isLogoutInProcess: false,
+        isLogoutFailed: false,
+      };
+    }
+    case LOGOUT_ERROR: {
+      return {
+        ...state,
+        isLogoutInProcess: false,
+        isLogoutFailed: true,
+      };
+    }
+
     default:
       return state;
   }
 };
+
