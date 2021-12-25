@@ -263,11 +263,6 @@ export function getUserInfo() {
       });
   };
 }
-/*
-export const UPDATE_USER_INFO_REQUEST = "UPDATE_USER_INFO_REQUEST";
-export const UPDATE_USER_INFO_SUCCESS = "UPDATE_USER_INFO_SUCCESS";
-export const UPDATE_USER_INFO_ERROR = "UPDATE_USER_INFO_ERROR";
-*/
 
 export function updateUserInfo(data) {
   return function (dispatch) {

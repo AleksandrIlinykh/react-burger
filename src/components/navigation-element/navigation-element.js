@@ -43,7 +43,7 @@ function NavigationElement(props) {
         <div className="ml-2 text text_type_main-small">
           {/*<p className={linkClassName}>{props.name}</p>*/}
           <NavLink
-            exact
+            exact={props.exact}
             to={props.path}
             //isActive={(match, location) => {
             //  if (!location) return false;

@@ -19,6 +19,9 @@ import {
   GET_USER_INFO_REQUEST,
   GET_USER_INFO_SUCCESS,
   GET_USER_INFO_ERROR,
+  UPDATE_USER_INFO_REQUEST,
+  UPDATE_USER_INFO_SUCCESS,
+  UPDATE_USER_INFO_ERROR,
 } from "../../actions/auth/authActions";
 
 const userState = {
@@ -39,6 +42,8 @@ const userState = {
   isPasswordUpdatingFailed: false,
   getUserInfoInProcess: false,
   getUserInfoFailed: false,
+  updateUserInfoInProcess: false,
+  updateUserInfoInFailed: false,
 };
 
 export const authReducer = (state = userState, action) => {
@@ -187,7 +192,29 @@ export const authReducer = (state = userState, action) => {
         getUserInfoFailed: true,
       };
     }
-
+    //---------------------------------------------------------------------------UPDATE_USER_INFO-----------------------------
+    case UPDATE_USER_INFO_REQUEST: {
+      return {
+        ...state,
+        updateUserInfoInProcess: true,
+      };
+    }
+    case UPDATE_USER_INFO_SUCCESS: {
+      return {
+        ...state,
+        updateUserInfoInProcess: false,
+        updateUserInfoFailed: false,
+        email: action.payload.user.email,
+        name: action.payload.user.name,
+      };
+    }
+    case UPDATE_USER_INFO_ERROR: {
+      return {
+        ...state,
+        updateUserInfoInProcess: false,
+        updateUserInfoFailed: true,
+      };
+    }
     default:
       return state;
   }

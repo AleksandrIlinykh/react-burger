@@ -13,6 +13,7 @@ function AppHeader() {
             <div className={appHeaderStyles.header__leftlinks}>
               <div className="mr-2">
                 <NavigationElement
+                  exact={true}
                   type="constructor"
                   name="Конструктор"
                   path="/"
