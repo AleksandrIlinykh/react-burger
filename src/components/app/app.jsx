@@ -42,81 +42,71 @@ export default function App() {
     const history = useHistory();
     let background = location.state && location.state.background;
 
-    const Main = () => {
-      return (
-        <>
-          <Switch>
-            <ProtectedRoute path="/login" forAuth={true} redirectTo={"/"}>
-              <LogIn />
-            </ProtectedRoute>
-            <ProtectedRoute
-              path="/registration"
-              forAuth={true}
-              redirectTo={"/"}
-            >
-              <Registration />
-            </ProtectedRoute>
-            <ProtectedRoute
-              path="/forgot-password"
-              forAuth={true}
-              redirectTo={"/"}
-            >
-              <PasswordRecovery />
-            </ProtectedRoute>
-            <ProtectedRoute
-              path="/password-updating"
-              forAuth={true}
-              redirectTo={"/"}
-              addPermissionCondition={isPasswordRecoverySucess}
-            >
-              <PasswordUpdating />
-            </ProtectedRoute>
-            <ProtectedRoute
-              path="/profile"
-              forAuth={false}
-              redirectTo={"/login"}
-            >
-              <Profile />
-            </ProtectedRoute>
-
-            <Route path="/">
-              <>
-                <DndProvider backend={HTML5Backend}>
-                  <div className={appStyles.content}>
-                    <div className={appStyles.contentleft}>
-                      <h1 className="text text_type_main-large mt-10 mb-5">
-                        {" "}
-                        Соберите бургер
-                      </h1>
-                      <BurgerIngredients />
-                    </div>
-                    <div className={appStyles.contentleft}>
-                      <BurgerConstructor />
-                    </div>
-                  </div>
-                </DndProvider>
-              </>
-            </Route>
-          </Switch>
-        </>
-      );
-    };
     const handleModalClose = () => {
-      //dispatch(hideIngredientDetails());
+      dispatch(hideIngredientDetails());
 
       history.goBack();
     };
 
     return (
       <>
-        <AppHeader />
         <Switch location={background || location}>
-          <Route path="/" exact>
-            <Main />
-          </Route>
-
           <Route path="/ingredients/:ingredientId" exact>
             <IngredientsDetails />
+          </Route>
+
+          <ProtectedRoute path="/login" forAuth={true} redirectTo={"/"}>
+            <AppHeader />
+            <LogIn />
+          </ProtectedRoute>
+
+          <ProtectedRoute path="/registration" forAuth={true} redirectTo={"/"}>
+            <AppHeader />
+            <Registration />
+          </ProtectedRoute>
+
+          <ProtectedRoute
+            path="/forgot-password"
+            forAuth={true}
+            redirectTo={"/"}
+          >
+            <AppHeader />
+            <PasswordRecovery />
+          </ProtectedRoute>
+
+          <ProtectedRoute
+            path="/password-updating"
+            forAuth={true}
+            redirectTo={"/"}
+            addPermissionCondition={isPasswordRecoverySucess}
+          >
+            <AppHeader />
+            <PasswordUpdating />
+          </ProtectedRoute>
+
+          <ProtectedRoute path="/profile" forAuth={false} redirectTo={"/login"}>
+            <AppHeader />
+            <Profile />
+          </ProtectedRoute>
+
+          <Route path="/">
+            <AppHeader />
+            <>
+              <DndProvider backend={HTML5Backend}>
+                <div className={appStyles.content}>
+                  <div className={appStyles.contentleft}>
+                    <h1 className="text text_type_main-large mt-10 mb-5">
+                      {" "}
+                      Соберите бургер
+                    </h1>
+                    <BurgerIngredients />
+                  </div>
+                  <div className={appStyles.contentleft}>
+                    <BurgerConstructor />
+                  </div>
+                </div>
+              </DndProvider>
+            </>
           </Route>
         </Switch>
 
