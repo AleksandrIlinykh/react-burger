@@ -20,7 +20,10 @@ import {
   useParams,
 } from "react-router-dom";
 
-import { logout } from "../../services/actions/auth/authActions";
+import {
+  logout,
+  updateUserInfo,
+} from "../../services/actions/auth/authActions";
 
 import profileStyles from "./profile.module.css";
 
@@ -36,7 +39,13 @@ function Profile() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    alert(userEmail);
+    console.log(1);
+    dispatch(
+      updateUserInfo({
+        name: userName,
+        email: userEmail,
+      })
+    );
   };
 
   const handleCancel = (event) => {

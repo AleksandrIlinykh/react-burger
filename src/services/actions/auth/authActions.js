@@ -231,9 +231,9 @@ export function getUserInfo() {
       type: GET_USER_INFO_REQUEST,
     });
     fetch(`${AUTH_ENDPOINT}/auth/user`, {
-      method: "get",
+      method: "GET",
       headers: {
-        "Content-Type": "application/json;charset=utf-8",
+        "Content-Type": "application/json",
         Authorization: "Bearer " + getCookie("acessToken"),
       },
     })
@@ -275,7 +275,7 @@ export function updateUserInfo(data) {
       type: UPDATE_USER_INFO_REQUEST,
     });
     fetch(`${AUTH_ENDPOINT}/auth/user`, {
-      method: "patch",
+      method: "PATCH",
       headers: {
         "Content-Type": "application/json;charset=utf-8",
         Authorization: "Bearer " + getCookie("acessToken"),
