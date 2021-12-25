@@ -1,6 +1,6 @@
 import React from "react";
-import { useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useHistory } from "react-router-dom";
 import {
   Input,
   Button,
@@ -12,6 +12,8 @@ function Registration() {
   const [name, setName] = React.useState("");
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
+
+  const history = useHistory();
   const dispatch = useDispatch();
   const nameRef = React.useRef(null);
   const emailRef = React.useRef(null);
@@ -22,6 +24,10 @@ function Registration() {
     alert("Icon Click Callback");
   };
 */
+  const isRegistrationSucess = useSelector(
+    (state) => state.authData.isRegistrationSucess
+  );
+
   const handleClick = () => {
     dispatch(
       registration({
@@ -31,6 +37,8 @@ function Registration() {
       })
     );
   };
+
+  if (isRegistrationSucess) history.replace({ pathname: "/" });
 
   return (
     <section className={registrationStyles.registrationContainer}>
