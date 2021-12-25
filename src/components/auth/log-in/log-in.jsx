@@ -33,8 +33,9 @@ function LogIn() {
         password: password,
       })
     );
-    if (isAuthorizationSucess) history.replace({ pathname: "/" });
   };
+
+  if (isAuthorizationSucess) history.replace({ pathname: "/" });
 
   return (
     <section className={logInStyles.logInContainer}>

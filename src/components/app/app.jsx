@@ -42,7 +42,7 @@ function App() {
           <Route path="/profile">
             <Profile />
           </Route>
-          <Route path="/constructor">
+          <Route path="/">
             <>
               <DndProvider backend={HTML5Backend}>
                 <div className={appStyles.content}>
