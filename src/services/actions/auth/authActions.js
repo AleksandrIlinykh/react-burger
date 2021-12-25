@@ -16,6 +16,10 @@ export const PASSWORD_UPDATING_REQUEST = "PASSWORD_UPDATING_REQUEST";
 export const PASSWORD_UPDATING_SUCCESS = "PASSWORD_RECOVERY_SUCCESS";
 export const PASSWORD_UPDATING_ERROR = "PASSWORD_UPDATING_ERROR";
 
+export const LOGOUT_REQUEST = "LOGOUT_REQUEST";
+export const LOGOUT_SUCCESS = "LOGOUT_SUCCESS";
+export const LOGOUT_ERROR = "LOGOUT_ERROR";
+
 export function registration(userData) {
   return function (dispatch) {
     dispatch({
@@ -97,7 +101,7 @@ export function authorization(userData) {
 export function recoverPassword(emailData) {
   return function (dispatch) {
     dispatch({
-      type: PASSWORD_RECOVERY_SUCCESS,
+      type: PASSWORD_RECOVERY_REQUEST,
     });
     fetch(`${AUTH_ENDPOINT}/password-reset`, {
       method: "POST",
@@ -122,7 +126,6 @@ export function recoverPassword(emailData) {
         console.log(data);
         dispatch({
           type: PASSWORD_RECOVERY_SUCCESS,
-          payload: data,
         });
       })
 
@@ -136,7 +139,7 @@ export function recoverPassword(emailData) {
 export function updatePassword(newData) {
   return function (dispatch) {
     dispatch({
-      type: PASSWORD_UPDATING_SUCCESS,
+      type: PASSWORD_UPDATING_REQUEST,
     });
     fetch(`${AUTH_ENDPOINT}/password-reset/reset`, {
       method: "POST",
@@ -161,7 +164,6 @@ export function updatePassword(newData) {
         console.log(data);
         dispatch({
           type: PASSWORD_UPDATING_SUCCESS,
-          payload: data,
         });
       })
 
@@ -171,3 +173,42 @@ export function updatePassword(newData) {
       });
   };
 }
+
+export function logOut(newData) {
+  return function (dispatch) {
+    dispatch({
+      type: LOGOUT_REQUEST,
+    });
+    fetch(`${AUTH_ENDPOINT}/password-reset/reset`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json;charset=utf-8",
+      },
+      body: JSON.stringify(newData),
+    })
+      .then((res) => {
+        if (res.ok) {
+          console.log(res);
+          return res;
+        } else {
+          dispatch({
+            type: LOGOUT_ERROR,
+          });
+          throw new Error("Network response was not OK");
+        }
+      })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        dispatch({
+          type: LOGOUT_SUCCESS,
+        });
+      })
+
+      .catch((e) => {
+        console.log("Error: " + e.message);
+        console.log(e.response);
+      });
+  };
+}
+
