@@ -29,10 +29,13 @@ const userState = {
   isAuthorizationFailed: false,
   isPasswordRecoveryInProcess: false,
   isPasswordRecoveryFailed: false,
+  isPasswordUpdatingInProcess: false,
+  isPasswordUpdatingFailed: false,
 };
 
 export const authReducer = (state = userState, action) => {
   switch (action.type) {
+    //---------------------------------------------------------------------------REGISTRATION-----------------------------
     case REGISTRATION_REQUEST: {
       return {
         ...state,
@@ -59,6 +62,7 @@ export const authReducer = (state = userState, action) => {
         isRegistrationInProcess: false,
       };
     }
+    //---------------------------------------------------------------------------AUTHORIZATION-----------------------------
     case AUTHORIZATION_REQUEST: {
       return {
         ...state,
@@ -68,7 +72,8 @@ export const authReducer = (state = userState, action) => {
     case AUTHORIZATION_SUCCESS: {
       setCookie("acessToken", action.payload.accessToken.split("Bearer ")[1]);
       setCookie("refreshToken", action.payload.refreshToken);
-      console.log(document.cookie);
+      window.location = "/constructor";
+      console.log(JSON.stringify(window.location));
       return {
         ...state,
         isAuth: true,
@@ -77,24 +82,57 @@ export const authReducer = (state = userState, action) => {
         accessToken: action.payload.accessToken.split("Bearer ")[1],
         refreshToken: action.payload.refreshToken,
         isAuthorizationInProcess: false,
+        isAuthorizationSucess: true,
       };
     }
-    case REGISTRATION_ERROR: {
+    case AUTHORIZATION_ERROR: {
       return {
         ...state,
         isAuthorizationFailed: true,
         isAuthorizationInProcess: false,
+        isAuthorizationSucess: false,
       };
     }
-
+    //---------------------------------------------------------------------------PASSWORD_RECOVERY-----------------------------
+    case PASSWORD_RECOVERY_REQUEST: {
+      return {
+        ...state,
+        isPasswordRecoveryInProcess: true,
+      };
+    }
     case PASSWORD_RECOVERY_SUCCESS: {
       return {
         ...state,
+        isPasswordRecoveryInProcess: false,
+        isPasswordRecoveryFailed: false,
       };
     }
-    case PASSWORD_RECOVERY_SUCCESS: {
+    case PASSWORD_RECOVERY_ERROR: {
       return {
         ...state,
+        isPasswordRecoveryInProcess: false,
+        isPasswordRecoveryFailed: true,
+      };
+    }
+    //---------------------------------------------------------------------------PASSWORD_UPDATING-----------------------------
+    case PASSWORD_UPDATING_REQUEST: {
+      return {
+        ...state,
+        isPasswordUpdatingInProcess: true,
+      };
+    }
+    case PASSWORD_UPDATING_SUCCESS: {
+      return {
+        ...state,
+        isPasswordUpdatingInProcess: false,
+        isPasswordUpdatingFailed: false,
+      };
+    }
+    case PASSWORD_UPDATING_ERROR: {
+      return {
+        ...state,
+        isPasswordUpdatingInProcess: false,
+        isPasswordUpdatingFailed: true,
       };
     }
     default:
