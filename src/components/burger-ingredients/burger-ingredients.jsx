@@ -80,20 +80,6 @@ const BurgerIngredients = () => {
 
   return (
     <>
-      {!iSIngredientDetailsActive || (
-        <Modal handleModalClose={handleModalClose}>
-          <IngredientDetails
-            image={ingredientDetailsData.image}
-            image_large={ingredientDetailsData.image_large}
-            name={ingredientDetailsData.name}
-            calories={ingredientDetailsData.calories}
-            proteins={ingredientDetailsData.proteins}
-            fat={ingredientDetailsData.fat}
-            carbohydrates={ingredientDetailsData.carbohydrates}
-          />
-        </Modal>
-      )}
-
       <div className={burgerIngredientsStyles.tab}>
         <Tab value="one" active={activeTabLink === "bun"} onClick={handleTab}>
           <a
