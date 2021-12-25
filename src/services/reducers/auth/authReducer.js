@@ -176,6 +176,8 @@ export const authReducer = (state = userState, action) => {
         ...state,
         getUserInfoInProcess: false,
         getUserInfoFailed: false,
+        email: action.payload.user.email,
+        name: action.payload.user.name,
       };
     }
     case GET_USER_INFO_ERROR: {
@@ -183,8 +185,6 @@ export const authReducer = (state = userState, action) => {
         ...state,
         getUserInfoInProcess: false,
         getUserInfoFailed: true,
-        email: action.payload.user.email,
-        name: action.payload.user.name,
       };
     }
 
