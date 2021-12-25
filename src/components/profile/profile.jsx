@@ -147,17 +147,21 @@ function Profile() {
                     size={"default"}
                   />
                 </div>
-                <div className={profileStyles.profileButtons + " mt-6"}>
-                  <p
-                    className="text text_type_main-default text_color_inactive mr-7"
-                    onClick={handleCancel}
-                  >
-                    Отмена
-                  </p>
-                  <Button type="primary" size="medium">
-                    Войти
-                  </Button>
-                </div>
+                {userEmail !== storeUserEmail || userName !== storeUserName ? (
+                  <div className={profileStyles.profileButtons + " mt-6"}>
+                    <p
+                      className="text text_type_main-default text_color_inactive mr-7"
+                      onClick={handleCancel}
+                    >
+                      Отмена
+                    </p>
+                    <Button type="primary" size="medium">
+                      Сохранить
+                    </Button>
+                  </div>
+                ) : (
+                  ""
+                )}
               </div>
             </form>
           </Route>
