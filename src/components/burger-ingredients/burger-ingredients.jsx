@@ -1,22 +1,10 @@
 import React, { useRef } from "react";
-import { useSelector, useDispatch } from "react-redux";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import burgerIngredientsStyles from "./burger-ingredients.module.css";
-import { hideIngredientDetails } from "../../services/actions/ingredient-details";
-import Modal from "../modal/modal";
-import IngredientDetails from "../ingredient-details/ingredient-details";
 import BurgerIngredientsContainer from "../burger-ingredients-container/burger-ingredients-container";
 
 const BurgerIngredients = () => {
   const [activeTabLink, setactiveTabLink] = React.useState("bun");
-
-  const { iSIngredientDetailsActive, ingredientDetailsId, ingredients } =
-    useSelector((store) => ({
-      ingredientDetailsId: store.ingredientDetails.ingredientDetailsId,
-      iSIngredientDetailsActive:
-        store.ingredientDetails.iSIngredientDetailsActive,
-      ingredients: store.burgerIngredients.ingredients,
-    }));
 
   function handleTab(e) {
     switch (e) {
@@ -69,14 +57,6 @@ const BurgerIngredients = () => {
       setactiveTabLink("fillings");
     }
   };
-
-  const dispatch = useDispatch();
-  const handleModalClose = () => {
-    dispatch(hideIngredientDetails());
-  };
-  const ingredientDetailsData = ingredients.filter(
-    (ingredient) => ingredient._id === ingredientDetailsId
-  )[0];
 
   return (
     <>

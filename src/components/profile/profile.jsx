@@ -1,24 +1,13 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import {
-  EditIcon,
-  CloseIcon,
-} from "@ya.praktikum/react-developer-burger-ui-components";
-import NavigationElement from "../navigation-element/navigation-element";
+
 import { NavLink } from "react-router-dom";
 import {
   Input,
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link,
-  useRouteMatch,
-  useParams,
-} from "react-router-dom";
+import { Switch, Route, useRouteMatch } from "react-router-dom";
 
 import {
   logout,
@@ -54,7 +43,6 @@ function Profile() {
   };
 
   let match = useRouteMatch();
-  let { topicId } = useParams();
   return (
     <div className={profileStyles.header + " mt-25"}>
       <div className={profileStyles.header__container}>
@@ -180,8 +168,4 @@ function Profile() {
   );
 }
 
-function Topic() {
-  let { topicId } = useParams();
-  return <h3>Requested topic ID: {topicId}</h3>;
-}
 export default Profile;

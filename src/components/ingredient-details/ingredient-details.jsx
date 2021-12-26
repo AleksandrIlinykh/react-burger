@@ -2,16 +2,10 @@ import ingredientDetailsStyles from './ingredient-details.module.css'
 import { ingredientDetailsTypes } from '../../utils/types'
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { getBurgerIngredients } from "../../services/actions/burger-ingredients";
 
 function IngredientDetails(props) {
   let { ingredientId } = useParams();
   ingredientId = ingredientId.slice(0, -1);
-  /*
-  useEffect(() => {
-    dispatch(getBurgerIngredients());
-  }, [dispatch]);
-*/
   const ingredient = useSelector(
     (store) =>
       store.burgerIngredients.ingredients.filter(

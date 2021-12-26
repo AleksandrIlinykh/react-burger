@@ -8,12 +8,10 @@ import { NavLink } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 
 function NavigationElement(props) {
-  let linkClassName = navigationElementStyles.navigationelement__link;
   let iconType = "secondary";
   let icon;
 
   if (props.isActive) {
-    linkClassName = navigationElementStyles.navigationelement__linkactive;
     iconType = "primary";
   }
 

@@ -1,5 +1,5 @@
 import { AUTH_ENDPOINT } from "../../../utils/api";
-import { setCookie, getCookie } from "../../../utils/cookies";
+import { getCookie } from "../../../utils/cookies";
 
 export const REGISTRATION_REQUEST = "REGISTRATION_REQUEST";
 export const REGISTRATION_SUCCESS = "REGISTRATION_SUCCESS";
@@ -345,9 +345,3 @@ export function getRefreshToken(data) {
   };
 }
 
-/*
-
-export const REFRESH_TOKEN_REQUEST = "REFRESH_TOKEN_REQUEST";
-export const REFRESH_TOKEN_SUCCESS = "REFRESH_TOKEN_SUCCESS";
-export const REFRESH_TOKEN_ERROR = "REFRESH_TOKEN_ERROR";
-*/

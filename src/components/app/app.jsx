@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import AppHeader from "../app-header/app-header";
 import { DndProvider } from "react-dnd";
@@ -31,17 +31,14 @@ import Modal from "../modal/modal";
 export default function App() {
   const dispatch = useDispatch();
 
-  const {
-    isPasswordRecoverySucess,
-    accessTokenExpired,
-    getUserInfoSucess,
-    refreshToken,
-  } = useSelector((store) => ({
-    isPasswordRecoverySucess: store.authData.isPasswordRecoverySucess,
-    getUserInfoSucess: store.authData.getUserInfoSucess,
-    accessTokenExpired: store.authData.accessTokenExpired,
-    refreshToken: store.authData.refreshToken,
-  }));
+  const { isPasswordRecoverySucess, accessTokenExpired } = useSelector(
+    (store) => ({
+      isPasswordRecoverySucess: store.authData.isPasswordRecoverySucess,
+      getUserInfoSucess: store.authData.getUserInfoSucess,
+      accessTokenExpired: store.authData.accessTokenExpired,
+      refreshToken: store.authData.refreshToken,
+    })
+  );
 
   useEffect(() => {
     dispatch(getBurgerIngredients());
@@ -52,7 +49,7 @@ export default function App() {
           token: `${getCookie("refreshToken")}`,
         })
       );
-  }, [dispatch]);
+  }, [dispatch, accessTokenExpired]);
 
   const ModalSwitch = () => {
     const location = useLocation();
@@ -170,4 +167,3 @@ export default function App() {
     */
   );
 }
-
