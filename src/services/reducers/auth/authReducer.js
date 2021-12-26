@@ -22,6 +22,9 @@ import {
   UPDATE_USER_INFO_REQUEST,
   UPDATE_USER_INFO_SUCCESS,
   UPDATE_USER_INFO_ERROR,
+  REFRESH_TOKEN_REQUEST,
+  REFRESH_TOKEN_SUCCESS,
+  REFRESH_TOKEN_ERROR,
 } from "../../actions/auth/authActions";
 
 const userState = {
@@ -29,6 +32,7 @@ const userState = {
   email: "",
   name: "",
   accessToken: "",
+  accessTokenExpired: false,
   requestToken: "",
   isRegistrationInProcess: false,
   isRegistrationSucess: false,
@@ -201,6 +205,7 @@ export const authReducer = (state = userState, action) => {
         getUserInfoSucess: false,
         getUserInfoInProcess: false,
         getUserInfoFailed: true,
+        accessTokenExpired: true,
       };
     }
     //---------------------------------------------------------------------------UPDATE_USER_INFO-----------------------------
@@ -224,6 +229,24 @@ export const authReducer = (state = userState, action) => {
         ...state,
         updateUserInfoInProcess: false,
         updateUserInfoFailed: true,
+      };
+    }
+
+    //---------------------------------------------------------------------------UPDATE_USER_INFO-----------------------------
+    case REFRESH_TOKEN_REQUEST: {
+      return {
+        ...state,
+      };
+    }
+    case REFRESH_TOKEN_SUCCESS: {
+      return {
+        ...state,
+        accessTokenExpired: false,
+      };
+    }
+    case REFRESH_TOKEN_ERROR: {
+      return {
+        ...state,
       };
     }
     default:

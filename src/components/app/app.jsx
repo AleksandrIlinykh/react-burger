@@ -31,17 +31,22 @@ import Modal from "../modal/modal";
 export default function App() {
   const dispatch = useDispatch();
 
-  const { isPasswordRecoverySucess, getUserInfoSucess, refreshToken } =
-    useSelector((store) => ({
-      isPasswordRecoverySucess: store.authData.isPasswordRecoverySucess,
-      getUserInfoSucess: store.authData.getUserInfoSucess,
-      refreshToken: store.authData.refreshToken,
-    }));
+  const {
+    isPasswordRecoverySucess,
+    accessTokenExpired,
+    getUserInfoSucess,
+    refreshToken,
+  } = useSelector((store) => ({
+    isPasswordRecoverySucess: store.authData.isPasswordRecoverySucess,
+    getUserInfoSucess: store.authData.getUserInfoSucess,
+    accessTokenExpired: store.authData.accessTokenExpired,
+    refreshToken: store.authData.refreshToken,
+  }));
 
   useEffect(() => {
     dispatch(getBurgerIngredients());
     dispatch(getUserInfo());
-    if (!getUserInfoSucess)
+    if (accessTokenExpired)
       dispatch(
         getRefreshToken({
           token: `${getCookie("refreshToken")}`,
