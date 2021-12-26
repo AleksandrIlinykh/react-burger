@@ -9,8 +9,8 @@ import logInStyles from "./log-in.module.css";
 import { authorization } from "../../../services/actions/auth/authActions";
 
 function LogIn() {
-  const [email, setEmail] = React.useState("value");
-  const [password, setPassword] = React.useState("value");
+  const [email, setEmail] = React.useState("");
+  const [password, setPassword] = React.useState("");
 
   const inputRef = React.useRef(null);
   /*
@@ -46,8 +46,8 @@ function LogIn() {
           placeholder={"E-mail"}
           onChange={(e) => setEmail(e.target.value)}
           //icon={"ShowIcon"}
-          //value={value}
-          name={"name"}
+          value={email}
+          name={"email"}
           error={false}
           ref={inputRef}
           //onIconClick={onIconClick}
@@ -61,8 +61,8 @@ function LogIn() {
           placeholder={"Пароль"}
           onChange={(e) => setPassword(e.target.value)}
           icon={"ShowIcon"}
-          //value={value}
-          name={"name"}
+          value={password}
+          name={"password"}
           error={false}
           ref={inputRef}
           //onIconClick={onIconClick}

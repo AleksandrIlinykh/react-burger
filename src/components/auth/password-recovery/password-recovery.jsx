@@ -9,7 +9,7 @@ import passwordRecoveryStyles from "./password-recovery.module.css";
 import { recoverPassword } from "../../../services/actions/auth/authActions";
 
 function PasswordRecovery() {
-  const [email, setEmail] = React.useState("value");
+  const [email, setEmail] = React.useState("");
   const emailRef = React.useRef(null);
   /*
   const onIconClick = () => {
@@ -38,8 +38,8 @@ function PasswordRecovery() {
           placeholder={"Укажите e-mail"}
           onChange={(e) => setEmail(e.target.value)}
           //icon={"ShowIcon"}
-          //value={value}
-          name={"name"}
+          value={email}
+          name={"email"}
           error={false}
           ref={emailRef}
           //onIconClick={onIconClick}

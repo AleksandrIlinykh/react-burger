@@ -1,9 +1,8 @@
-import ingredientDetailsStyles from './ingredient-details.module.css'
-import { ingredientDetailsTypes } from '../../utils/types'
+import ingredientDetailsStyles from "./ingredient-details.module.css";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 
-function IngredientDetails(props) {
+function IngredientDetails() {
   let { ingredientId } = useParams();
   ingredientId = ingredientId.slice(0, -1);
   const ingredient = useSelector(
@@ -65,7 +64,5 @@ function IngredientDetails(props) {
     </>
   );
 }
-
-IngredientDetails.propTypes = ingredientDetailsTypes;
 
 export default IngredientDetails;

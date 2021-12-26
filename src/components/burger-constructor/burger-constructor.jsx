@@ -16,7 +16,7 @@ import {
   hideOrderDetails,
 } from "../../services/actions/order-details";
 
-const BurgerConstructor = (props) => {
+const BurgerConstructor = () => {
   const dispatch = useDispatch();
 
   const [, dropTarget] = useDrop({

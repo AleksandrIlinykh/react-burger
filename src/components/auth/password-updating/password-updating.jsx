@@ -37,8 +37,8 @@ function PasswordUpdating() {
           placeholder={"Введите новый пароль"}
           onChange={(e) => setPassword(e.target.value)}
           icon={"ShowIcon"}
-          //value={value}
-          name={"name"}
+          value={password}
+          name={"password"}
           error={false}
           ref={inputRef}
           onIconClick={onIconClick}
@@ -53,8 +53,8 @@ function PasswordUpdating() {
           placeholder={"Введите код из письма"}
           onChange={(e) => setToken(e.target.value)}
           //icon={"ShowIcon"}
-          //value={value}
-          name={"name"}
+          value={token}
+          name={"token"}
           error={false}
           ref={inputRef}
           onIconClick={onIconClick}

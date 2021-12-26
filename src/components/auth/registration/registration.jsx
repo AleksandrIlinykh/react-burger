@@ -52,7 +52,7 @@ function Registration() {
             console.log(name);
           }}
           //icon={"ShowIcon"}
-          //value={value}
+          value={name}
           name={"name"}
           error={false}
           ref={nameRef}
@@ -70,8 +70,8 @@ function Registration() {
             console.log(email);
           }}
           //icon={"ShowIcon"}
-          //value={value}
-          name={"name"}
+          value={email}
+          name={"email"}
           error={false}
           ref={emailRef}
           //={onIconClick}
@@ -88,8 +88,8 @@ function Registration() {
             console.log(password);
           }}
           icon={"ShowIcon"}
-          //value={value}
-          name={"name"}
+          value={password}
+          name={"password"}
           error={false}
           ref={passwordRef}
           //onIconClick={onIconClick}
