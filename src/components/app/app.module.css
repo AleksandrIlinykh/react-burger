@@ -5,6 +5,7 @@
 	background-color: #131316;
 	display: flex;
 	gap: 40px;
+	text-align: center;
 }
 
 .contentleft {

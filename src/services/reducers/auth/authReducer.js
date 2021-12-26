@@ -43,8 +43,11 @@ const userState = {
 
   isPasswordUpdatingInProcess: false,
   isPasswordUpdatingFailed: false,
+
   getUserInfoInProcess: false,
+  getUserInfoSucess: false,
   getUserInfoFailed: false,
+
   updateUserInfoInProcess: false,
   updateUserInfoInFailed: false,
 };
@@ -187,6 +190,7 @@ export const authReducer = (state = userState, action) => {
         isAuth: true,
         getUserInfoInProcess: false,
         getUserInfoFailed: false,
+        getUserInfoSucess: true,
         email: action.payload.user.email,
         name: action.payload.user.name,
       };
@@ -194,6 +198,7 @@ export const authReducer = (state = userState, action) => {
     case GET_USER_INFO_ERROR: {
       return {
         ...state,
+        getUserInfoSucess: false,
         getUserInfoInProcess: false,
         getUserInfoFailed: true,
       };

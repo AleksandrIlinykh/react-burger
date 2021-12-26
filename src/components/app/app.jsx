@@ -7,6 +7,7 @@ import BurgerIngredients from "../burger-ingredients/burger-ingredients";
 import BurgerConstructor from "../burger-constructor/burger-constructor";
 import { ProtectedRoute } from "../protected-route/protected-route ";
 import appStyles from "./app.module.css";
+import { getCookie } from "../../utils/cookies";
 import {
   BrowserRouter as Router,
   Route,
@@ -17,6 +18,8 @@ import {
 import { hideIngredientDetails } from "../../services/actions/ingredient-details";
 import { getBurgerIngredients } from "../../services/actions/burger-ingredients";
 import { getUserInfo } from "../../services/actions/auth/authActions";
+import { getRefreshToken } from "../../services/actions/auth/authActions";
+
 import LogIn from "../auth/log-in/log-in";
 import Registration from "../auth/registration/registration";
 import PasswordRecovery from "../auth/password-recovery/password-recovery";
@@ -28,13 +31,22 @@ import Modal from "../modal/modal";
 export default function App() {
   const dispatch = useDispatch();
 
-  const isPasswordRecoverySucess = useSelector(
-    (state) => state.authData.isPasswordRecoverySucess
-  );
+  const { isPasswordRecoverySucess, getUserInfoSucess, refreshToken } =
+    useSelector((store) => ({
+      isPasswordRecoverySucess: store.authData.isPasswordRecoverySucess,
+      getUserInfoSucess: store.authData.getUserInfoSucess,
+      refreshToken: store.authData.refreshToken,
+    }));
 
   useEffect(() => {
     dispatch(getBurgerIngredients());
     dispatch(getUserInfo());
+    if (!getUserInfoSucess)
+      dispatch(
+        getRefreshToken({
+          token: `${getCookie("refreshToken")}`,
+        })
+      );
   }, [dispatch]);
 
   const ModalSwitch = () => {
@@ -52,6 +64,7 @@ export default function App() {
       <>
         <Switch location={background || location}>
           <Route path="/ingredients/:ingredientId" exact>
+            <AppHeader />
             <IngredientsDetails />
           </Route>
 

@@ -29,6 +29,10 @@ export const UPDATE_USER_INFO_REQUEST = "UPDATE_USER_INFO_REQUEST";
 export const UPDATE_USER_INFO_SUCCESS = "UPDATE_USER_INFO_SUCCESS";
 export const UPDATE_USER_INFO_ERROR = "UPDATE_USER_INFO_ERROR";
 
+export const REFRESH_TOKEN_REQUEST = "REFRESH_TOKEN_REQUEST";
+export const REFRESH_TOKEN_SUCCESS = "REFRESH_TOKEN_SUCCESS";
+export const REFRESH_TOKEN_ERROR = "REFRESH_TOKEN_ERROR";
+
 export function registration(userData) {
   return function (dispatch) {
     dispatch({
@@ -230,6 +234,7 @@ export function getUserInfo() {
     dispatch({
       type: GET_USER_INFO_REQUEST,
     });
+
     fetch(`${AUTH_ENDPOINT}/auth/user`, {
       method: "GET",
       headers: {
@@ -249,7 +254,6 @@ export function getUserInfo() {
       })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
         dispatch({
           type: GET_USER_INFO_SUCCESS,
           payload: data,
@@ -302,3 +306,48 @@ export function updateUserInfo(data) {
       });
   };
 }
+
+export function getRefreshToken(data) {
+  return function (dispatch) {
+    dispatch({
+      type: REFRESH_TOKEN_REQUEST,
+    });
+
+    fetch(`${AUTH_ENDPOINT}/auth/token`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    })
+      .then((res) => {
+        if (res.ok) {
+          return res;
+        } else {
+          dispatch({
+            type: REFRESH_TOKEN_ERROR,
+          });
+          throw new Error("Network response was not OK");
+        }
+      })
+      .then((res) => res.json())
+      .then((data) => {
+        dispatch({
+          type: REFRESH_TOKEN_SUCCESS,
+          payload: data,
+        });
+      })
+
+      .catch((e) => {
+        console.log("Error: " + e.message);
+        console.log(e.response);
+      });
+  };
+}
+
+/*
+
+export const REFRESH_TOKEN_REQUEST = "REFRESH_TOKEN_REQUEST";
+export const REFRESH_TOKEN_SUCCESS = "REFRESH_TOKEN_SUCCESS";
+export const REFRESH_TOKEN_ERROR = "REFRESH_TOKEN_ERROR";
+*/
