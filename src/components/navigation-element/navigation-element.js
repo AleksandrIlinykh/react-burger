@@ -30,10 +30,6 @@ function NavigationElement(props) {
 
   const history = useHistory();
 
-  const handleClick = () => {
-    console.log(history.location.pathname);
-  };
-
   return (
     <div className="pt-4 pr-5 pb-4 pl-5">
       <li className={navigationElementStyles.navigationelement}>
@@ -50,7 +46,6 @@ function NavigationElement(props) {
             //}}
             className={navigationElementStyles.navElement}
             activeClassName={navigationElementStyles.navElementActive}
-            onClick={handleClick}
           >
             {props.name}
           </NavLink>

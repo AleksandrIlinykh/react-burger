@@ -34,7 +34,7 @@ const BurgerIngredients = () => {
     const saucePosition = refSauce.current.getBoundingClientRect().top - 300;
     const fillingPosition =
       refFilling.current.getBoundingClientRect().top - 300;
-    console.log(`${bunPosition}, ${saucePosition}, ${fillingPosition}`);
+
 
     if (
       Math.abs(bunPosition) < Math.abs(saucePosition) &&

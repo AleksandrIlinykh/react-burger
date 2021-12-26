@@ -49,7 +49,7 @@ function Registration() {
           placeholder={"Имя"}
           onChange={(e) => {
             setName(e.target.value);
-            console.log(name);
+
           }}
           //icon={"ShowIcon"}
           value={name}
@@ -67,7 +67,7 @@ function Registration() {
           placeholder={"E-mail"}
           onChange={(e) => {
             setEmail(e.target.value);
-            console.log(email);
+
           }}
           //icon={"ShowIcon"}
           value={email}
@@ -85,7 +85,7 @@ function Registration() {
           placeholder={"Пароль"}
           onChange={(e) => {
             setPassword(e.target.value);
-            console.log(password);
+
           }}
           icon={"ShowIcon"}
           value={password}

@@ -47,7 +47,6 @@ export function registration(userData) {
     })
       .then((res) => {
         if (res.ok) {
-          console.log(res);
           return res;
         } else {
           dispatch({
@@ -58,7 +57,6 @@ export function registration(userData) {
       })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
         dispatch({
           type: REGISTRATION_SUCCESS,
           payload: data,
@@ -86,7 +84,6 @@ export function authorization(userData) {
     })
       .then((res) => {
         if (res.ok) {
-          console.log(res);
           return res;
         } else {
           dispatch({
@@ -97,7 +94,6 @@ export function authorization(userData) {
       })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
         dispatch({
           type: AUTHORIZATION_SUCCESS,
           payload: data,
@@ -125,7 +121,6 @@ export function recoverPassword(emailData) {
     })
       .then((res) => {
         if (res.ok) {
-          console.log(res);
           return res;
         } else {
           dispatch({
@@ -136,7 +131,6 @@ export function recoverPassword(emailData) {
       })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
         dispatch({
           type: PASSWORD_RECOVERY_SUCCESS,
         });
@@ -163,7 +157,6 @@ export function updatePassword(newData) {
     })
       .then((res) => {
         if (res.ok) {
-          console.log(res);
           return res;
         } else {
           dispatch({
@@ -174,7 +167,6 @@ export function updatePassword(newData) {
       })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
         dispatch({
           type: PASSWORD_UPDATING_SUCCESS,
         });
@@ -205,7 +197,6 @@ export function logout() {
     })
       .then((res) => {
         if (res.ok) {
-          console.log(res);
           return res;
         } else {
           dispatch({
@@ -216,7 +207,6 @@ export function logout() {
       })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
         dispatch({
           type: LOGOUT_SUCCESS,
         });
@@ -282,7 +272,6 @@ export function updateUserInfo(data) {
     })
       .then((res) => {
         if (res.ok) {
-          console.log(res);
           return res;
         } else {
           dispatch({
@@ -293,7 +282,6 @@ export function updateUserInfo(data) {
       })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
         dispatch({
           type: UPDATE_USER_INFO_SUCCESS,
           payload: data,
