@@ -11,20 +11,25 @@ import { ModalSwitch } from "../modal-switch/modal-switch";
 export default function App() {
   const dispatch = useDispatch();
 
-  const { accessTokenExpired } = useSelector((store) => ({
-    accessTokenExpired: store.authData.accessTokenExpired,
+  const { accessToken } = useSelector((store) => ({
+    accessToken: store.authData.accessToken,
   }));
 
   useEffect(() => {
     dispatch(getBurgerIngredients());
-    dispatch(getUserInfo());
+    if (accessToken) {
+      dispatch(getUserInfo());
+    }
+
+    /*
     if (accessTokenExpired)
       dispatch(
         getRefreshToken({
           token: `${getCookie("refreshToken")}`,
         })
       );
-  }, [dispatch, accessTokenExpired]);
+      */
+  }, []);
 
   return (
     <>
