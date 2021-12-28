@@ -94,6 +94,7 @@ export function authorization(userData) {
       })
       .then((res) => res.json())
       .then((data) => {
+        console.log("auth sucess");
         dispatch({
           type: AUTHORIZATION_SUCCESS,
           payload: data,
@@ -218,7 +219,7 @@ export function logout() {
       });
   };
 }
-
+//---------------------------------------------------------------------------GET_USER_INFO-----------------------------
 export function getUserInfo() {
   return function (dispatch) {
     dispatch({
@@ -239,11 +240,12 @@ export function getUserInfo() {
           dispatch({
             type: GET_USER_INFO_ERROR,
           });
-          throw new Error("Network response was not OK");
+          throw new Error(`${res.status}`);
         }
       })
       .then((res) => res.json())
       .then((data) => {
+        console.log("token is correct!");
         dispatch({
           type: GET_USER_INFO_SUCCESS,
           payload: data,
@@ -251,12 +253,14 @@ export function getUserInfo() {
       })
 
       .catch((e) => {
-        console.log("Error: " + e.message);
-        console.log(e.response);
+        if ((e.message = "403")) {
+          console.log("acessToken просрочен! Делаю запрос на обновление");
+          dispatch(refreshToken());
+        }
       });
   };
 }
-
+//---------------------------------------------------------------------------UPDATE_USER_INFO-----------------------------
 export function updateUserInfo(data) {
   return function (dispatch) {
     dispatch({
@@ -294,8 +298,8 @@ export function updateUserInfo(data) {
       });
   };
 }
-
-export function getRefreshToken(data) {
+//---------------------------------------------------------------------------UPDATE_TOKEN-----------------------------
+export function refreshToken(data) {
   return function (dispatch) {
     dispatch({
       type: REFRESH_TOKEN_REQUEST,
@@ -306,7 +310,9 @@ export function getRefreshToken(data) {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(data),
+      body: JSON.stringify({
+        token: `${getCookie("refreshToken")}`,
+      }),
     })
       .then((res) => {
         if (res.ok) {
@@ -315,7 +321,7 @@ export function getRefreshToken(data) {
           dispatch({
             type: REFRESH_TOKEN_ERROR,
           });
-          throw new Error("Network response was not OK");
+          throw new Error("REFRESH_TOKEN_ERROR");
         }
       })
       .then((res) => res.json())
@@ -324,6 +330,10 @@ export function getRefreshToken(data) {
           type: REFRESH_TOKEN_SUCCESS,
           payload: data,
         });
+        console.log(
+          "acessToken обновлён, выполняю запрос на получение пользовательских данных"
+        );
+        dispatch(getUserInfo());
       })
 
       .catch((e) => {
