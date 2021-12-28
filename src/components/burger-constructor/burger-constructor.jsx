@@ -114,7 +114,7 @@ const BurgerConstructor = () => {
                   name={chosenIngredient.name}
                   price={chosenIngredient.price}
                   image={chosenIngredient.image}
-                  key={chosenIngredient._id}
+                  key={index}
                   index={index}
                 />
               ))}
