@@ -11,9 +11,12 @@ import { ModalSwitch } from "../modal-switch/modal-switch";
 export default function App() {
   const dispatch = useDispatch();
 
+  /*
   const { accessToken } = useSelector((store) => ({
     accessToken: store.authData.accessToken,
   }));
+*/
+  const accessToken = getCookie("acessToken");
 
   useEffect(() => {
     dispatch(getBurgerIngredients());
