@@ -1,4 +1,4 @@
-import { setCookie } from "../../../utils/cookies";
+import { setCookie, deleteCookie } from "../../../utils/cookies";
 
 import {
   REGISTRATION_REQUEST,
@@ -166,6 +166,8 @@ export const authReducer = (state = userState, action) => {
       };
     }
     case LOGOUT_SUCCESS: {
+      deleteCookie("acessToken");
+      deleteCookie("refreshToken");
       return {
         ...userState,
         isAuth: false,
@@ -252,4 +254,3 @@ export const authReducer = (state = userState, action) => {
       return state;
   }
 };
-
