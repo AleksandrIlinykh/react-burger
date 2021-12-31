@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, useHistory } from "react-router-dom";
+import { Link, useHistory, useLocation, Redirect } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {
   Input,
@@ -21,12 +21,12 @@ function LogIn() {
 */
   const dispatch = useDispatch();
   const history = useHistory();
-
-  const isAuthorizationSucess = useSelector(
-    (state) => state.authData.isAuthorizationSucess
-  );
+  const historyState = history.state;
+  const location = useLocation();
+  const isAuth = useSelector((state) => state.authData.isAuth);
 
   const handleClick = () => {
+    console.log(location.state.from.pathname);
     dispatch(
       authorization({
         email: email,
@@ -35,7 +35,17 @@ function LogIn() {
     );
   };
 
-  if (isAuthorizationSucess) history.replace({ pathname: "/" });
+  //if (isAuthorizationSucess)
+  //  history.replace({ pathname: location.state.fron.pathname });
+
+  if (isAuth) {
+    return (
+      <Redirect
+        // Если объект state не является undefined, вернём пользователя назад.
+        to={location.state?.from.pathname || "/"}
+      />
+    );
+  }
 
   return (
     <section className={logInStyles.logInContainer}>

@@ -29,6 +29,7 @@ export const ModalSwitch = () => {
   const history = useHistory();
   let background = location.state && location.state.background;
   const dispatch = useDispatch();
+  const historyState = history.state;
   const { isPasswordRecoverySucess, accessTokenExpired } = useSelector(
     (store) => ({
       isPasswordRecoverySucess: store.authData.isPasswordRecoverySucess,
@@ -51,7 +52,11 @@ export const ModalSwitch = () => {
           <IngredientsDetails />
         </Route>
 
-        <ProtectedRoute path="/login" forAuth={true} redirectTo={"/"}>
+        <ProtectedRoute
+          path="/login"
+          forAuth={true}
+          redirectTo={location.state?.from.pathname || "/"}
+        >
           <AppHeader />
           <LogIn />
         </ProtectedRoute>

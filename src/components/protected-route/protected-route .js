@@ -1,4 +1,4 @@
-import { Route, Redirect } from "react-router-dom";
+import { Route, Redirect, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 export function ProtectedRoute({
@@ -11,6 +11,7 @@ export function ProtectedRoute({
     isAuth: store.authData.isAuth,
   }));
 
+  const location = useLocation();
   const permissionFlag = (forAuth ? !isAuth : isAuth) && addPermissionCondition;
   return (
     <Route
@@ -19,7 +20,14 @@ export function ProtectedRoute({
           children
         ) : (
           // Если пользователя нет в хранилище, происходит переадресация на роут /login
-          <Redirect to={redirectTo} />
+          <Redirect
+            to={{
+              // Маршрут, на который произойдёт переадресация
+              pathname: redirectTo,
+              // В from сохраним текущий маршрут
+              state: { from: location },
+            }}
+          />
         )
       }
     />
