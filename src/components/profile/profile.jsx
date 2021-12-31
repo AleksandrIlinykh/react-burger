@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
-import { NavLink } from "react-router-dom";
+import { NavLink, useHistory } from "react-router-dom";
 import {
   Input,
   Button,
@@ -25,7 +25,7 @@ function Profile() {
   const [userName, setUserName] = useState(storeUserName);
 
   const dispatch = useDispatch();
-
+  const history = useHistory();
   const handleSubmit = (event) => {
     event.preventDefault();
     dispatch(
@@ -77,7 +77,7 @@ function Profile() {
           </div>
           <div className={profileStyles.navElement}>
             <NavLink
-              to="/"
+              to="/profile"
               className={
                 profileStyles.navElement + " text text_type_main-medium"
               }

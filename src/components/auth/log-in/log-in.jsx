@@ -26,7 +26,6 @@ function LogIn() {
   const isAuth = useSelector((state) => state.authData.isAuth);
 
   const handleClick = () => {
-    console.log(location.state.from.pathname);
     dispatch(
       authorization({
         email: email,
