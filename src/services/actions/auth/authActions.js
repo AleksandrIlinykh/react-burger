@@ -245,7 +245,6 @@ export function getUserInfo() {
       })
       .then((res) => res.json())
       .then((data) => {
-        console.log("token is correct!");
         dispatch({
           type: GET_USER_INFO_SUCCESS,
           payload: data,
@@ -254,7 +253,6 @@ export function getUserInfo() {
 
       .catch((e) => {
         if ((e.message = "403")) {
-          console.log("acessToken просрочен! Делаю запрос на обновление");
           dispatch(refreshToken());
         }
       });
@@ -330,9 +328,6 @@ export function refreshToken(data) {
           type: REFRESH_TOKEN_SUCCESS,
           payload: data,
         });
-        console.log(
-          "acessToken обновлён, выполняю запрос на получение пользовательских данных"
-        );
         dispatch(getUserInfo());
       })
 
