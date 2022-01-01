@@ -95,7 +95,6 @@ export const authReducer = (state = userState, action) => {
     case AUTHORIZATION_SUCCESS: {
       setCookie("acessToken", action.payload.accessToken.split("Bearer ")[1]);
       setCookie("refreshToken", action.payload.refreshToken);
-      console.log(JSON.stringify(action.payload.refreshToken));
       return {
         ...state,
         isAuth: true,
