@@ -253,7 +253,7 @@ export function getUserInfo() {
 
       .catch((e) => {
         if ((e.message = "403")) {
-          dispatch(refreshToken());
+          dispatch(refreshToken(1));
         }
       });
   };
@@ -279,7 +279,7 @@ export function updateUserInfo(data) {
           dispatch({
             type: UPDATE_USER_INFO_ERROR,
           });
-          throw new Error("Network response was not OK");
+          throw new Error(`${res.status}`);
         }
       })
       .then((res) => res.json())
@@ -291,13 +291,14 @@ export function updateUserInfo(data) {
       })
 
       .catch((e) => {
-        console.log("Error: " + e.message);
-        console.log(e.response);
+        if ((e.message = "403")) {
+          dispatch(refreshToken(0));
+        }
       });
   };
 }
 //---------------------------------------------------------------------------UPDATE_TOKEN-----------------------------
-export function refreshToken(data) {
+export function refreshToken(isGettingUserInfo) {
   return function (dispatch) {
     dispatch({
       type: REFRESH_TOKEN_REQUEST,
@@ -328,7 +329,8 @@ export function refreshToken(data) {
           type: REFRESH_TOKEN_SUCCESS,
           payload: data,
         });
-        dispatch(getUserInfo());
+        if (isGettingUserInfo) dispatch(getUserInfo());
+        else dispatch(updateUserInfo());
       })
 
       .catch((e) => {
