@@ -49,7 +49,7 @@ function Profile() {
           <div className={profileStyles.navElement}>
             <NavLink
               exact
-              to={`${match.url}`}
+              to={`/profile`}
               className={
                 profileStyles.navElement + " text text_type_main-medium"
               }
@@ -63,7 +63,7 @@ function Profile() {
           <div className={profileStyles.navElement}>
             <NavLink
               exact
-              to={`${match.url}/orders`}
+              to={`/profile/orders`}
               //to="/profile/orders"
               className={
                 profileStyles.navElement + " text text_type_main-medium"
