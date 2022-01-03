@@ -24,11 +24,20 @@ function PasswordRecovery() {
   const history = useHistory();
 
   const handleClick = () => {
-    dispatch(
-      recoverPassword({
-        email: email,
-      })
-    );
+    if (
+      email
+        .toLowerCase()
+        .match(
+          /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+        )
+    ) {
+      dispatch(
+        recoverPassword({
+          email: email,
+        })
+      );
+    }
+    
     //history.replace({ pathname: "/password-updating" });
   };
 
