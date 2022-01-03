@@ -23,6 +23,7 @@ function Profile() {
   }));
   const [userEmail, setUserEmail] = useState(storeUserEmail);
   const [userName, setUserName] = useState(storeUserName);
+  const [password, setPassword] = useState("");
 
   const dispatch = useDispatch();
   const history = useHistory();
@@ -132,9 +133,9 @@ function Profile() {
                   <Input
                     type={"text"}
                     placeholder={"Пароль"}
-                    //onChange={(e) => setValue(e.target.value)}
+                    onChange={(e) => setPassword(e.target.value)}
                     icon={"CloseIcon"}
-                    //value={value}
+                    value={password}
                     name={"name"}
                     error={false}
                     //ref={inputRef}
