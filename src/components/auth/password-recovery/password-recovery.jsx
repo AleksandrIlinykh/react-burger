@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, useHistory } from "react-router-dom";
+import { Link, useHistory, Redirect } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {
   Input,
@@ -14,12 +14,7 @@ function PasswordRecovery() {
   const isPasswordRecoverySucess = useSelector(
     (state) => state.authData.isPasswordRecoverySucess
   );
-  /*
-  const onIconClick = () => {
-    setTimeout(() => inputRef.current.focus(), 0);
-    alert("Icon Click Callback");
-  };
-*/
+
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -37,12 +32,16 @@ function PasswordRecovery() {
         })
       );
     }
-    
-    //history.replace({ pathname: "/password-updating" });
   };
 
-  if (isPasswordRecoverySucess)
-    history.replace({ pathname: "/password-updating" });
+  if (isPasswordRecoverySucess) {
+    return (
+      <Redirect
+        // Если объект state не является undefined, вернём пользователя назад.
+        to="/password-updating"
+      />
+    );
+  }
 
   return (
     <section className={passwordRecoveryStyles.passwordRecoveryContainer}>
