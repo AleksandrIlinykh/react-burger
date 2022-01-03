@@ -1,6 +1,6 @@
 import React from "react";
 import { Link, useHistory } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   Input,
   Button,
@@ -11,6 +11,9 @@ import { recoverPassword } from "../../../services/actions/auth/authActions";
 function PasswordRecovery() {
   const [email, setEmail] = React.useState("");
   const emailRef = React.useRef(null);
+  const isPasswordRecoverySucess = useSelector(
+    (state) => state.authData.isPasswordRecoverySucess
+  );
   /*
   const onIconClick = () => {
     setTimeout(() => inputRef.current.focus(), 0);
@@ -26,8 +29,11 @@ function PasswordRecovery() {
         email: email,
       })
     );
-    history.replace({ pathname: "/password-updating" });
+    //history.replace({ pathname: "/password-updating" });
   };
+
+  if (isPasswordRecoverySucess)
+    history.replace({ pathname: "/password-updating" });
 
   return (
     <section className={passwordRecoveryStyles.passwordRecoveryContainer}>
