@@ -55,7 +55,13 @@ export const ModalSwitch = () => {
         <ProtectedRoute
           path="/login"
           forAuth={true}
-          redirectTo={location.state?.from.pathname || "/"}
+          redirectTo={
+            location.state &&
+            location.state.from &&
+            location.state.from.pathname
+              ? location.state.from.pathname
+              : "/"
+          }
         >
           <AppHeader />
           <LogIn />
