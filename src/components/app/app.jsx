@@ -1,22 +1,47 @@
-import React, { useEffect } from "react";
-import { useDispatch } from "react-redux";
-import AppHeader from "../app-header/app-header";
-import { DndProvider } from "react-dnd";
-import { HTML5Backend } from "react-dnd-html5-backend";
-import BurgerIngredients from "../burger-ingredients/burger-ingredients";
-import BurgerConstructor from "../burger-constructor/burger-constructor";
-import appStyles from "./app.module.css";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getCookie } from "../../utils/cookies";
+import { BrowserRouter as Router } from "react-router-dom";
 
 import { getBurgerIngredients } from "../../services/actions/burger-ingredients";
+import { getUserInfo } from "../../services/actions/auth/authActions";
+import { getRefreshToken } from "../../services/actions/auth/authActions";
 
-function App() {
+import { ModalSwitch } from "../modal-switch/modal-switch";
+export default function App() {
   const dispatch = useDispatch();
+
+  /*
+  const { accessToken } = useSelector((store) => ({
+    accessToken: store.authData.accessToken,
+  }));
+*/
+  const accessToken = getCookie("acessToken");
 
   useEffect(() => {
     dispatch(getBurgerIngredients());
-  }, [dispatch]);
+    if (accessToken) {
+      dispatch(getUserInfo());
+    }
+
+    /*
+    if (accessTokenExpired)
+      dispatch(
+        getRefreshToken({
+          token: `${getCookie("refreshToken")}`,
+        })
+      );
+      */
+  }, []);
 
   return (
+    <>
+      <Router>
+        <ModalSwitch />
+      </Router>
+    </>
+
+    /*
     <>
       <AppHeader />
       <DndProvider backend={HTML5Backend}>
@@ -34,7 +59,6 @@ function App() {
         </div>
       </DndProvider>
     </>
+    */
   );
 }
-
-export default App;

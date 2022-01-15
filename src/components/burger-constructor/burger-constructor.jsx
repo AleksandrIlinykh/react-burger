@@ -9,14 +9,14 @@ import burgerConstructorStyles from "./burger-constructor.module.css";
 import Modal from "../modal/modal";
 import OrderDetails from "../order-details/order-details";
 import { addIngredient } from "../../services/actions/burger-constructor";
-
+import { useHistory } from "react-router-dom";
 import { getOrderNumber } from "../../services/actions/order-data";
 import {
   showOrderDetails,
   hideOrderDetails,
 } from "../../services/actions/order-details";
 
-const BurgerConstructor = (props) => {
+const BurgerConstructor = () => {
   const dispatch = useDispatch();
 
   const [, dropTarget] = useDrop({
@@ -37,7 +37,17 @@ const BurgerConstructor = (props) => {
     })
   );
 
+  const history = useHistory();
+  const { isAuth } = useSelector((store) => ({
+    isAuth: store.authData.isAuth,
+  }));
+
   function handleMakeOrderClick() {
+    if (!isAuth) {
+      history.replace({ pathname: "/login" });
+      return;
+    }
+
     const chosenIngredientsData = [bun, ...sausesAndFillings];
     const bodyData = {
       ingredients: chosenIngredientsData.map(
@@ -104,7 +114,7 @@ const BurgerConstructor = (props) => {
                   name={chosenIngredient.name}
                   price={chosenIngredient.price}
                   image={chosenIngredient.image}
-                  key={chosenIngredient._id}
+                  key={index}
                   index={index}
                 />
               ))}

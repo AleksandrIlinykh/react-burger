@@ -10,6 +10,7 @@ export const burgerConstructorElementTypes = {
   name: PropTypes.string.isRequired,
   price: PropTypes.number.isRequired,
   image: PropTypes.string.isRequired,
+  index: PropTypes.number.isRequired,
 };
 
 export const ingredientCardTypes = {
@@ -55,13 +56,4 @@ export const modalOverlayTypes = {
   handleModalClose: PropTypes.func.isRequired,
 };
 
-export const ingredientDetailsTypes = {
-  image: PropTypes.string.isRequired,
-  image_large: PropTypes.string.isRequired,
-  name: PropTypes.string.isRequired,
-  proteins: PropTypes.number.isRequired,
-  fat: PropTypes.number.isRequired,
-  carbohydrates: PropTypes.number.isRequired,
-  calories: PropTypes.number.isRequired,
-};
 
