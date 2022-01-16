@@ -3,12 +3,14 @@ import { Route, Redirect, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 type TProtectedRoute = {
+  path: string;
   children: React.ReactNode;
   redirectTo: string;
   forAuth: boolean;
   addPermissionCondition?: boolean;
 };
 export function ProtectedRoute({
+  path,
   children,
   redirectTo,
   forAuth,
