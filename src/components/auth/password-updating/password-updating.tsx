@@ -10,9 +10,14 @@ import { updatePassword } from "../../../services/actions/auth/authActions";
 function PasswordUpdating() {
   const [password, setPassword] = React.useState("value");
   const [token, setToken] = React.useState("value");
-  const inputRef = React.useRef(null);
+  const inputRef = React.useRef<HTMLInputElement>(null);
   const onIconClick = () => {
-    setTimeout(() => inputRef.current.focus(), 0);
+    setTimeout(() => {
+      if (inputRef && inputRef.current) {
+        inputRef.current.focus();
+      }
+    }, 0);
+
     alert("Icon Click Callback");
   };
 
