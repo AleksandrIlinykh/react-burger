@@ -5,25 +5,12 @@ import { Link, useLocation } from "react-router-dom";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Counter } from "@ya.praktikum/react-developer-burger-ui-components";
 
-import { ingredientCardTypes } from "../../utils/types";
+
 import ingredientCardStyles from "./ingredient-card.module.css";
 import { showIngredientDetails } from "../../services/actions/ingredient-details";
 import { v4 as uuidv4 } from "uuid";
 
-export type TIngredientType = {
-  _id: string;
-  name: string;
-  type: string;
-  proteins: number;
-  fat: number;
-  carbohydrates: number;
-  calories: number;
-  price: number;
-  image: string;
-  image_mobile: string;
-  image_large: string;
-  __v: number;
-};
+import { TIngredientType } from "../../utils/types";
 
 export type TIngredientCardType = {
   image: string;
@@ -129,7 +116,5 @@ const IngredientCard = ({
     </Link>
   );
 };
-
-IngredientCard.propTypes = ingredientCardTypes;
 
 export default IngredientCard;
