@@ -8,22 +8,23 @@ import {
 import logInStyles from "./log-in.module.css";
 import { authorization } from "../../../services/actions/auth/authActions";
 
+type TLocationState = {
+  from: {
+    pathname: string;
+    search: string;
+    hash: string;
+    state: any;
+  };
+};
+
 function LogIn() {
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
 
   const inputRef = React.useRef(null);
-  /*
-  const onIconClick = () => {
-    setTimeout(() => inputRef.current.focus(), 0);
-    alert("Icon Click Callback");
-  };
-*/
   const dispatch = useDispatch();
-  const history = useHistory();
-  const historyState = history.state;
-  const location = useLocation();
-  const isAuth = useSelector((state) => state.authData.isAuth);
+  const location = useLocation<TLocationState>();
+  const isAuth = useSelector((store: any) => store.authData.isAuth);
 
   const handleClick = () => {
     dispatch(
@@ -33,9 +34,6 @@ function LogIn() {
       })
     );
   };
-
-  //if (isAuthorizationSucess)
-  //  history.replace({ pathname: location.state.fron.pathname });
 
   if (isAuth) {
     return (
