@@ -1,13 +1,20 @@
+import React from "react";
 import { Route, Redirect, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
 
+type TProtectedRoute = {
+  children: React.ReactNode;
+  redirectTo: string;
+  forAuth: boolean;
+  addPermissionCondition?: boolean;
+};
 export function ProtectedRoute({
   children,
   redirectTo,
   forAuth,
-  addPermissionCondition = "true",
-}) {
-  const { isAuth } = useSelector((store) => ({
+  addPermissionCondition = true,
+}: TProtectedRoute) {
+  const { isAuth } = useSelector((store: any) => ({
     isAuth: store.authData.isAuth,
   }));
 
