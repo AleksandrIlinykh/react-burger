@@ -29,24 +29,19 @@ export function Modal({ handleModalClose, children }: TModalType) {
       modalRoot!.removeChild(current);
     };
   }, []);
-
-  const onClose = () => {
-    handleModalClose();
-  };
-
-  function stopPropagation(event: Event) {
-    event.stopPropagation();
-  }
+ 
 
   return ReactDOM.createPortal(
-    <ModalOverlay handleModalClose={handleModalClose} onClick={onClose}>
+    <ModalOverlay handleModalClose={handleModalClose}>
       <div
         ref={modal}
-        onClick={() => stopPropagation}
+        onClick={(event) => event.stopPropagation()}
         className={modalStyles.modal}
       >
         <img
-          onClick={onClose}
+          onClick={() => {
+            handleModalClose();
+          }}
           className={modalStyles.closeicon}
           src={closeIcon}
           alt="close button"
