@@ -1,3 +1,4 @@
+import React from "react";
 import AppHeader from "../app-header/app-header";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
@@ -16,6 +17,8 @@ import {
 } from "react-router-dom";
 import { hideIngredientDetails } from "../../services/actions/ingredient-details";
 
+//{pathname: '/', search: '', hash: '', state: undefined}
+
 import LogIn from "../auth/log-in/log-in";
 import Registration from "../auth/registration/registration";
 import PasswordRecovery from "../auth/password-recovery/password-recovery";
@@ -24,14 +27,28 @@ import Profile from "../profile/profile";
 import IngredientsDetails from "../ingredient-details/ingredient-details";
 import Modal from "../modal/modal";
 
+type TLocationState = {
+  from: {
+    pathname: string;
+    search: string;
+    hash: string;
+    state: any;
+  };
+  background: {
+    pathname: string;
+    search: string;
+    hash: string;
+    state: any;
+  };
+};
+
 export const ModalSwitch = () => {
-  const location = useLocation();
+  let location = useLocation<TLocationState>();
   const history = useHistory();
   let background = location.state && location.state.background;
   const dispatch = useDispatch();
-  const historyState = history.state;
   const { isPasswordRecoverySucess, accessTokenExpired } = useSelector(
-    (store) => ({
+    (store: any) => ({
       isPasswordRecoverySucess: store.authData.isPasswordRecoverySucess,
       getUserInfoSucess: store.authData.getUserInfoSucess,
       accessTokenExpired: store.authData.accessTokenExpired,
@@ -53,7 +70,7 @@ export const ModalSwitch = () => {
         </Route>
 
         <ProtectedRoute
-          path="/login"
+          path={"/login"}
           forAuth={true}
           redirectTo={
             location.state &&
