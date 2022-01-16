@@ -25,7 +25,7 @@ function Registration() {
   };
 */
   const isRegistrationSucess = useSelector(
-    (state) => state.authData.isRegistrationSucess
+    (store: any) => store.authData.isRegistrationSucess
   );
 
   const handleClick = () => {
