@@ -5,7 +5,6 @@ import { BrowserRouter as Router } from "react-router-dom";
 
 import { getBurgerIngredients } from "../../services/actions/burger-ingredients";
 import { getUserInfo } from "../../services/actions/auth/authActions";
-import { getRefreshToken } from "../../services/actions/auth/authActions";
 
 import { ModalSwitch } from "../modal-switch/modal-switch";
 export default function App() {
