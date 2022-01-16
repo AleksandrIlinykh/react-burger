@@ -16,6 +16,35 @@ import {
   hideOrderDetails,
 } from "../../services/actions/order-details";
 
+type TDropableIngredient = {
+  ingredient: {
+    calories: number;
+    carbohydrates: number;
+    fat: number;
+    image: string;
+    image_large: string;
+    name: string;
+    price: number;
+    proteins: number;
+    type: string;
+    _id: string;
+    key: string;
+  };
+};
+type TItem = {
+  calories: number;
+  carbohydrates: number;
+  fat: number;
+  image: string;
+  image_large: string;
+  name: string;
+  price: number;
+  proteins: number;
+  type: string;
+  _id: string;
+  key: string;
+};
+
 const BurgerConstructor = () => {
   const dispatch = useDispatch();
 
@@ -24,23 +53,21 @@ const BurgerConstructor = () => {
     collect: (monitor) => ({
       isHover: monitor.isOver(),
     }),
-    drop(item) {
+    drop(item: TDropableIngredient) {
       dispatch(addIngredient(item.ingredient));
     },
   });
 
-  const { bun, sausesAndFillings, isOrderDetailsActive } = useSelector(
-    (store) => ({
+  const { bun, sausesAndFillings, isOrderDetailsActive, isAuth } = useSelector(
+    (store: any) => ({
       bun: store.burgerConstructor.bun,
       sausesAndFillings: store.burgerConstructor.sausesAndFillings,
       isOrderDetailsActive: store.orderDetails.isOrderDetailsActive,
+      isAuth: store.authData.isAuth,
     })
   );
 
   const history = useHistory();
-  const { isAuth } = useSelector((store) => ({
-    isAuth: store.authData.isAuth,
-  }));
 
   function handleMakeOrderClick() {
     if (!isAuth) {
@@ -90,8 +117,8 @@ const BurgerConstructor = () => {
     (bun.hasOwnProperty("_id") && bun.price) +
     (sausesAndFillings.length &&
       sausesAndFillings
-        .map((elem) => elem.price)
-        .reduce((sum, price) => sum + price));
+        .map((elem: TItem) => elem.price)
+        .reduce((sum: number, price: number) => sum + price));
   return (
     <>
       {isOrderDetailsActive && (
@@ -109,15 +136,17 @@ const BurgerConstructor = () => {
 
           <div className={burgerConstructorStyles.ingredientsconstructor}>
             {!sausesAndFillings.length ||
-              sausesAndFillings.map((chosenIngredient, index) => (
-                <BurgerConstructorElement
-                  name={chosenIngredient.name}
-                  price={chosenIngredient.price}
-                  image={chosenIngredient.image}
-                  key={index}
-                  index={index}
-                />
-              ))}
+              sausesAndFillings.map(
+                (chosenIngredient: TItem, index: number) => (
+                  <BurgerConstructorElement
+                    name={chosenIngredient.name}
+                    price={chosenIngredient.price}
+                    image={chosenIngredient.image}
+                    key={index}
+                    index={index}
+                  />
+                )
+              )}
           </div>
 
           {!bun.hasOwnProperty("_id") || bunBottomIngredient}
@@ -130,7 +159,7 @@ const BurgerConstructor = () => {
             >
               <p className="text text_type_digits-medium">{totalPrice}</p>
               <div className="mr-10">
-                <CurrencyIcon className="mr-10" type="primary" />
+                <CurrencyIcon type="primary" />
               </div>
               <div className="mr-8">
                 <Button
