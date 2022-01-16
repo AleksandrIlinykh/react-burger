@@ -25,9 +25,9 @@ const BurgerIngredients = () => {
 
   //---------------------------------------------------------------------
   //scroll
-  const refBun = useRef<HTMLInputElement>(null);
-  const refSauce = useRef<HTMLInputElement>(null);
-  const refFilling = useRef<HTMLInputElement>(null);
+  const refBun = useRef<HTMLHeadingElement>(null);
+  const refSauce = useRef<HTMLHeadingElement>(null);
+  const refFilling = useRef<HTMLHeadingElement>(null);
 
   const onScroll = (type: string) => {
     let bunPosition: number = 0;

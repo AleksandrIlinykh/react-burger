@@ -1,9 +1,21 @@
+import React from "react";
 import burgerIngredientsContainerStyles from "./burger-ingredients-container.module.css";
 import { useSelector } from "react-redux";
 import IngredientCard from "../ingredient-card/ingredient-card";
+import { TIngredientType } from "../../utils/types";
 
-const BurgerIngredientsContainer = ({ header, reference, type }) => {
-  const { ingredients } = useSelector((store) => ({
+type TBurgerIngredientsContainerType = {
+  header: string;
+  reference: React.RefObject<HTMLDivElement>;
+  type: string;
+};
+
+const BurgerIngredientsContainer = ({
+  header,
+  reference,
+  type,
+}: TBurgerIngredientsContainerType) => {
+  const { ingredients } = useSelector((store: any) => ({
     ingredients: store.burgerIngredients.ingredients,
   }));
 
@@ -19,8 +31,8 @@ const BurgerIngredientsContainer = ({ header, reference, type }) => {
           }
         >
           {ingredients
-            .filter((cardData) => cardData.type === type)
-            .map((cardData) => (
+            .filter((cardData: TIngredientType) => cardData.type === type)
+            .map((cardData: TIngredientType) => (
               <div key={cardData._id}>
                 <IngredientCard
                   image={cardData.image}
