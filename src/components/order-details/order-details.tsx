@@ -4,7 +4,7 @@ import orderDetailsStyles from "./order-details.module.css";
 import doneGif from "../../images/done.gif";
 
 function OrderDetails() {
-  const { isLoading, orderNumber } = useSelector((store) => ({
+  const { isLoading, orderNumber } = useSelector((store: any) => ({
     isLoading: store.orderData.loading,
     orderNumber: store.orderData.orderNumber,
   }));
