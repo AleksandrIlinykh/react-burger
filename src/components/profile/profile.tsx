@@ -42,7 +42,7 @@ function Profile() {
     setUserName(storeUserName);
   };
 
-  let match = useRouteMatch();
+  const match = useRouteMatch();
   return (
     <div className={profileStyles.header + " mt-25"}>
       <div className={profileStyles.header__container}>

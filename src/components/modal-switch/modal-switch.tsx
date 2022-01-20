@@ -43,9 +43,9 @@ type TLocationState = {
 };
 
 export const ModalSwitch = () => {
-  let location = useLocation<TLocationState>();
+  const location = useLocation<TLocationState>();
   const history = useHistory();
-  let background = location.state && location.state.background;
+  const background = location.state && location.state.background;
   const dispatch = useDispatch();
   const { isPasswordRecoverySucess, accessTokenExpired } = useSelector(
     (store: any) => ({
