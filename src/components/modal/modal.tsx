@@ -12,7 +12,6 @@ export type TModalType = {
 const modalRoot = document.getElementById("root-portal") as HTMLElement;
 
 export function Modal({ handleModalClose, children }: TModalType) {
-  const modal = React.useRef(null);
   const el = useRef(document.createElement("div"));
   const onKeypress = (event: KeyboardEvent) => {
     if (event.key === "Escape") {
@@ -29,12 +28,10 @@ export function Modal({ handleModalClose, children }: TModalType) {
       modalRoot!.removeChild(current);
     };
   }, [onKeypress]);
- 
 
   return ReactDOM.createPortal(
     <ModalOverlay handleModalClose={handleModalClose}>
       <div
-        ref={modal}
         onClick={(event) => event.stopPropagation()}
         className={modalStyles.modal}
       >

@@ -10,7 +10,6 @@ import { recoverPassword } from "../../services/actions/auth/authActions";
 
 function PasswordRecovery() {
   const [email, setEmail] = React.useState("");
-  const emailRef = React.useRef(null);
   const isPasswordRecoverySucess = useSelector(
     (store: any) => store.authData.isPasswordRecoverySucess
   );
@@ -50,12 +49,9 @@ function PasswordRecovery() {
           type={"text"}
           placeholder={"Укажите e-mail"}
           onChange={(e) => setEmail(e.target.value)}
-          //icon={"ShowIcon"}
           value={email}
           name={"email"}
           error={false}
-          ref={emailRef}
-          //onIconClick={onIconClick}
           errorText={"Ошибка"}
           size={"default"}
         />

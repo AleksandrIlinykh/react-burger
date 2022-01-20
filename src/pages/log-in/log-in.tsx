@@ -21,7 +21,6 @@ function LogIn() {
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
 
-  const inputRef = React.useRef(null);
   const dispatch = useDispatch();
   const location = useLocation<TLocationState>();
   const isAuth = useSelector((store: any) => store.authData.isAuth);
@@ -52,12 +51,9 @@ function LogIn() {
           type={"text"}
           placeholder={"E-mail"}
           onChange={(e) => setEmail(e.target.value)}
-          //icon={"ShowIcon"}
           value={email}
           name={"email"}
           error={false}
-          ref={inputRef}
-          //onIconClick={onIconClick}
           errorText={"Ошибка"}
           size={"default"}
         />
@@ -71,8 +67,6 @@ function LogIn() {
           value={password}
           name={"password"}
           error={false}
-          ref={inputRef}
-          //onIconClick={onIconClick}
           errorText={"Ошибка"}
           size={"default"}
         />
