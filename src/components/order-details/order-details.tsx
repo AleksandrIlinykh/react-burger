@@ -11,7 +11,7 @@ function OrderDetails() {
 
   const content = useMemo(() => {
     return isLoading ? (
-      <p className="text text_type_digits-large mt-30">...</p>
+      <p className="text text_type_digits-medium mt-30">Загрузка...</p>
     ) : (
       <p className="text text_type_digits-large mt-30">{orderNumber}</p>
     );
