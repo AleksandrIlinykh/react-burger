@@ -6,7 +6,7 @@ import {
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import passwordUpdatingStyles from "./password-updating.module.css";
-import { updatePassword } from "../../../services/actions/auth/authActions";
+import { updatePassword } from "../../services/actions/auth/authActions";
 function PasswordUpdating() {
   const [password, setPassword] = React.useState("value");
   const [token, setToken] = React.useState("value");
