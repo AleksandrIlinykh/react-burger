@@ -16,7 +16,8 @@ function PasswordRecovery() {
 
   const dispatch = useDispatch();
 
-  const handleClick = () => {
+  const handleSubmit = (event: React.SyntheticEvent) => {
+    event.preventDefault();
     if (
       email
         .toLowerCase()
@@ -42,7 +43,10 @@ function PasswordRecovery() {
   }
 
   return (
-    <section className={passwordRecoveryStyles.passwordRecoveryContainer}>
+    <form
+      onSubmit={handleSubmit}
+      className={passwordRecoveryStyles.passwordRecoveryContainer}
+    >
       <p className="text text_type_main-medium">Восстановление пароля</p>
       <div className="mt-6">
         <Input
@@ -58,7 +62,7 @@ function PasswordRecovery() {
       </div>
 
       <div className="mt-10">
-        <Button type="primary" size="medium" onClick={handleClick}>
+        <Button type="primary" size="medium">
           Восстановить
         </Button>
       </div>
@@ -71,7 +75,7 @@ function PasswordRecovery() {
           </Link>
         </p>
       </div>
-    </section>
+    </form>
   );
 }
 

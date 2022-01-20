@@ -25,7 +25,8 @@ function LogIn() {
   const location = useLocation<TLocationState>();
   const isAuth = useSelector((store: any) => store.authData.isAuth);
 
-  const handleClick = () => {
+  const handleSubmit = (event: React.SyntheticEvent) => {
+    event.preventDefault();
     dispatch(
       authorization({
         email: email,
@@ -33,7 +34,7 @@ function LogIn() {
       })
     );
   };
-
+  /*
   if (isAuth) {
     return (
       <Redirect
@@ -42,9 +43,9 @@ function LogIn() {
       />
     );
   }
-
+*/
   return (
-    <section className={logInStyles.logInContainer}>
+    <form onSubmit={handleSubmit} className={logInStyles.logInContainer}>
       <p className="text text_type_main-medium">Вход</p>
       <div className="mt-6">
         <Input
@@ -72,7 +73,7 @@ function LogIn() {
         />
       </div>
       <div className="mt-10">
-        <Button type="primary" size="medium" onClick={handleClick}>
+        <Button type="primary" size="medium">
           Войти
         </Button>
       </div>
@@ -94,7 +95,7 @@ function LogIn() {
           </Link>
         </p>
       </div>
-    </section>
+    </form>
   );
 }
 

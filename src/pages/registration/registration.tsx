@@ -19,7 +19,8 @@ function Registration() {
     (store: any) => store.authData.isRegistrationSucess
   );
 
-  const handleClick = () => {
+  const handleSubmit = (event: React.SyntheticEvent) => {
+    event.preventDefault();
     dispatch(
       registration({
         name: name,
@@ -32,7 +33,10 @@ function Registration() {
   if (isRegistrationSucess) history.replace({ pathname: "/" });
 
   return (
-    <section className={registrationStyles.registrationContainer}>
+    <form
+      onSubmit={handleSubmit}
+      className={registrationStyles.registrationContainer}
+    >
       <p className="text text_type_main-medium">Вход</p>
       <div className="mt-6">
         <Input
@@ -78,7 +82,7 @@ function Registration() {
         />
       </div>
       <div className="mt-10">
-        <Button type="primary" size="medium" onClick={handleClick}>
+        <Button type="primary" size="medium">
           Зарегистрироваться
         </Button>
       </div>
@@ -91,7 +95,7 @@ function Registration() {
           </Link>
         </p>
       </div>
-    </section>
+    </form>
   );
 }
 
