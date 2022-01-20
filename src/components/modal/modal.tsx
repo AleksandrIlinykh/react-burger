@@ -28,7 +28,7 @@ export function Modal({ handleModalClose, children }: TModalType) {
       document.removeEventListener("keydown", onKeypress);
       modalRoot!.removeChild(current);
     };
-  }, []);
+  }, [onKeypress]);
  
 
   return ReactDOM.createPortal(

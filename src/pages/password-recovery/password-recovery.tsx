@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, useHistory, Redirect } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {
   Input,
@@ -16,7 +16,6 @@ function PasswordRecovery() {
   );
 
   const dispatch = useDispatch();
-  const history = useHistory();
 
   const handleClick = () => {
     if (

@@ -1,4 +1,3 @@
-import React from "react";
 import AppHeader from "../app-header/app-header";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
@@ -8,16 +7,8 @@ import { ProtectedRoute } from "../protected-route/protected-route ";
 import appStyles from "./app.module.css";
 import { useDispatch, useSelector } from "react-redux";
 
-import {
-  BrowserRouter as Router,
-  Route,
-  Switch,
-  useLocation,
-  useHistory,
-} from "react-router-dom";
+import { Route, Switch, useLocation, useHistory } from "react-router-dom";
 import { hideIngredientDetails } from "../../services/actions/ingredient-details";
-
-//{pathname: '/', search: '', hash: '', state: undefined}
 
 import LogIn from "../../pages/log-in/log-in";
 import Registration from "../../pages/registration/registration";
@@ -47,14 +38,9 @@ export const ModalSwitch = () => {
   const history = useHistory();
   const background = location.state && location.state.background;
   const dispatch = useDispatch();
-  const { isPasswordRecoverySucess, accessTokenExpired } = useSelector(
-    (store: any) => ({
-      isPasswordRecoverySucess: store.authData.isPasswordRecoverySucess,
-      getUserInfoSucess: store.authData.getUserInfoSucess,
-      accessTokenExpired: store.authData.accessTokenExpired,
-      refreshToken: store.authData.refreshToken,
-    })
-  );
+  const { isPasswordRecoverySucess } = useSelector((store: any) => ({
+    isPasswordRecoverySucess: store.authData.isPasswordRecoverySucess,
+  }));
   const handleModalClose = () => {
     dispatch(hideIngredientDetails());
 

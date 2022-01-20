@@ -1,10 +1,8 @@
-import React from "react";
 import { BurgerIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { ListIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { ProfileIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import navigationElementStyles from "./navigation-element.module.css";
 import { NavLink } from "react-router-dom";
-import { useHistory } from "react-router-dom";
 
 type TNavigationElement = {
   exact?: boolean;
