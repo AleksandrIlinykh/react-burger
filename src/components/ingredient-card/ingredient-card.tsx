@@ -49,7 +49,7 @@ const IngredientCard = ({
       sausesAndFillings.filter(
         (ingredient: TIngredientType) => ingredient._id === _id
       ).length +
-      (bun._id === _id);
+        (bun._id === _id) && 2;
     setOrderCount(theSameIngredientsAmount);
   }, [sausesAndFillings.length, bun._id, _id, sausesAndFillings]);
 
