@@ -94,7 +94,6 @@ export function authorization(userData) {
       })
       .then((res) => res.json())
       .then((data) => {
-        console.log("auth sucess");
         dispatch({
           type: AUTHORIZATION_SUCCESS,
           payload: data,
