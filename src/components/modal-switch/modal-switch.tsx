@@ -7,37 +7,40 @@ import { ProtectedRoute } from "../protected-route/protected-route ";
 import appStyles from "./app.module.css";
 import { useDispatch, useSelector } from "react-redux";
 
-import {
-  BrowserRouter as Router,
-  Route,
-  Switch,
-  useLocation,
-  useHistory,
-} from "react-router-dom";
+import { Route, Switch, useLocation, useHistory } from "react-router-dom";
 import { hideIngredientDetails } from "../../services/actions/ingredient-details";
 
-import LogIn from "../auth/log-in/log-in";
-import Registration from "../auth/registration/registration";
-import PasswordRecovery from "../auth/password-recovery/password-recovery";
-import PasswordUpdating from "../auth/password-updating/password-updating";
-import Profile from "../profile/profile";
+import LogIn from "../../pages/log-in/log-in";
+import Registration from "../../pages/registration/registration";
+import PasswordRecovery from "../../pages/password-recovery/password-recovery";
+import PasswordUpdating from "../../pages/password-updating/password-updating";
+import Profile from "../../pages/profile/profile";
 import IngredientsDetails from "../ingredient-details/ingredient-details";
 import Modal from "../modal/modal";
 
+type TLocationState = {
+  from: {
+    pathname: string;
+    search: string;
+    hash: string;
+    state: any;
+  };
+  background: {
+    pathname: string;
+    search: string;
+    hash: string;
+    state: any;
+  };
+};
+
 export const ModalSwitch = () => {
-  const location = useLocation();
+  const location = useLocation<TLocationState>();
   const history = useHistory();
-  let background = location.state && location.state.background;
+  const background = location.state && location.state.background;
   const dispatch = useDispatch();
-  const historyState = history.state;
-  const { isPasswordRecoverySucess, accessTokenExpired } = useSelector(
-    (store) => ({
-      isPasswordRecoverySucess: store.authData.isPasswordRecoverySucess,
-      getUserInfoSucess: store.authData.getUserInfoSucess,
-      accessTokenExpired: store.authData.accessTokenExpired,
-      refreshToken: store.authData.refreshToken,
-    })
-  );
+  const { isPasswordRecoverySucess } = useSelector((store: any) => ({
+    isPasswordRecoverySucess: store.authData.isPasswordRecoverySucess,
+  }));
   const handleModalClose = () => {
     dispatch(hideIngredientDetails());
 
@@ -53,7 +56,7 @@ export const ModalSwitch = () => {
         </Route>
 
         <ProtectedRoute
-          path="/login"
+          path={"/login"}
           forAuth={true}
           redirectTo={
             location.state &&

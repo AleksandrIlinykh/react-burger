@@ -1,7 +1,7 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
-import { NavLink, useHistory } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import {
   Input,
   Button,
@@ -17,7 +17,7 @@ import {
 import profileStyles from "./profile.module.css";
 
 function Profile() {
-  const { storeUserEmail, storeUserName } = useSelector((store) => ({
+  const { storeUserEmail, storeUserName } = useSelector((store: any) => ({
     storeUserEmail: store.authData.email,
     storeUserName: store.authData.name,
   }));
@@ -26,8 +26,7 @@ function Profile() {
   const [password, setPassword] = useState("");
 
   const dispatch = useDispatch();
-  const history = useHistory();
-  const handleSubmit = (event) => {
+  const handleSubmit = (event: React.SyntheticEvent) => {
     event.preventDefault();
     dispatch(
       updateUserInfo({
@@ -37,12 +36,12 @@ function Profile() {
     );
   };
 
-  const handleCancel = (event) => {
+  const handleCancel = () => {
     setUserEmail(storeUserEmail);
     setUserName(storeUserName);
   };
 
-  let match = useRouteMatch();
+  const match = useRouteMatch();
   return (
     <div className={profileStyles.header + " mt-25"}>
       <div className={profileStyles.header__container}>

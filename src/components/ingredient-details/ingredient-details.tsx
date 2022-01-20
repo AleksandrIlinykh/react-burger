@@ -2,13 +2,15 @@ import ingredientDetailsStyles from "./ingredient-details.module.css";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 
+import { TIngredientType } from "../../utils/types";
+
 function IngredientDetails() {
-  let { ingredientId } = useParams();
+  let { ingredientId } = useParams<{ ingredientId: string }>();
   ingredientId = ingredientId.slice(0, -1);
   const ingredient = useSelector(
-    (store) =>
+    (store: any) =>
       store.burgerIngredients.ingredients.filter(
-        (ingredient) => ingredient._id === ingredientId
+        (ingredient: TIngredientType) => ingredient._id === ingredientId
       )[0]
   );
 
@@ -18,8 +20,8 @@ function IngredientDetails() {
         <section className={ingredientDetailsStyles.ingredientdetails}>
           <h2
             className={
-              (ingredientDetailsStyles.header =
-                " text text_type_main-large mt-10 ml-10 mr-10")
+              ingredientDetailsStyles.header +
+              " text text_type_main-large mt-10 ml-10 mr-10"
             }
           >
             Детали ингредиента

@@ -6,8 +6,8 @@ import BurgerIngredientsContainer from "../burger-ingredients-container/burger-i
 const BurgerIngredients = () => {
   const [activeTabLink, setactiveTabLink] = React.useState("bun");
 
-  function handleTab(e) {
-    switch (e) {
+  function handleTab(type: string) {
+    switch (type) {
       case "one":
         setactiveTabLink("bun");
         break;
@@ -25,16 +25,24 @@ const BurgerIngredients = () => {
 
   //---------------------------------------------------------------------
   //scroll
-  const refBun = useRef(null);
-  const refSauce = useRef(null);
-  const refFilling = useRef(null);
+  const refBun = useRef<HTMLHeadingElement>(null);
+  const refSauce = useRef<HTMLHeadingElement>(null);
+  const refFilling = useRef<HTMLHeadingElement>(null);
 
-  const onScroll = (e) => {
-    const bunPosition = refBun.current.getBoundingClientRect().top - 300;
-    const saucePosition = refSauce.current.getBoundingClientRect().top - 300;
-    const fillingPosition =
-      refFilling.current.getBoundingClientRect().top - 300;
+  const onScroll = (type: string) => {
+    let bunPosition: number = 0;
+    let saucePosition: number = 0;
+    let fillingPosition: number = 0;
 
+    if (refBun && refBun.current) {
+      bunPosition = refBun.current.getBoundingClientRect().top - 300;
+    }
+    if (refSauce && refSauce.current) {
+      saucePosition = refSauce.current.getBoundingClientRect().top - 300;
+    }
+    if (refFilling && refFilling.current) {
+      fillingPosition = refFilling.current.getBoundingClientRect().top - 300;
+    }
 
     if (
       Math.abs(bunPosition) < Math.abs(saucePosition) &&
@@ -103,7 +111,10 @@ const BurgerIngredients = () => {
           </a>
         </Tab>
       </div>
-      <div className={burgerIngredientsStyles.ingredients} onScroll={onScroll}>
+      <div
+        className={burgerIngredientsStyles.ingredients}
+        onScroll={() => onScroll}
+      >
         <BurgerIngredientsContainer
           header={"Булки"}
           type={"bun"}

@@ -1,31 +1,32 @@
 import React from "react";
-import { Link, useHistory, useLocation, Redirect } from "react-router-dom";
+import { Link, useLocation, Redirect } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {
   Input,
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import logInStyles from "./log-in.module.css";
-import { authorization } from "../../../services/actions/auth/authActions";
+import { authorization } from "../../services/actions/auth/authActions";
+
+type TLocationState = {
+  from: {
+    pathname: string;
+    search: string;
+    hash: string;
+    state: any;
+  };
+};
 
 function LogIn() {
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
 
-  const inputRef = React.useRef(null);
-  /*
-  const onIconClick = () => {
-    setTimeout(() => inputRef.current.focus(), 0);
-    alert("Icon Click Callback");
-  };
-*/
   const dispatch = useDispatch();
-  const history = useHistory();
-  const historyState = history.state;
-  const location = useLocation();
-  const isAuth = useSelector((state) => state.authData.isAuth);
+  const location = useLocation<TLocationState>();
+  const isAuth = useSelector((store: any) => store.authData.isAuth);
 
-  const handleClick = () => {
+  const handleSubmit = (event: React.SyntheticEvent) => {
+    event.preventDefault();
     dispatch(
       authorization({
         email: email,
@@ -33,10 +34,7 @@ function LogIn() {
       })
     );
   };
-
-  //if (isAuthorizationSucess)
-  //  history.replace({ pathname: location.state.fron.pathname });
-
+  /*
   if (isAuth) {
     return (
       <Redirect
@@ -45,21 +43,18 @@ function LogIn() {
       />
     );
   }
-
+*/
   return (
-    <section className={logInStyles.logInContainer}>
+    <form onSubmit={handleSubmit} className={logInStyles.logInContainer}>
       <p className="text text_type_main-medium">Вход</p>
       <div className="mt-6">
         <Input
           type={"text"}
           placeholder={"E-mail"}
           onChange={(e) => setEmail(e.target.value)}
-          //icon={"ShowIcon"}
           value={email}
           name={"email"}
           error={false}
-          ref={inputRef}
-          //onIconClick={onIconClick}
           errorText={"Ошибка"}
           size={"default"}
         />
@@ -73,14 +68,12 @@ function LogIn() {
           value={password}
           name={"password"}
           error={false}
-          ref={inputRef}
-          //onIconClick={onIconClick}
           errorText={"Ошибка"}
           size={"default"}
         />
       </div>
       <div className="mt-10">
-        <Button type="primary" size="medium" onClick={handleClick}>
+        <Button type="primary" size="medium">
           Войти
         </Button>
       </div>
@@ -102,7 +95,7 @@ function LogIn() {
           </Link>
         </p>
       </div>
-    </section>
+    </form>
   );
 }
 

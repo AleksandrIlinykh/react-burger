@@ -6,20 +6,26 @@ import {
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import passwordUpdatingStyles from "./password-updating.module.css";
-import { updatePassword } from "../../../services/actions/auth/authActions";
+import { updatePassword } from "../../services/actions/auth/authActions";
 function PasswordUpdating() {
-  const [password, setPassword] = React.useState("value");
-  const [token, setToken] = React.useState("value");
-  const inputRef = React.useRef(null);
+  const [password, setPassword] = React.useState("");
+  const [token, setToken] = React.useState("");
+  const inputRef = React.useRef<HTMLInputElement>(null);
   const onIconClick = () => {
-    setTimeout(() => inputRef.current.focus(), 0);
+    setTimeout(() => {
+      if (inputRef && inputRef.current) {
+        inputRef.current.focus();
+      }
+    }, 0);
+
     alert("Icon Click Callback");
   };
 
   const dispatch = useDispatch();
   const history = useHistory();
 
-  const handleClick = () => {
+  const handleSubmit = (event: React.SyntheticEvent) => {
+    event.preventDefault();
     dispatch(
       updatePassword({
         password: password,
@@ -29,7 +35,10 @@ function PasswordUpdating() {
     history.replace({ pathname: "/login" });
   };
   return (
-    <section className={passwordUpdatingStyles.passwordUpdatingContainer}>
+    <form
+      onSubmit={handleSubmit}
+      className={passwordUpdatingStyles.passwordUpdatingContainer}
+    >
       <p className="text text_type_main-medium">Восстановление пароля</p>
       <div className="mt-6">
         <Input
@@ -64,7 +73,7 @@ function PasswordUpdating() {
       </div>
 
       <div className="mt-10">
-        <Button type="primary" size="medium" onClick={handleClick}>
+        <Button type="primary" size="medium">
           Сохранить
         </Button>
       </div>
@@ -77,7 +86,7 @@ function PasswordUpdating() {
           </Link>
         </p>
       </div>
-    </section>
+    </form>
   );
 }
 

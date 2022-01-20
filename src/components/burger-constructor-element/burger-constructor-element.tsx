@@ -3,7 +3,6 @@ import { useDispatch } from "react-redux";
 import { useDrag, useDrop } from "react-dnd";
 import { ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-components";
 import { DragIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-import { burgerConstructorElementTypes } from "../../utils/types";
 import burgerConstructorElementStyles from "./burger-constructor-element.module.css";
 
 import {
@@ -11,7 +10,22 @@ import {
   moveIngredients,
 } from "../../services/actions/burger-constructor";
 
-export const BurgerConstructorElement = ({ name, price, image, index }) => {
+type TBurgerConstructorElementType = {
+  name: string;
+  price: number;
+  image: string;
+  index: number;
+};
+type TBurgerConstructorElementItem = {
+  index: number;
+};
+
+export const BurgerConstructorElement = ({
+  name,
+  price,
+  image,
+  index,
+}: TBurgerConstructorElementType) => {
   const dispatch = useDispatch();
   const handleDeletingIngredient = () => {
     dispatch(deleteIngredient(index));
@@ -30,7 +44,7 @@ export const BurgerConstructorElement = ({ name, price, image, index }) => {
     collect: (monitor) => ({
       isHover: monitor.isOver(),
     }),
-    hover(item, monitor) {
+    hover(item: TBurgerConstructorElementItem, monitor) {
       if (!ref.current) {
         return;
       }
@@ -73,6 +87,3 @@ export const BurgerConstructorElement = ({ name, price, image, index }) => {
     </div>
   );
 };
-
-BurgerConstructorElement.propTypes = burgerConstructorElementTypes;
-

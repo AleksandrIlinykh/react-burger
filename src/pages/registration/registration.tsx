@@ -5,7 +5,7 @@ import {
   Input,
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { registration } from "../../../services/actions/auth/authActions";
+import { registration } from "../../services/actions/auth/authActions";
 import registrationStyles from "./registration.module.css";
 
 function Registration() {
@@ -15,20 +15,12 @@ function Registration() {
 
   const history = useHistory();
   const dispatch = useDispatch();
-  const nameRef = React.useRef(null);
-  const emailRef = React.useRef(null);
-  const passwordRef = React.useRef(null);
-  /*
-  const onIconClick = () => {
-    setTimeout(() => inputRef.current.focus(), 0);
-    alert("Icon Click Callback");
-  };
-*/
   const isRegistrationSucess = useSelector(
-    (state) => state.authData.isRegistrationSucess
+    (store: any) => store.authData.isRegistrationSucess
   );
 
-  const handleClick = () => {
+  const handleSubmit = (event: React.SyntheticEvent) => {
+    event.preventDefault();
     dispatch(
       registration({
         name: name,
@@ -41,7 +33,10 @@ function Registration() {
   if (isRegistrationSucess) history.replace({ pathname: "/" });
 
   return (
-    <section className={registrationStyles.registrationContainer}>
+    <form
+      onSubmit={handleSubmit}
+      className={registrationStyles.registrationContainer}
+    >
       <p className="text text_type_main-medium">Вход</p>
       <div className="mt-6">
         <Input
@@ -49,14 +44,10 @@ function Registration() {
           placeholder={"Имя"}
           onChange={(e) => {
             setName(e.target.value);
-
           }}
-          //icon={"ShowIcon"}
           value={name}
           name={"name"}
           error={false}
-          ref={nameRef}
-          //onIconClick={onIconClick}
           errorText={"Ошибка"}
           size={"default"}
         />
@@ -67,14 +58,10 @@ function Registration() {
           placeholder={"E-mail"}
           onChange={(e) => {
             setEmail(e.target.value);
-
           }}
-          //icon={"ShowIcon"}
           value={email}
           name={"email"}
           error={false}
-          ref={emailRef}
-          //={onIconClick}
           errorText={"Ошибка"}
           size={"default"}
         />
@@ -85,20 +72,17 @@ function Registration() {
           placeholder={"Пароль"}
           onChange={(e) => {
             setPassword(e.target.value);
-
           }}
           icon={"ShowIcon"}
           value={password}
           name={"password"}
           error={false}
-          ref={passwordRef}
-          //onIconClick={onIconClick}
           errorText={"Ошибка"}
           size={"default"}
         />
       </div>
       <div className="mt-10">
-        <Button type="primary" size="medium" onClick={handleClick}>
+        <Button type="primary" size="medium">
           Зарегистрироваться
         </Button>
       </div>
@@ -111,7 +95,7 @@ function Registration() {
           </Link>
         </p>
       </div>
-    </section>
+    </form>
   );
 }
 

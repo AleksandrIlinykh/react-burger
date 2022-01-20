@@ -1,4 +1,5 @@
 import { ENDPOINT } from "../../utils/api";
+import { CLEAR_INGREDIENTS } from "./burger-constructor";
 
 export const GET_ORDER_NUMBER_REQUEST = "GET_ORDER_NUMBER_REQUEST";
 export const GET_ORDER_NUMBER_SUCCESS = "GET_ORDER_NUMBER_SUCCESS";
@@ -42,7 +43,10 @@ export function getOrderNumber(bodyData) {
         }
       })
       .then((res) => res.json())
-      .then((data) => dispatch(getOrderNumberSuccess(data.order.number)))
+      .then((data) => {
+        dispatch(getOrderNumberSuccess(data.order.number));
+        dispatch({ type: CLEAR_INGREDIENTS });
+      })
       .catch((e) => {
         console.log("Error: " + e.message);
         console.log(e.response);
