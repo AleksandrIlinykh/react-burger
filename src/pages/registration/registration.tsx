@@ -5,7 +5,7 @@ import {
   Input,
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { registration } from "../../../services/actions/auth/authActions";
+import { registration } from "../../services/actions/auth/authActions";
 import registrationStyles from "./registration.module.css";
 
 function Registration() {
@@ -49,7 +49,6 @@ function Registration() {
           placeholder={"Имя"}
           onChange={(e) => {
             setName(e.target.value);
-
           }}
           //icon={"ShowIcon"}
           value={name}
@@ -67,7 +66,6 @@ function Registration() {
           placeholder={"E-mail"}
           onChange={(e) => {
             setEmail(e.target.value);
-
           }}
           //icon={"ShowIcon"}
           value={email}
@@ -85,7 +83,6 @@ function Registration() {
           placeholder={"Пароль"}
           onChange={(e) => {
             setPassword(e.target.value);
-
           }}
           icon={"ShowIcon"}
           value={password}

@@ -6,7 +6,7 @@ import {
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import logInStyles from "./log-in.module.css";
-import { authorization } from "../../../services/actions/auth/authActions";
+import { authorization } from "../../services/actions/auth/authActions";
 
 type TLocationState = {
   from: {

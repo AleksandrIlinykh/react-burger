@@ -19,11 +19,11 @@ import { hideIngredientDetails } from "../../services/actions/ingredient-details
 
 //{pathname: '/', search: '', hash: '', state: undefined}
 
-import LogIn from "../auth/log-in/log-in";
-import Registration from "../auth/registration/registration";
-import PasswordRecovery from "../auth/password-recovery/password-recovery";
-import PasswordUpdating from "../auth/password-updating/password-updating";
-import Profile from "../profile/profile";
+import LogIn from "../../pages/log-in/log-in";
+import Registration from "../../pages/registration/registration";
+import PasswordRecovery from "../../pages/password-recovery/password-recovery";
+import PasswordUpdating from "../../pages/password-updating/password-updating";
+import Profile from "../../pages/profile/profile";
 import IngredientsDetails from "../ingredient-details/ingredient-details";
 import Modal from "../modal/modal";
 
