@@ -1,0 +1,40 @@
+.header {
+	text-align: start;
+}
+
+.content {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	background-color: black;
+	border-radius: 40px;
+}
+
+.header{
+	display: flex;
+	justify-content: space-between;
+}
+
+.name{
+	text-align: left;
+}
+
+.info{
+	display: flex;
+	justify-content: space-between;
+}
+
+.images{
+	display: grid;
+	grid-template-columns: auto;
+}
+.image{
+	border-radius: 34px;
+	border: red 2px solid;
+}
+.price{
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 9px;
+}
