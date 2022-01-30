@@ -2,7 +2,7 @@ import React from "react";
 import burgerIngredientsContainerStyles from "./burger-ingredients-container.module.css";
 import { useSelector } from "react-redux";
 import IngredientCard from "../ingredient-card/ingredient-card";
-import { TIngredientType } from "../../utils/types";
+import { TIngredientType } from "../../services/types/data";
 
 type TBurgerIngredientsContainerType = {
   header: string;

@@ -1,5 +1,5 @@
 import { ENDPOINT } from "../../utils/api";
-import { CLEAR_INGREDIENTS } from "./burger-constructor";
+import { CLEAR_INGREDIENTS } from "../constants/burger-constructor";
 
 export const GET_ORDER_NUMBER_REQUEST = "GET_ORDER_NUMBER_REQUEST";
 export const GET_ORDER_NUMBER_SUCCESS = "GET_ORDER_NUMBER_SUCCESS";
