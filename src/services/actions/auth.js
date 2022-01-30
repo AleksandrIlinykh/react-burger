@@ -1,5 +1,5 @@
-import { AUTH_ENDPOINT } from "../../../utils/api";
-import { getCookie } from "../../../utils/cookies";
+import { AUTH_ENDPOINT } from "../../utils/api";
+import { getCookie } from "../../utils/cookies";
 
 export const REGISTRATION_REQUEST = "REGISTRATION_REQUEST";
 export const REGISTRATION_SUCCESS = "REGISTRATION_SUCCESS";
@@ -338,4 +338,3 @@ export function refreshToken(isGettingUserInfo) {
       });
   };
 }
-

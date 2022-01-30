@@ -9,10 +9,7 @@ import {
 
 import { Switch, Route, useRouteMatch } from "react-router-dom";
 
-import {
-  logout,
-  updateUserInfo,
-} from "../../services/actions/auth/authActions";
+import { logout, updateUserInfo } from "../../services/actions/auth";
 
 import profileStyles from "./profile.module.css";
 

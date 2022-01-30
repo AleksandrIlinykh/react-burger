@@ -4,7 +4,7 @@ import { getCookie } from "../../utils/cookies";
 import { BrowserRouter as Router } from "react-router-dom";
 
 import { getBurgerIngredients } from "../../services/actions/burger-ingredients";
-import { getUserInfo } from "../../services/actions/auth/authActions";
+import { getUserInfo } from "../../services/actions/auth";
 
 import { ModalSwitch } from "../modal-switch/modal-switch";
 export default function App() {

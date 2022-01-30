@@ -6,7 +6,7 @@ import {
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import passwordRecoveryStyles from "./password-recovery.module.css";
-import { recoverPassword } from "../../services/actions/auth/authActions";
+import { recoverPassword } from "../../services/actions/auth";
 
 function PasswordRecovery() {
   const [email, setEmail] = React.useState("");

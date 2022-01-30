@@ -1,4 +1,4 @@
-import { setCookie, deleteCookie } from "../../../utils/cookies";
+import { setCookie, deleteCookie } from "../../utils/cookies";
 
 import {
   REGISTRATION_REQUEST,
@@ -25,7 +25,7 @@ import {
   REFRESH_TOKEN_REQUEST,
   REFRESH_TOKEN_SUCCESS,
   REFRESH_TOKEN_ERROR,
-} from "../../actions/auth/authActions";
+} from "../actions/auth";
 
 const userState = {
   isAuth: false,
