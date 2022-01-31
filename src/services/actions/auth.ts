@@ -2,6 +2,7 @@ import { AUTH_ENDPOINT } from "../../utils/api";
 import { getCookie } from "../../utils/cookies";
 import { TUserData } from "../types/data";
 
+
 import {
   REGISTRATION_REQUEST,
   REGISTRATION_SUCCESS,

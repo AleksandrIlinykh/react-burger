@@ -1,3 +1,6 @@
+import { TOrderDataThunk } from "../types/order-data";
+import { TOrderDataDispatch } from "../types/order-data";
+
 import { ENDPOINT } from "../../utils/api";
 
 import {
@@ -45,8 +48,8 @@ const getOrderNumberError = () => {
   };
 };
 
-export function getOrderNumber(bodyData: any) {
-  return function (dispatch: any) {
+export const getOrderNumber: TOrderDataThunk =
+  (bodyData: any) => (dispatch: TOrderDataDispatch) => {
     dispatch(getOrderNumberRequest());
 
     fetch(`${ENDPOINT}/api/orders`, {
@@ -58,7 +61,9 @@ export function getOrderNumber(bodyData: any) {
         if (res.ok) {
           return res;
         } else {
-          dispatch(getOrderNumberError);
+          dispatch({
+            type: GET_ORDER_NUMBER_ERROR,
+          });
           throw new Error("Network response was not OK");
         }
       })
@@ -72,4 +77,3 @@ export function getOrderNumber(bodyData: any) {
         console.log(e.response);
       });
   };
-}
