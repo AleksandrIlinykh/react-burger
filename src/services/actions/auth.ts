@@ -1,40 +1,142 @@
 import { AUTH_ENDPOINT } from "../../utils/api";
 import { getCookie } from "../../utils/cookies";
+import { TUserData } from "../types/data";
 
-export const REGISTRATION_REQUEST = "REGISTRATION_REQUEST";
-export const REGISTRATION_SUCCESS = "REGISTRATION_SUCCESS";
-export const REGISTRATION_ERROR = "REGISTRATION_ERROR";
+import {
+  REGISTRATION_REQUEST,
+  REGISTRATION_SUCCESS,
+  REGISTRATION_ERROR,
+  AUTHORIZATION_REQUEST,
+  AUTHORIZATION_SUCCESS,
+  AUTHORIZATION_ERROR,
+  PASSWORD_RECOVERY_REQUEST,
+  PASSWORD_RECOVERY_SUCCESS,
+  PASSWORD_RECOVERY_ERROR,
+  PASSWORD_UPDATING_REQUEST,
+  PASSWORD_UPDATING_SUCCESS,
+  PASSWORD_UPDATING_ERROR,
+  LOGOUT_REQUEST,
+  LOGOUT_SUCCESS,
+  LOGOUT_ERROR,
+  GET_USER_INFO_REQUEST,
+  GET_USER_INFO_SUCCESS,
+  GET_USER_INFO_ERROR,
+  UPDATE_USER_INFO_REQUEST,
+  UPDATE_USER_INFO_SUCCESS,
+  UPDATE_USER_INFO_ERROR,
+  REFRESH_TOKEN_REQUEST,
+  REFRESH_TOKEN_SUCCESS,
+  REFRESH_TOKEN_ERROR,
+} from "../constants/auth";
 
-export const AUTHORIZATION_REQUEST = "AUTHORIZATION_REQUEST";
-export const AUTHORIZATION_SUCCESS = "AUTHORIZATION_SUCCESS";
-export const AUTHORIZATION_ERROR = "AUTHORIZATION_ERROR";
+export type TUserActions =
+  | {
+      type: typeof REGISTRATION_REQUEST;
+    }
+  | {
+      type: typeof REGISTRATION_ERROR;
+    }
+  | {
+      type: typeof REGISTRATION_SUCCESS;
+      payload: {
+        user: {
+          email: string;
+          name: string;
+        };
+        accessToken: string;
+        refreshToken: string;
+      };
+    }
+  | {
+      type: typeof AUTHORIZATION_REQUEST;
+    }
+  | {
+      type: typeof AUTHORIZATION_ERROR;
+    }
+  | {
+      type: typeof AUTHORIZATION_SUCCESS;
+      payload: {
+        user: {
+          email: string;
+          name: string;
+        };
+        accessToken: string;
+        refreshToken: string;
+      };
+    }
+  | {
+      type: typeof PASSWORD_UPDATING_REQUEST;
+    }
+  | {
+      type: typeof PASSWORD_UPDATING_ERROR;
+    }
+  | {
+      type: typeof PASSWORD_RECOVERY_SUCCESS;
+    }
+  | {
+      type: typeof PASSWORD_RECOVERY_REQUEST;
+    }
+  | {
+      type: typeof PASSWORD_RECOVERY_ERROR;
+    }
+  | {
+      type: typeof PASSWORD_UPDATING_SUCCESS;
+    }
+  | {
+      type: typeof LOGOUT_REQUEST;
+    }
+  | {
+      type: typeof LOGOUT_SUCCESS;
+    }
+  | {
+      type: typeof LOGOUT_ERROR;
+    }
+  | {
+      type: typeof GET_USER_INFO_REQUEST;
+    }
+  | {
+      type: typeof GET_USER_INFO_SUCCESS;
+      payload: {
+        user: {
+          email: string;
+          name: string;
+        };
+      };
+    }
+  | {
+      type: typeof GET_USER_INFO_ERROR;
+    }
+  | {
+      type: typeof UPDATE_USER_INFO_REQUEST;
+    }
+  | {
+      type: typeof UPDATE_USER_INFO_SUCCESS;
+      payload: {
+        user: {
+          email: string;
+          name: string;
+        };
+      };
+    }
+  | {
+      type: typeof UPDATE_USER_INFO_ERROR;
+    }
+  | {
+      type: typeof REFRESH_TOKEN_REQUEST;
+    }
+  | {
+      type: typeof REFRESH_TOKEN_SUCCESS;
+      payload: {
+        accessToken: string;
+        refreshToken: string;
+      };
+    }
+  | {
+      type: typeof REFRESH_TOKEN_ERROR;
+    };
 
-export const PASSWORD_RECOVERY_REQUEST = "PASSWORD_RECOVERY_REQUEST";
-export const PASSWORD_RECOVERY_SUCCESS = "PASSWORD_RECOVERY_SUCCESS";
-export const PASSWORD_RECOVERY_ERROR = "PASSWORD_RECOVERY_ERROR";
-
-export const PASSWORD_UPDATING_REQUEST = "PASSWORD_UPDATING_REQUEST";
-export const PASSWORD_UPDATING_SUCCESS = "PASSWORD_RECOVERY_SUCCESS";
-export const PASSWORD_UPDATING_ERROR = "PASSWORD_UPDATING_ERROR";
-
-export const LOGOUT_REQUEST = "LOGOUT_REQUEST";
-export const LOGOUT_SUCCESS = "LOGOUT_SUCCESS";
-export const LOGOUT_ERROR = "LOGOUT_ERROR";
-
-export const GET_USER_INFO_REQUEST = "GET_USER_INFO_REQUEST";
-export const GET_USER_INFO_SUCCESS = "GET_USER_INFO_SUCCESS";
-export const GET_USER_INFO_ERROR = "GET_USER_INFO_ERROR";
-
-export const UPDATE_USER_INFO_REQUEST = "UPDATE_USER_INFO_REQUEST";
-export const UPDATE_USER_INFO_SUCCESS = "UPDATE_USER_INFO_SUCCESS";
-export const UPDATE_USER_INFO_ERROR = "UPDATE_USER_INFO_ERROR";
-
-export const REFRESH_TOKEN_REQUEST = "REFRESH_TOKEN_REQUEST";
-export const REFRESH_TOKEN_SUCCESS = "REFRESH_TOKEN_SUCCESS";
-export const REFRESH_TOKEN_ERROR = "REFRESH_TOKEN_ERROR";
-
-export function registration(userData) {
-  return function (dispatch) {
+export function registration(userData: TUserData) {
+  return function (dispatch: any) {
     dispatch({
       type: REGISTRATION_REQUEST,
     });
@@ -70,8 +172,8 @@ export function registration(userData) {
   };
 }
 
-export function authorization(userData) {
-  return function (dispatch) {
+export function authorization(userData: TUserData) {
+  return function (dispatch: any) {
     dispatch({
       type: AUTHORIZATION_REQUEST,
     });
@@ -107,8 +209,8 @@ export function authorization(userData) {
   };
 }
 
-export function recoverPassword(emailData) {
-  return function (dispatch) {
+export function recoverPassword(emailData: { email: string }) {
+  return function (dispatch: any) {
     dispatch({
       type: PASSWORD_RECOVERY_REQUEST,
     });
@@ -143,8 +245,11 @@ export function recoverPassword(emailData) {
   };
 }
 
-export function updatePassword(newData) {
-  return function (dispatch) {
+export function updatePassword(newPasswordData: {
+  password: string;
+  token: string;
+}) {
+  return function (dispatch: any) {
     dispatch({
       type: PASSWORD_UPDATING_REQUEST,
     });
@@ -153,7 +258,7 @@ export function updatePassword(newData) {
       headers: {
         "Content-Type": "application/json;charset=utf-8",
       },
-      body: JSON.stringify(newData),
+      body: JSON.stringify(newPasswordData),
     })
       .then((res) => {
         if (res.ok) {
@@ -184,7 +289,7 @@ export function logout() {
   const data = {
     token: `${refreshToken}`,
   };
-  return function (dispatch) {
+  return function (dispatch: any) {
     dispatch({
       type: LOGOUT_REQUEST,
     });
@@ -220,7 +325,7 @@ export function logout() {
 }
 //---------------------------------------------------------------------------GET_USER_INFO-----------------------------
 export function getUserInfo() {
-  return function (dispatch) {
+  return function (dispatch: any) {
     dispatch({
       type: GET_USER_INFO_REQUEST,
     });
@@ -252,14 +357,14 @@ export function getUserInfo() {
 
       .catch((e) => {
         if ((e.message = "403")) {
-          dispatch(refreshToken(1));
+          dispatch(refreshToken(false));
         }
       });
   };
 }
 //---------------------------------------------------------------------------UPDATE_USER_INFO-----------------------------
-export function updateUserInfo(data) {
-  return function (dispatch) {
+export function updateUserInfo(data: { name: string; email: string }) {
+  return function (dispatch: any) {
     dispatch({
       type: UPDATE_USER_INFO_REQUEST,
     });
@@ -291,14 +396,20 @@ export function updateUserInfo(data) {
 
       .catch((e) => {
         if ((e.message = "403")) {
-          dispatch(refreshToken(0));
+          dispatch(refreshToken(false, data));
         }
       });
   };
 }
 //---------------------------------------------------------------------------UPDATE_TOKEN-----------------------------
-export function refreshToken(isGettingUserInfo) {
-  return function (dispatch) {
+export function refreshToken(
+  isGettingUserInfo: boolean,
+  data?: {
+    name: string;
+    email: string;
+  }
+) {
+  return function (dispatch: any) {
     dispatch({
       type: REFRESH_TOKEN_REQUEST,
     });
@@ -329,7 +440,7 @@ export function refreshToken(isGettingUserInfo) {
           payload: data,
         });
         if (isGettingUserInfo) dispatch(getUserInfo());
-        else dispatch(updateUserInfo());
+        else dispatch(updateUserInfo(data));
       })
 
       .catch((e) => {

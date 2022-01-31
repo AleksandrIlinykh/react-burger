@@ -13,3 +13,9 @@ export type TIngredientType = {
   __v?: number;
   key?: string;
 };
+
+export type TUserData = {
+  name?: string;
+  email: string;
+  password: string;
+};

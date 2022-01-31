@@ -1,5 +1,5 @@
 import { setCookie, deleteCookie } from "../../utils/cookies";
-
+import { TUserActions } from "../actions/auth";
 import {
   REGISTRATION_REQUEST,
   REGISTRATION_SUCCESS,
@@ -25,9 +25,38 @@ import {
   REFRESH_TOKEN_REQUEST,
   REFRESH_TOKEN_SUCCESS,
   REFRESH_TOKEN_ERROR,
-} from "../actions/auth";
+} from "../constants/auth";
 
-const userState = {
+type TUserState = {
+  isAuth: boolean;
+  email: string;
+  name: string;
+  accessToken: string;
+  accessTokenExpired: boolean;
+  requestToken: string;
+  isRegistrationInProcess: boolean;
+  isRegistrationSucess: boolean;
+  isRegistrationFailed: boolean;
+  isAuthorizationInProcess: boolean;
+  isAuthorizationSucess: boolean;
+  isAuthorizationFailed: boolean;
+
+  isPasswordRecoveryInProcess: boolean;
+  isPasswordRecoverySucess: boolean;
+  isPasswordRecoveryFailed: boolean;
+
+  isPasswordUpdatingInProcess: boolean;
+  isPasswordUpdatingFailed: boolean;
+
+  getUserInfoInProcess: boolean;
+  getUserInfoSucess: boolean;
+  getUserInfoFailed: boolean;
+
+  updateUserInfoInProcess: boolean;
+  updateUserInfoInFailed: boolean;
+};
+
+const userState: TUserState = {
   isAuth: false,
   email: "",
   name: "",
@@ -56,7 +85,7 @@ const userState = {
   updateUserInfoInFailed: false,
 };
 
-export const authReducer = (state = userState, action) => {
+export const authReducer = (state = userState, action: TUserActions) => {
   switch (action.type) {
     //---------------------------------------------------------------------------REGISTRATION-----------------------------
     case REGISTRATION_REQUEST: {
