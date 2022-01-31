@@ -1,9 +1,30 @@
 import { ENDPOINT } from "../../utils/api";
+
+import {
+  GET_ORDER_NUMBER_REQUEST,
+  GET_ORDER_NUMBER_SUCCESS,
+  GET_ORDER_NUMBER_ERROR,
+} from "../constants/order-data";
+
 import { CLEAR_INGREDIENTS } from "../constants/burger-constructor";
 
-export const GET_ORDER_NUMBER_REQUEST = "GET_ORDER_NUMBER_REQUEST";
-export const GET_ORDER_NUMBER_SUCCESS = "GET_ORDER_NUMBER_SUCCESS";
-export const GET_ORDER_NUMBER_ERROR = "GET_ORDER_NUMBER_ERROR";
+export interface IGetOrderNumberRequest {
+  readonly type: typeof GET_ORDER_NUMBER_REQUEST;
+}
+
+export interface IGetOrderNumberSuccess {
+  readonly type: typeof GET_ORDER_NUMBER_SUCCESS;
+  readonly payload: number;
+}
+
+export interface IGetOrderNumberError {
+  readonly type: typeof GET_ORDER_NUMBER_ERROR;
+}
+
+export type TOrderDataActions =
+  | IGetOrderNumberRequest
+  | IGetOrderNumberSuccess
+  | IGetOrderNumberError;
 
 const getOrderNumberRequest = () => {
   return {
@@ -11,22 +32,21 @@ const getOrderNumberRequest = () => {
   };
 };
 
-const getOrderNumberSuccess = (orderNumber) => {
+const getOrderNumberSuccess = (orderNumber: number) => {
   return {
     type: GET_ORDER_NUMBER_SUCCESS,
     payload: orderNumber,
   };
 };
 
-const getOrderNumberError = (error) => {
+const getOrderNumberError = () => {
   return {
     type: GET_ORDER_NUMBER_ERROR,
-    payload: error,
   };
 };
 
-export function getOrderNumber(bodyData) {
-  return function (dispatch) {
+export function getOrderNumber(bodyData: any) {
+  return function (dispatch: any) {
     dispatch(getOrderNumberRequest());
 
     fetch(`${ENDPOINT}/api/orders`, {
