@@ -1,5 +1,9 @@
 import { ENDPOINT } from "../../utils/api";
 import { TIngredientType } from "../types/data";
+import {
+  TIngredientsDispatch,
+  TIngredientsThunk,
+} from "../types/burger-ingredients";
 
 import {
   GET_INGREDIENTS_REQUEST,
@@ -46,15 +50,17 @@ const getIngredientsError = (): IGetIngredientsError => {
   };
 };
 
-export function getBurgerIngredients() {
-  return function (dispatch: any) {
+export const getBurgerIngredients: TIngredientsThunk =
+  () => (dispatch: TIngredientsDispatch) => {
     dispatch(getIngredientsRequest());
     fetch(`${ENDPOINT}/api/ingredients`)
       .then((res) => {
         if (res.ok) {
           return res;
         } else {
-          dispatch(getIngredientsError);
+          dispatch({
+            type: GET_INGREDIENTS_ERROR,
+          });
           throw new Error("Network response was not OK");
         }
       })
@@ -65,4 +71,4 @@ export function getBurgerIngredients() {
         console.log(e.response);
       });
   };
-}
+
