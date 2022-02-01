@@ -1,7 +1,7 @@
 import { AUTH_ENDPOINT } from "../../utils/api";
 import { getCookie } from "../../utils/cookies";
 import { TUserData } from "../types/data";
-
+import { TUserThunk, TUserDispatch } from "../types/auth";
 
 import {
   REGISTRATION_REQUEST,
@@ -136,8 +136,8 @@ export type TUserActions =
       type: typeof REFRESH_TOKEN_ERROR;
     };
 
-export function registration(userData: TUserData) {
-  return function (dispatch: any) {
+export const registration: TUserThunk =
+  (userData: TUserData) => (dispatch: TUserDispatch) => {
     dispatch({
       type: REGISTRATION_REQUEST,
     });
@@ -171,10 +171,9 @@ export function registration(userData: TUserData) {
         console.log(e.response);
       });
   };
-}
 
-export function authorization(userData: TUserData) {
-  return function (dispatch: any) {
+export const authorization: TUserThunk =
+  (userData: TUserData) => (dispatch: TUserDispatch) => {
     dispatch({
       type: AUTHORIZATION_REQUEST,
     });
@@ -208,10 +207,9 @@ export function authorization(userData: TUserData) {
         console.log(e.response);
       });
   };
-}
 
-export function recoverPassword(emailData: { email: string }) {
-  return function (dispatch: any) {
+export const recoverPassword: TUserThunk =
+  (emailData: { email: string }) => (dispatch: TUserDispatch) => {
     dispatch({
       type: PASSWORD_RECOVERY_REQUEST,
     });
@@ -244,13 +242,9 @@ export function recoverPassword(emailData: { email: string }) {
         console.log(e.response);
       });
   };
-}
 
-export function updatePassword(newPasswordData: {
-  password: string;
-  token: string;
-}) {
-  return function (dispatch: any) {
+export const updatePassword: TUserThunk =
+  (newPasswordData: { password: string; token: string }) => (dispatch: any) => {
     dispatch({
       type: PASSWORD_UPDATING_REQUEST,
     });
@@ -283,14 +277,13 @@ export function updatePassword(newPasswordData: {
         console.log(e.response);
       });
   };
-}
 
-export function logout() {
+export const logout: TUserThunk = () => {
   const refreshToken = getCookie("refreshToken");
   const data = {
     token: `${refreshToken}`,
   };
-  return function (dispatch: any) {
+  return function (dispatch: TUserDispatch) {
     dispatch({
       type: LOGOUT_REQUEST,
     });
@@ -323,49 +316,49 @@ export function logout() {
         console.log(e.response);
       });
   };
-}
+};
+
 //---------------------------------------------------------------------------GET_USER_INFO-----------------------------
-export function getUserInfo() {
-  return function (dispatch: any) {
-    dispatch({
-      type: GET_USER_INFO_REQUEST,
-    });
+export const getUserInfo: TUserThunk = () => (dispatch: TUserDispatch) => {
+  dispatch({
+    type: GET_USER_INFO_REQUEST,
+  });
 
-    fetch(`${AUTH_ENDPOINT}/auth/user`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: "Bearer " + getCookie("acessToken"),
-      },
-    })
-      .then((res) => {
-        if (res.ok) {
-          return res;
-        } else {
-          dispatch({
-            type: GET_USER_INFO_ERROR,
-          });
-          throw new Error(`${res.status}`);
-        }
-      })
-      .then((res) => res.json())
-      .then((data) => {
+  fetch(`${AUTH_ENDPOINT}/auth/user`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: "Bearer " + getCookie("acessToken"),
+    },
+  })
+    .then((res) => {
+      if (res.ok) {
+        return res;
+      } else {
         dispatch({
-          type: GET_USER_INFO_SUCCESS,
-          payload: data,
+          type: GET_USER_INFO_ERROR,
         });
-      })
-
-      .catch((e) => {
-        if ((e.message = "403")) {
-          dispatch(refreshToken(false));
-        }
+        throw new Error(`${res.status}`);
+      }
+    })
+    .then((res) => res.json())
+    .then((data) => {
+      dispatch({
+        type: GET_USER_INFO_SUCCESS,
+        payload: data,
       });
-  };
-}
+    })
+
+    .catch((e) => {
+      if ((e.message = "403")) {
+        dispatch(refreshToken(false));
+      }
+    });
+};
+
 //---------------------------------------------------------------------------UPDATE_USER_INFO-----------------------------
-export function updateUserInfo(data: { name: string; email: string }) {
-  return function (dispatch: any) {
+export const updateUserInfo: TUserThunk =
+  (data: { name: string; email: string }) => (dispatch: TUserDispatch) => {
     dispatch({
       type: UPDATE_USER_INFO_REQUEST,
     });
@@ -401,16 +394,17 @@ export function updateUserInfo(data: { name: string; email: string }) {
         }
       });
   };
-}
+
 //---------------------------------------------------------------------------UPDATE_TOKEN-----------------------------
-export function refreshToken(
-  isGettingUserInfo: boolean,
-  data?: {
-    name: string;
-    email: string;
-  }
-) {
-  return function (dispatch: any) {
+export const refreshToken: TUserThunk =
+  (
+    isGettingUserInfo: boolean,
+    data?: {
+      name: string;
+      email: string;
+    }
+  ) =>
+  (dispatch: TUserDispatch) => {
     dispatch({
       type: REFRESH_TOKEN_REQUEST,
     });
@@ -449,4 +443,4 @@ export function refreshToken(
         console.log(e.response);
       });
   };
-}
+

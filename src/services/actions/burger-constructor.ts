@@ -1,6 +1,3 @@
-import { Interface } from "readline";
-import internal from "stream";
-
 import { TIngredientType } from "../types/data";
 
 import {

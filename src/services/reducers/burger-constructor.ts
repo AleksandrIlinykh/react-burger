@@ -2,6 +2,7 @@ import update from "immutability-helper";
 import { TBurgerConstructorActions } from "../actions/burger-constructor";
 import { TIngredientType } from "../types/data";
 
+
 import {
   ADD_INGREDIENT,
   DELETE_INGREDIENT,
@@ -10,11 +11,11 @@ import {
 } from "../constants/burger-constructor";
 
 type TBurgerConstructorState = {
-  bun: TIngredientType;
+  bun: TIngredientType | {};
   sausesAndFillings: Array<TIngredientType>;
 };
 
-const initialState = {
+const initialState: TBurgerConstructorState = {
   bun: {},
   sausesAndFillings: [],
 };
