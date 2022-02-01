@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import { NavLink } from "react-router-dom";
@@ -9,20 +9,32 @@ import {
 
 import { Switch, Route, useRouteMatch } from "react-router-dom";
 
-import { logout, updateUserInfo } from "../../services/actions/auth";
+import {
+  logout,
+  updateUserInfo,
+  refreshToken,
+} from "../../services/actions/auth";
 
 import profileStyles from "./profile.module.css";
 
 function Profile() {
-  const { storeUserEmail, storeUserName } = useSelector((store: any) => ({
+  const {
+    storeUserEmail,
+    storeUserName,
+    updateUserInfoFailed,
+    refreshTokenSucess,
+  } = useSelector((store: any) => ({
     storeUserEmail: store.authData.email,
     storeUserName: store.authData.name,
+    updateUserInfoFailed: store.authData.updateUserInfoFailed,
+    refreshTokenSucess: store.authData.refreshTokenSucess,
   }));
   const [userEmail, setUserEmail] = useState(storeUserEmail);
   const [userName, setUserName] = useState(storeUserName);
   const [password, setPassword] = useState("");
 
   const dispatch = useDispatch();
+
   const handleSubmit = (event: React.SyntheticEvent) => {
     event.preventDefault();
     dispatch(
@@ -32,6 +44,23 @@ function Profile() {
       })
     );
   };
+
+  useEffect(() => {
+    if (updateUserInfoFailed) {
+      refreshToken(1);
+    }
+  }, [updateUserInfoFailed]);
+
+  useEffect(() => {
+    if (refreshTokenSucess) {
+      dispatch(
+        updateUserInfo({
+          name: userName,
+          email: userEmail,
+        })
+      );
+    }
+  }, [refreshTokenSucess]);
 
   const handleCancel = () => {
     setUserEmail(storeUserEmail);

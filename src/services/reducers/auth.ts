@@ -53,7 +53,12 @@ type TUserState = {
   getUserInfoFailed: boolean;
 
   updateUserInfoInProcess: boolean;
-  updateUserInfoInFailed: boolean;
+  updateUserInfoSucess: boolean;
+  updateUserInfoFailed: boolean;
+
+  refreshTokenInProcess: boolean;
+  refreshTokenSucess: boolean;
+  refreshTokenFailed: boolean;
 };
 
 const userState: TUserState = {
@@ -82,7 +87,12 @@ const userState: TUserState = {
   getUserInfoFailed: false,
 
   updateUserInfoInProcess: false,
-  updateUserInfoInFailed: false,
+  updateUserInfoSucess: false,
+  updateUserInfoFailed: false,
+
+  refreshTokenInProcess: false,
+  refreshTokenSucess: false,
+  refreshTokenFailed: false,
 };
 
 export const authReducer = (state = userState, action: TUserActions) => {
@@ -265,6 +275,7 @@ export const authReducer = (state = userState, action: TUserActions) => {
     case REFRESH_TOKEN_REQUEST: {
       return {
         ...state,
+        refreshTokenInProcess: true,
       };
     }
     case REFRESH_TOKEN_SUCCESS: {
@@ -272,11 +283,15 @@ export const authReducer = (state = userState, action: TUserActions) => {
       setCookie("refreshToken", action.payload.refreshToken);
       return {
         ...state,
+        refreshTokenInProcess: false,
+        refreshTokenSucess: true,
+        refreshTokenFailed: false,
       };
     }
     case REFRESH_TOKEN_ERROR: {
       return {
         ...state,
+        refreshTokenInProcess: false,
       };
     }
     default:

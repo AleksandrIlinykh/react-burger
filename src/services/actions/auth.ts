@@ -351,7 +351,11 @@ export const getUserInfo: TUserThunk = () => (dispatch: TUserDispatch) => {
 
     .catch((e) => {
       if ((e.message = "403")) {
-        dispatch(refreshToken(false));
+        //dispatch(refreshToken(false));
+        dispatch({
+          type: GET_USER_INFO_ERROR,
+        });
+        console.log(((e.message = "403"), "GET_USER_INFO_ERROR"));
       }
     });
 };
@@ -390,7 +394,11 @@ export const updateUserInfo: TUserThunk =
 
       .catch((e) => {
         if ((e.message = "403")) {
-          dispatch(refreshToken(false, data));
+          //dispatch(refreshToken(false, data));
+          dispatch({
+            type: UPDATE_USER_INFO_ERROR,
+          });
+          console.log(((e.message = "403"), "UPDATE_USER_INFO_ERROR"));
         }
       });
   };
@@ -434,8 +442,8 @@ export const refreshToken: TUserThunk =
           type: REFRESH_TOKEN_SUCCESS,
           payload: data,
         });
-        if (isGettingUserInfo) dispatch(getUserInfo());
-        else dispatch(updateUserInfo(data));
+        //if (isGettingUserInfo) dispatch(getUserInfo());
+        //else dispatch(updateUserInfo(data));
       })
 
       .catch((e) => {
