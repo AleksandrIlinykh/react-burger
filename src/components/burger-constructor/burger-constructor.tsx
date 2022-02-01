@@ -125,7 +125,7 @@ const BurgerConstructor = () => {
       .map((elem: any) => elem.price)
       .reduce((sum: number, price: number) => sum + price);
 
-  const totalPrice = bunPrice + innerPrice;
+  const totalPrice = (innerPrice ? innerPrice : 0) + (bunPrice ? bunPrice : 0);
 
   return (
     <>
