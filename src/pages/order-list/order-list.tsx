@@ -16,6 +16,8 @@ export default function OrderList() {
       <section className={orderListStyles.content}>
         <div className={orderListStyles.contentColumn}>
           <OrderCard></OrderCard>
+          <OrderCard></OrderCard>
+          <OrderCard></OrderCard>
         </div>
         <div className={orderListStyles.contentColumn}>2</div>
       </section>

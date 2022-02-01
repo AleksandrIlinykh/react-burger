@@ -7,19 +7,31 @@ export default function OrderList() {
   return (
     <section className={orderCardStyles.content}>
       <div className={orderCardStyles.header + " m-5"}>
-        <p>#034535</p>
-        <p>Сегодня, 16:20 i-GMT+3</p>
+        <p className="text text_type_digits-default">#034535</p>
+        <p className="text text_type_main-default text_color_inactive">
+          Сегодня, 16:20 i-GMT+3
+        </p>
       </div>
-      <h2 className={orderCardStyles.name + " m-5"}>
+      <h2 className={orderCardStyles.name + " m-5 text text_type_main-medium"}>
         Death Star Starship Main бургер
       </h2>
       <div className={orderCardStyles.info + " m-5"}>
         <div className={orderCardStyles.images}>
-          <img src={ingredientImg} alt="" className={orderCardStyles.image} />
-          <img src={ingredientImg} alt="" className={orderCardStyles.image} />
-          <img src={ingredientImg} alt="" className={orderCardStyles.image} />
-          <img src={ingredientImg} alt="" className={orderCardStyles.image} />
-          <img src={ingredientImg} alt="" className={orderCardStyles.image} />
+          <div className={orderCardStyles.imageContainer}>
+            <img src={ingredientImg} alt="" className={orderCardStyles.image} />
+          </div>
+          <div className={orderCardStyles.imageContainer}>
+            <img src={ingredientImg} alt="" className={orderCardStyles.image} />
+          </div>
+          <div className={orderCardStyles.imageContainer}>
+            <img src={ingredientImg} alt="" className={orderCardStyles.image} />
+          </div>
+          <div className={orderCardStyles.imageContainer}>
+            <img src={ingredientImg} alt="" className={orderCardStyles.image} />
+          </div>
+          <div className={orderCardStyles.imageContainer}>
+            <img src={ingredientImg} alt="" className={orderCardStyles.image} />
+          </div>
         </div>
         <div className={orderCardStyles.price}>
           <p>480</p>

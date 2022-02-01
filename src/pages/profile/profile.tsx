@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import OrderCard from "../../components/order-card/order-card";
 
 import { NavLink } from "react-router-dom";
 import {
@@ -120,7 +121,11 @@ function Profile() {
 
         <Switch>
           <Route exact path="/profile/orders">
-            <div></div>
+            <div className={profileStyles.orderContainer}>
+              <OrderCard />
+              <OrderCard />
+              <OrderCard />
+            </div>
           </Route>
 
           <Route path={match.path}>
