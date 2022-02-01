@@ -18,6 +18,7 @@ import Profile from "../../pages/profile/profile";
 import IngredientsDetails from "../ingredient-details/ingredient-details";
 import Modal from "../modal/modal";
 import OrderList from "../../pages/order-list/order-list";
+import { RootState } from "../../services/types/index";
 
 type TLocationState = {
   from: {
@@ -39,7 +40,7 @@ export const ModalSwitch = () => {
   const history = useHistory();
   const background = location.state && location.state.background;
   const dispatch = useDispatch();
-  const { isPasswordRecoverySucess } = useSelector((store: any) => ({
+  const { isPasswordRecoverySucess } = useSelector((store: RootState) => ({
     isPasswordRecoverySucess: store.authData.isPasswordRecoverySucess,
   }));
   const handleModalClose = () => {

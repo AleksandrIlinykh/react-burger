@@ -7,11 +7,11 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import passwordRecoveryStyles from "./password-recovery.module.css";
 import { recoverPassword } from "../../services/actions/auth";
-
+import { RootState } from "../../services/types/index";
 function PasswordRecovery() {
   const [email, setEmail] = React.useState("");
   const isPasswordRecoverySucess = useSelector(
-    (store: any) => store.authData.isPasswordRecoverySucess
+    (store: RootState) => store.authData.isPasswordRecoverySucess
   );
 
   const dispatch = useDispatch();

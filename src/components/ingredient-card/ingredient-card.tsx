@@ -9,8 +9,7 @@ import { Counter } from "@ya.praktikum/react-developer-burger-ui-components";
 import ingredientCardStyles from "./ingredient-card.module.css";
 import { showIngredientDetails } from "../../services/actions/ingredient-details";
 import { v4 as uuidv4 } from "uuid";
-
-import { TIngredientType } from "../../utils/types";
+import { RootState } from "../../services/types/index";
 
 export type TIngredientCardType = {
   image: string;
@@ -39,17 +38,15 @@ const IngredientCard = ({
 }: TIngredientCardType) => {
   const [orderCount, setOrderCount] = React.useState(0);
 
-  const { sausesAndFillings, bun } = useSelector((store: any) => ({
+  const { sausesAndFillings, bun } = useSelector((store: RootState) => ({
     sausesAndFillings: store.burgerConstructor.sausesAndFillings,
     bun: store.burgerConstructor.bun,
   }));
 
   useEffect(() => {
     const theSameIngredientsAmount =
-      sausesAndFillings.filter(
-        (ingredient: TIngredientType) => ingredient._id === _id
-      ).length +
-        (bun._id === _id) && 2;
+      sausesAndFillings.filter((ingredient) => ingredient._id === _id).length +
+      (bun._id === _id ? 2 : 0);
     setOrderCount(theSameIngredientsAmount);
   }, [sausesAndFillings.length, bun._id, _id, sausesAndFillings]);
 

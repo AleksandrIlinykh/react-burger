@@ -16,14 +16,14 @@ import {
 } from "../../services/actions/auth";
 
 import profileStyles from "./profile.module.css";
-
+import { RootState } from "../../services/types/index";
 function Profile() {
   const {
     storeUserEmail,
     storeUserName,
     updateUserInfoFailed,
     refreshTokenSucess,
-  } = useSelector((store: any) => ({
+  } = useSelector((store: RootState) => ({
     storeUserEmail: store.authData.email,
     storeUserName: store.authData.name,
     updateUserInfoFailed: store.authData.updateUserInfoFailed,

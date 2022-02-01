@@ -7,7 +7,7 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import logInStyles from "./log-in.module.css";
 import { authorization } from "../../services/actions/auth";
-
+import { RootState } from "../../services/types/index";
 type TLocationState = {
   from: {
     pathname: string;
@@ -23,7 +23,7 @@ function LogIn() {
 
   const dispatch = useDispatch();
   const location = useLocation<TLocationState>();
-  const isAuth = useSelector((store: any) => store.authData.isAuth);
+  const isAuth = useSelector((store: RootState) => store.authData.isAuth);
 
   const handleSubmit = (event: React.SyntheticEvent) => {
     event.preventDefault();

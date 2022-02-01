@@ -11,7 +11,7 @@ import {
 } from "../constants/burger-constructor";
 
 type TBurgerConstructorState = {
-  bun: TIngredientType | {};
+  bun: TIngredientType;
   sausesAndFillings: Array<TIngredientType>;
 };
 

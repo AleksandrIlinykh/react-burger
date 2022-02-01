@@ -2,9 +2,9 @@ import { useMemo } from "react";
 import { useSelector } from "react-redux";
 import orderDetailsStyles from "./order-details.module.css";
 import doneGif from "../../images/done.gif";
-
+import { RootState } from "../../services/types/index";
 function OrderDetails() {
-  const { isLoading, orderNumber } = useSelector((store: any) => ({
+  const { isLoading, orderNumber } = useSelector((store: RootState) => ({
     isLoading: store.orderData.loading,
     orderNumber: store.orderData.orderNumber,
   }));

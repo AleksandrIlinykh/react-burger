@@ -1,14 +1,14 @@
 import ingredientDetailsStyles from "./ingredient-details.module.css";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-
-import { TIngredientType } from "../../utils/types";
+import { RootState } from "../../services/types/index";
+import { TIngredientType } from "../../services/types/data";
 
 function IngredientDetails() {
   let { ingredientId } = useParams<{ ingredientId: string }>();
   ingredientId = ingredientId.slice(0, -1);
   const ingredient = useSelector(
-    (store: any) =>
+    (store: RootState) =>
       store.burgerIngredients.ingredients.filter(
         (ingredient: TIngredientType) => ingredient._id === ingredientId
       )[0]

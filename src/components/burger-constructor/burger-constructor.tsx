@@ -11,6 +11,7 @@ import OrderDetails from "../order-details/order-details";
 import { addIngredient } from "../../services/actions/burger-constructor";
 import { useHistory } from "react-router-dom";
 import { getOrderNumber } from "../../services/actions/order-data";
+import { RootState } from "../../services/types/index";
 import {
   showOrderDetails,
   hideOrderDetails,
@@ -59,7 +60,7 @@ const BurgerConstructor = () => {
   });
 
   const { bun, sausesAndFillings, isOrderDetailsActive, isAuth } = useSelector(
-    (store: any) => ({
+    (store: RootState) => ({
       bun: store.burgerConstructor.bun,
       sausesAndFillings: store.burgerConstructor.sausesAndFillings,
       isOrderDetailsActive: store.orderDetails.isOrderDetailsActive,
@@ -91,34 +92,41 @@ const BurgerConstructor = () => {
 
   const bunTopIngredient = (
     <div className={burgerConstructorStyles.element + " pl-8"}>
-      <ConstructorElement
-        type="top"
-        isLocked
-        text={bun.name + " (верх)"}
-        price={bun.price}
-        thumbnail={bun.image}
-      />
+      {bun.price && bun.image && (
+        <ConstructorElement
+          type="top"
+          isLocked
+          text={bun.name + " (верх)"}
+          price={bun.price}
+          thumbnail={bun.image}
+        />
+      )}
     </div>
   );
 
   const bunBottomIngredient = (
     <div className={burgerConstructorStyles.element + " pl-8"}>
-      <ConstructorElement
-        type="bottom"
-        isLocked
-        text={bun.name + " (низ)"}
-        price={bun.price}
-        thumbnail={bun.image}
-      />
+      {bun.price && bun.image && (
+        <ConstructorElement
+          type="bottom"
+          isLocked
+          text={bun.name + " (низ)"}
+          price={bun.price}
+          thumbnail={bun.image}
+        />
+      )}
     </div>
   );
 
-  const totalPrice =
-    (bun.hasOwnProperty("_id") && bun.price) +
-    (sausesAndFillings.length &&
-      sausesAndFillings
-        .map((elem: TItem) => elem.price)
-        .reduce((sum: number, price: number) => sum + price));
+  const bunPrice = bun.price && bun.price;
+  const innerPrice =
+    sausesAndFillings.length &&
+    sausesAndFillings
+      .map((elem: any) => elem.price)
+      .reduce((sum: number, price: number) => sum + price);
+
+  const totalPrice = bunPrice + innerPrice;
+
   return (
     <>
       {isOrderDetailsActive && (
@@ -136,17 +144,15 @@ const BurgerConstructor = () => {
 
           <div className={burgerConstructorStyles.ingredientsconstructor}>
             {!sausesAndFillings.length ||
-              sausesAndFillings.map(
-                (chosenIngredient: TItem, index: number) => (
-                  <BurgerConstructorElement
-                    name={chosenIngredient.name}
-                    price={chosenIngredient.price}
-                    image={chosenIngredient.image}
-                    key={index}
-                    index={index}
-                  />
-                )
-              )}
+              sausesAndFillings.map((chosenIngredient: any, index: number) => (
+                <BurgerConstructorElement
+                  name={chosenIngredient.name}
+                  price={chosenIngredient.price}
+                  image={chosenIngredient.image}
+                  key={index}
+                  index={index}
+                />
+              ))}
           </div>
 
           {!bun.hasOwnProperty("_id") || bunBottomIngredient}

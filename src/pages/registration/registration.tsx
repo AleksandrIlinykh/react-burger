@@ -7,7 +7,7 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { registration } from "../../services/actions/auth";
 import registrationStyles from "./registration.module.css";
-
+import { RootState } from "../../services/types/index";
 function Registration() {
   const [name, setName] = React.useState("");
   const [email, setEmail] = React.useState("");
@@ -16,7 +16,7 @@ function Registration() {
   const history = useHistory();
   const dispatch = useDispatch();
   const isRegistrationSucess = useSelector(
-    (store: any) => store.authData.isRegistrationSucess
+    (store: RootState) => store.authData.isRegistrationSucess
   );
 
   const handleSubmit = (event: React.SyntheticEvent) => {
