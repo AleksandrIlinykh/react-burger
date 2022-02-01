@@ -1,4 +1,5 @@
 //import { TUserActions } from "./auth";
+import { TUserActions } from "../actions/auth";
 import { TBurgerConstructorActions } from "./burger-constructor";
 import { TIngredientsActions } from "./burger-ingredients";
 import { TIngredientDetailsActions } from "./ingredient-details";
@@ -6,10 +7,9 @@ import { TOrderDataActions } from "./order-data";
 import { TOrderDetailsActions } from "./order-details";
 
 export type TActions =
-  // | TUserActions
+  | TUserActions
   | TBurgerConstructorActions
   | TIngredientsActions
   | TIngredientDetailsActions
   | TOrderDataActions
-  | TOrderDetailsActions
-  | { type: "REFRESH_TOKEN_ERROR" };
+  | TOrderDetailsActions;

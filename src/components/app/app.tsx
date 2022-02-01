@@ -1,11 +1,10 @@
 import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector, useDispatch } from "../../services/hooks";
 import { getCookie } from "../../utils/cookies";
 import { BrowserRouter as Router } from "react-router-dom";
 
 import { getBurgerIngredients } from "../../services/actions/burger-ingredients";
 import { getUserInfo, refreshToken } from "../../services/actions/auth";
-import { store } from "../../services/store";
 import { ModalSwitch } from "../modal-switch/modal-switch";
 export default function App() {
   const { getUserInfoFailed, refreshTokenSucess } = useSelector(

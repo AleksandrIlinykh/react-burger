@@ -8,7 +8,7 @@ export type RootState = ReturnType<typeof store.getState>;
 
 type TApplicationActions = TActions;
 
-export type AppThunk<TReturn = void> = ActionCreator<
+export type TAppThunk<TReturn = void> = ActionCreator<
   ThunkAction<TReturn, Action, RootState, TApplicationActions>
 >;
 

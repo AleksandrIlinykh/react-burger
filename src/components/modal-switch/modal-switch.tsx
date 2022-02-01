@@ -5,7 +5,7 @@ import BurgerIngredients from "../burger-ingredients/burger-ingredients";
 import BurgerConstructor from "../burger-constructor/burger-constructor";
 import { ProtectedRoute } from "../protected-route/protected-route ";
 import appStyles from "./app.module.css";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector, useDispatch } from "../../services/hooks";
 
 import { Route, Switch, useLocation, useHistory } from "react-router-dom";
 import { hideIngredientDetails } from "../../services/actions/ingredient-details";
