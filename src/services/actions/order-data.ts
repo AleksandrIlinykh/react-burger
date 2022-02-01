@@ -49,7 +49,7 @@ const getOrderNumberError = () => {
 };
 
 export const getOrderNumber: TOrderDataThunk =
-  (bodyData: any) => (dispatch: TOrderDataDispatch) => {
+  (bodyData: Array<string>) => (dispatch: TOrderDataDispatch) => {
     dispatch(getOrderNumberRequest());
 
     fetch(`${ENDPOINT}/api/orders`, {

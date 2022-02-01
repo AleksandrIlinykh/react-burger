@@ -27,7 +27,7 @@ export default function App() {
 
   useEffect(() => {
     if (getUserInfoFailed) {
-      refreshToken(1);
+      dispatch(refreshToken(1));
     }
   }, [getUserInfoFailed]);
 

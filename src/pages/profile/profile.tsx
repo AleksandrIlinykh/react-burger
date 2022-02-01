@@ -47,7 +47,7 @@ function Profile() {
 
   useEffect(() => {
     if (updateUserInfoFailed) {
-      refreshToken(1);
+      dispatch(refreshToken(1));
     }
   }, [updateUserInfoFailed]);
 

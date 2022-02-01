@@ -244,7 +244,8 @@ export const recoverPassword: TUserThunk =
   };
 
 export const updatePassword: TUserThunk =
-  (newPasswordData: { password: string; token: string }) => (dispatch: any) => {
+  (newPasswordData: { password: string; token: string }) =>
+  (dispatch: TUserDispatch) => {
     dispatch({
       type: PASSWORD_UPDATING_REQUEST,
     });
