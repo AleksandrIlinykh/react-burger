@@ -1,5 +1,5 @@
 import type { wsActions } from "../actions/wsActionTypes";
-
+import type { TOrderMessage } from "../types/data";
 import {
   WS_CONNECTION_START,
   WS_CONNECTION_SUCCESS,
@@ -11,7 +11,7 @@ import {
 
 type TWState = {
   wsConnected: boolean;
-  messages: any;
+  messages: [TOrderMessage] | [];
   error?: any;
 };
 const wsInitialState: TWState = {
@@ -42,6 +42,7 @@ export const wsReducer = (state = wsInitialState, action: wsActions) => {
       };
 
     case WS_GET_MESSAGE:
+      console.log(action.payload);
       return {
         ...state,
         messages: [],

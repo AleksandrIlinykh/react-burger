@@ -14,6 +14,22 @@ export type TIngredientType = {
   key?: string;
 };
 
+export type TOrderMessage = {
+  success: boolean;
+  orders: [
+    {
+      ingredients: [string];
+      _id: string;
+      status: string;
+      number: number;
+      createdAt: string;
+      updatedAt: string;
+    }
+  ];
+  total: number;
+  totalToday: number;
+}; 
+
 export type TUserData = {
   name?: string;
   email: string;
