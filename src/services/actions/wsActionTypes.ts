@@ -5,10 +5,14 @@ import {
   WS_CONNECTION_CLOSED,
   WS_GET_MESSAGE,
   WS_SEND_MESSAGE,
+  WS_CONNECTION_СLOSE,
 } from "../constants/ws";
 
 export interface IwsInit {
   readonly type: typeof WS_CONNECTION_START;
+}
+export interface IwsClose {
+  readonly type: typeof WS_CONNECTION_СLOSE;
 }
 export interface IwsConnectionSuccess {
   readonly type: typeof WS_CONNECTION_SUCCESS;
@@ -31,6 +35,12 @@ export interface IwsSendMessage {
 export const wsInit = () => {
   return {
     type: WS_CONNECTION_START,
+  };
+};
+
+export const wsClose = () => {
+  return {
+    type: WS_CONNECTION_СLOSE,
   };
 };
 
@@ -68,6 +78,7 @@ export const wsSendMessage = (message: any) => {
 
 export type wsActions =
   | IwsInit
+  | IwsClose
   | IwsConnectionSuccess
   | IwsConnectionError
   | IwsConnectionClosed

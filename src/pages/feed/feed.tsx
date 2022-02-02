@@ -1,8 +1,21 @@
+import { useEffect } from "react";
+import { useSelector, useDispatch } from "../../services/hooks";
+import { wsInit, wsClose } from "../../services/actions/wsActionTypes";
+
 import OrderContainer from "../../components/order-container/order-container";
 import AppHeader from "../../components/app-header/app-header";
 import feedStyles from "./feed.module.css";
 
 export default function Feed() {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(wsInit());
+    return () => {
+      dispatch(wsClose());
+    };
+  }, [dispatch]);
+
   return (
     <>
       <AppHeader />
