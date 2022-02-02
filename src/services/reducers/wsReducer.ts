@@ -45,7 +45,7 @@ export const wsReducer = (state = wsInitialState, action: wsActions) => {
       console.log(action.payload);
       return {
         ...state,
-        messages: [],
+        messages: [...state.messages, action.payload],
       };
 
     default:
