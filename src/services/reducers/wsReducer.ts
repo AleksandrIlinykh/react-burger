@@ -1,5 +1,5 @@
 import type { wsActions } from "../actions/wsActionTypes";
-import type { TOrderMessage } from "../types/data";
+import type { TOrderMessage, TOrders } from "../types/data";
 import {
   WS_CONNECTION_START,
   WS_CONNECTION_SUCCESS,
@@ -12,11 +12,13 @@ import {
 type TWState = {
   wsConnected: boolean;
   messages: [TOrderMessage] | [];
+  orders: [TOrders] | [];
   error?: any;
 };
 const wsInitialState: TWState = {
   wsConnected: false,
   messages: [],
+  orders: [],
 };
 
 export const wsReducer = (state = wsInitialState, action: wsActions) => {
@@ -42,7 +44,14 @@ export const wsReducer = (state = wsInitialState, action: wsActions) => {
       };
 
     case WS_GET_MESSAGE:
-      console.log(action.payload);
+      const parsedMessage = JSON.parse(action.payload);
+      console.log(parsedMessage.orders);
+      if (parsedMessage.orders.length)
+        return {
+          ...state,
+          messages: [...state.messages, parsedMessage],
+          orders: parsedMessage.orders,
+        };
       return {
         ...state,
         messages: [...state.messages, action.payload],

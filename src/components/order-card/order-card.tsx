@@ -1,40 +1,68 @@
-import React from "react";
-import ingredientImg from "../../images/bun-01.png";
+import { useEffect } from "react";
+import { useSelector } from "../../services/hooks";
+
+//import ingredientImg from "../../images/bun-01.png";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
+
+import { parseDay } from "../../utils/utils";
 import orderCardStyles from "./order-card.module.css";
 
-export default function OrderCard() {
+export type TOrderCard = {
+  id: string;
+  createdAt: string;
+  name: string;
+  ingredientsIds: [];
+};
+
+export default function OrderCard({
+  id,
+  createdAt,
+  name,
+  ingredientsIds,
+}: TOrderCard) {
+  const { ingredientsImgs, ingredientsPrices } = useSelector((store: any) => ({
+    ingredientsImgs: ingredientsIds.map(
+      (ingredientsId: any) =>
+        store.burgerIngredients.ingredients.filter(
+          (ingredient: any) => ingredientsId === ingredient._id
+        )[0].image
+    ),
+    ingredientsPrices: ingredientsIds.map(
+      (ingredientsId: any) =>
+        store.burgerIngredients.ingredients.filter(
+          (ingredient: any) => ingredientsId === ingredient._id
+        )[0].price
+    ),
+  }));
+
+  const totalPrice = ingredientsPrices.reduce((acc, price) => acc + price);
+  console.log(totalPrice);
+
   return (
     <section className={orderCardStyles.content}>
       <div className={orderCardStyles.header + " m-5"}>
-        <p className="text text_type_digits-default">#034535</p>
+        <p className="text text_type_digits-default">#{id}</p>
         <p className="text text_type_main-default text_color_inactive">
-          Сегодня, 16:20 i-GMT+3
+          {parseDay(createdAt)}
         </p>
       </div>
       <h2 className={orderCardStyles.name + " m-5 text text_type_main-medium"}>
-        Death Star Starship Main бургер
+        {name}
       </h2>
       <div className={orderCardStyles.info + " m-5"}>
         <div className={orderCardStyles.images}>
-          <div className={orderCardStyles.imageContainer}>
-            <img src={ingredientImg} alt="" className={orderCardStyles.image} />
-          </div>
-          <div className={orderCardStyles.imageContainer}>
-            <img src={ingredientImg} alt="" className={orderCardStyles.image} />
-          </div>
-          <div className={orderCardStyles.imageContainer}>
-            <img src={ingredientImg} alt="" className={orderCardStyles.image} />
-          </div>
-          <div className={orderCardStyles.imageContainer}>
-            <img src={ingredientImg} alt="" className={orderCardStyles.image} />
-          </div>
-          <div className={orderCardStyles.imageContainer}>
-            <img src={ingredientImg} alt="" className={orderCardStyles.image} />
-          </div>
+          {ingredientsImgs.map((ingredientImg: string) => (
+            <div className={orderCardStyles.imageContainer}>
+              <img
+                src={ingredientImg}
+                alt=""
+                className={orderCardStyles.image}
+              />
+            </div>
+          ))}
         </div>
         <div className={orderCardStyles.price}>
-          <p>480</p>
+          <p>{totalPrice}</p>
 
           <CurrencyIcon type="primary" />
         </div>

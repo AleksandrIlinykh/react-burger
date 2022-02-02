@@ -15,5 +15,5 @@ export const rootReducer = combineReducers({
   ingredientDetails: ingredientDetailsReducer,
   orderDetails: orderDetailsReducer,
   authData: authReducer,
-  wsReducer: wsReducer,
+  ws: wsReducer,
 });

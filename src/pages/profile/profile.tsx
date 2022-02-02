@@ -121,11 +121,7 @@ function Profile() {
 
         <Switch>
           <Route exact path="/profile/orders">
-            <div className={profileStyles.orderContainer}>
-              <OrderCard />
-              <OrderCard />
-              <OrderCard />
-            </div>
+            <div className={profileStyles.orderContainer}></div>
           </Route>
 
           <Route path={match.path}>

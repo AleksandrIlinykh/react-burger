@@ -30,6 +30,19 @@ export type TOrderMessage = {
   totalToday: number;
 }; 
 
+export type TOrders = [
+  {
+    ingredients: [string];
+    _id: string;
+    status: string;
+    number: number;
+    createdAt: string;
+    updatedAt: string;
+  }
+];
+  
+  
+
 export type TUserData = {
   name?: string;
   email: string;
