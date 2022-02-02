@@ -1,4 +1,5 @@
 import type { Middleware, MiddlewareAPI } from "redux";
+
 import type {
   TApplicationActions,
   TAppDispatch,

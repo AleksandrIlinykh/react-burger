@@ -3,7 +3,7 @@ import ingredientImg from "../../images/bun-01.png";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import orderCardStyles from "./order-card.module.css";
 
-export default function OrderList() {
+export default function OrderCard() {
   return (
     <section className={orderCardStyles.content}>
       <div className={orderCardStyles.header + " m-5"}>

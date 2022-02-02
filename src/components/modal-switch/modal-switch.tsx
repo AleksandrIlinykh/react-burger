@@ -17,8 +17,8 @@ import PasswordUpdating from "../../pages/password-updating/password-updating";
 import Profile from "../../pages/profile/profile";
 import IngredientsDetails from "../ingredient-details/ingredient-details";
 import Modal from "../modal/modal";
-import OrderList from "../../pages/order-list/order-list";
 import { RootState } from "../../services/types/index";
+import Feed from "../../pages/feed/feed";
 
 type TLocationState = {
   from: {
@@ -98,7 +98,7 @@ export const ModalSwitch = () => {
         </ProtectedRoute>
 
         <ProtectedRoute path="/orderlist" forAuth={true} redirectTo={"/"}>
-          <OrderList></OrderList>
+          <Feed />
         </ProtectedRoute>
 
         <Route path="/">
