@@ -5,6 +5,7 @@ import { TIngredientsActions } from "./burger-ingredients";
 import { TIngredientDetailsActions } from "./ingredient-details";
 import { TOrderDataActions } from "./order-data";
 import { TOrderDetailsActions } from "./order-details";
+import { wsActions } from "../actions/wsActionTypes";
 
 export type TActions =
   | TUserActions
@@ -12,4 +13,5 @@ export type TActions =
   | TIngredientsActions
   | TIngredientDetailsActions
   | TOrderDataActions
-  | TOrderDetailsActions;
+  | TOrderDetailsActions
+  | wsActions;

@@ -6,6 +6,8 @@ import { RootState } from "../../services/types/index";
 import { getBurgerIngredients } from "../../services/actions/burger-ingredients";
 import { getUserInfo, refreshToken } from "../../services/actions/auth";
 import { ModalSwitch } from "../modal-switch/modal-switch";
+import { wsInit } from "../../services/actions/wsActionTypes";
+
 export default function App() {
   const { getUserInfoFailed, refreshTokenSucess } = useSelector(
     (store: RootState) => ({
@@ -20,6 +22,7 @@ export default function App() {
 
   useEffect(() => {
     dispatch(getBurgerIngredients());
+    dispatch(wsInit());
     if (accessToken) {
       dispatch(getUserInfo());
     }

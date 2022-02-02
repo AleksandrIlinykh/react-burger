@@ -6,7 +6,7 @@ import { TActions } from "../actions/index";
 
 export type RootState = ReturnType<typeof store.getState>;
 
-type TApplicationActions = TActions;
+export type TApplicationActions = TActions;
 
 export type TAppThunk<TReturn = void> = ActionCreator<
   ThunkAction<TReturn, Action, RootState, TApplicationActions>
