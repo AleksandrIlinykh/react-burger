@@ -3,9 +3,13 @@
 	width: 80%; 
 	margin: 0 auto; 
 	background-color: #131316;
+
+}
+
+.container {
 	display: flex;
 	gap: 40px;
-	text-align: center;
+	text-align: left;
 }
 
 .contentleft {
@@ -14,4 +18,23 @@
 	display: flex;
 	flex-direction: column;
 	height: 80vh;
+}
+
+.status{
+	display: flex;
+	gap: 36px;
+}
+
+.done {
+	width: 274px;
+}
+
+.statusContainer {
+	display: flex;
+	flex-direction: column;
+	height: 250px;
+	flex-wrap: wrap;
+	overflow: hidden;
+
+	
 }
