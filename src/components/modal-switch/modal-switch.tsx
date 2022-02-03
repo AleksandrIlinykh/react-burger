@@ -45,7 +45,6 @@ export const ModalSwitch = () => {
   }));
   const handleModalClose = () => {
     dispatch(hideIngredientDetails());
-
     history.goBack();
   };
 
@@ -55,6 +54,11 @@ export const ModalSwitch = () => {
         <Route path="/ingredients/:ingredientId" exact>
           <AppHeader />
           <IngredientsDetails />
+        </Route>
+
+        <Route path="/feed/:orderId" exact>
+          <AppHeader />
+          <OrderCardDetails />
         </Route>
 
         <ProtectedRoute
