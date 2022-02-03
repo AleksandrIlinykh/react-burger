@@ -22,7 +22,7 @@ function AppHeader() {
             <NavigationElement
               type="order list"
               name="Лента заказов"
-              path="/orderlist"
+              path="/feed"
               isActive
             />
           </div>

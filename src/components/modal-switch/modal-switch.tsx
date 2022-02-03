@@ -6,7 +6,7 @@ import BurgerConstructor from "../burger-constructor/burger-constructor";
 import { ProtectedRoute } from "../protected-route/protected-route ";
 import appStyles from "./app.module.css";
 import { useSelector, useDispatch } from "../../services/hooks";
-
+import OrderCardDetails from "../order-card-details/order-card-details";
 import { Route, Switch, useLocation, useHistory } from "react-router-dom";
 import { hideIngredientDetails } from "../../services/actions/ingredient-details";
 
@@ -97,7 +97,7 @@ export const ModalSwitch = () => {
           <Profile />
         </ProtectedRoute>
 
-        <Route path="/orderlist">
+        <Route path="/feed">
           <Feed />
         </Route>
 
@@ -128,6 +128,16 @@ export const ModalSwitch = () => {
           children={
             <Modal handleModalClose={handleModalClose}>
               <IngredientsDetails />
+            </Modal>
+          }
+        />
+      )}
+      {background && (
+        <Route
+          path="/feed/:orderId"
+          children={
+            <Modal handleModalClose={handleModalClose}>
+              <OrderCardDetails />
             </Modal>
           }
         />
