@@ -25,11 +25,11 @@ export interface IwsConnectionClosed {
 }
 export interface IwsGetMessage {
   readonly type: typeof WS_GET_MESSAGE;
-  readonly payload: any;
+  readonly payload: string;
 }
 export interface IwsSendMessage {
   readonly type: typeof WS_SEND_MESSAGE;
-  readonly payload: any;
+  readonly payload: string;
 }
 
 export const wsInit = () => {
@@ -62,14 +62,14 @@ export const wsConnectionClosed = () => {
   };
 };
 
-export const wsGetMessage = (message: any) => {
+export const wsGetMessage = (message: string) => {
   return {
     type: WS_GET_MESSAGE,
     payload: message,
   };
 };
 
-export const wsSendMessage = (message: any) => {
+export const wsSendMessage = (message: string) => {
   return {
     type: WS_SEND_MESSAGE,
     payload: message,

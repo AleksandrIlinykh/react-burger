@@ -97,9 +97,9 @@ export const ModalSwitch = () => {
           <Profile />
         </ProtectedRoute>
 
-        <ProtectedRoute path="/orderlist" forAuth={true} redirectTo={"/"}>
+        <Route path="/orderlist">
           <Feed />
-        </ProtectedRoute>
+        </Route>
 
         <Route path="/">
           <AppHeader />

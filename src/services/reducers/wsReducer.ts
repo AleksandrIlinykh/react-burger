@@ -11,8 +11,8 @@ import {
 
 type TWState = {
   wsConnected: boolean;
-  messages: [TOrderMessage] | [];
-  orders: [TOrders] | [];
+  messages: Array<TOrderMessage>;
+  orders: Array<TOrders>;
   error?: any;
 };
 const wsInitialState: TWState = {

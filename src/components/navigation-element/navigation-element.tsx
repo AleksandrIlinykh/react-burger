@@ -18,7 +18,7 @@ function NavigationElement({
   isActive,
   exact,
 }: TNavigationElement) {
-  let iconType: any = "secondary";
+  let iconType: "secondary" | "primary" | "error" | "success" = "secondary";
   let icon;
 
   if (isActive) {

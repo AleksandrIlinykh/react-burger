@@ -21,6 +21,7 @@ export type TOrderMessage = {
       ingredients: [string];
       _id: string;
       status: string;
+      name: string;
       number: number;
       createdAt: string;
       updatedAt: string;
@@ -28,18 +29,27 @@ export type TOrderMessage = {
   ];
   total: number;
   totalToday: number;
-}; 
+};
 
-export type TOrders = [
-  {
-    ingredients: [string];
-    _id: string;
-    status: string;
-    number: number;
-    createdAt: string;
-    updatedAt: string;
-  }
-];
+export type TOrders = Array<{
+  ingredients: [string];
+  _id: string;
+  status: string;
+  name: string;
+  number: number;
+  createdAt: string;
+  updatedAt: string;
+}>;
+
+export type TOrder = {
+  ingredients: [string];
+  _id: string;
+  status: string;
+  name: string;
+  number: number;
+  createdAt: string;
+  updatedAt: string;
+};
   
   
 

@@ -46,9 +46,9 @@ const IngredientCard = ({
   useEffect(() => {
     const theSameIngredientsAmount =
       sausesAndFillings.filter((ingredient) => ingredient._id === _id).length +
-      (bun._id === _id ? 2 : 0);
+      (bun?._id === _id ? 2 : 0);
     setOrderCount(theSameIngredientsAmount);
-  }, [sausesAndFillings.length, bun._id, _id, sausesAndFillings]);
+  }, [sausesAndFillings.length, bun?._id, _id, sausesAndFillings]);
 
   const dispatch = useDispatch();
 

@@ -11,12 +11,12 @@ import {
 } from "../constants/burger-constructor";
 
 type TBurgerConstructorState = {
-  bun: TIngredientType;
+  bun: TIngredientType | null;
   sausesAndFillings: Array<TIngredientType>;
 };
 
 const initialState: TBurgerConstructorState = {
-  bun: {},
+  bun: null,
   sausesAndFillings: [],
 };
 

@@ -1,18 +1,20 @@
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "../../services/hooks";
 import { wsInit, wsClose } from "../../services/actions/wsActionTypes";
-
+import { RootState } from "../../services/types/index";
 import OrderContainer from "../../components/order-container/order-container";
 import AppHeader from "../../components/app-header/app-header";
 import feedStyles from "./feed.module.css";
-
+import type { TOrder } from "../../services/types/data";
 export default function Feed() {
   const dispatch = useDispatch();
-  const { orders, isDoneToday, isDoneAllTime } = useSelector((store: any) => ({
-    orders: store.ws.orders,
-    isDoneToday: store.ws.messages[store.ws.messages.length - 1]?.totalToday,
-    isDoneAllTime: store.ws.messages[store.ws.messages.length - 1]?.total,
-  }));
+  const { orders, isDoneToday, isDoneAllTime } = useSelector(
+    (store: RootState) => ({
+      orders: store.ws.orders,
+      isDoneToday: store.ws.messages[store.ws.messages.length - 1]?.totalToday,
+      isDoneAllTime: store.ws.messages[store.ws.messages.length - 1]?.total,
+    })
+  );
 
   useEffect(() => {
     dispatch(wsInit());
@@ -23,8 +25,8 @@ export default function Feed() {
 
   const readyOrderNumbers = () => {
     return orders
-      ?.filter((order: any) => order.status === "done")
-      .map((order: any) => (
+      ?.filter((order: TOrder) => order.status === "done")
+      .map((order: TOrder) => (
         <p className="text text_type_digits-default mb-2 mr-4">
           {order.number}
         </p>
@@ -33,8 +35,8 @@ export default function Feed() {
 
   const inProgressOrderNumbers = () => {
     return orders
-      ?.filter((order: any) => order.status !== "done")
-      .map((order: any) => (
+      ?.filter((order: TOrder) => order.status !== "done")
+      .map((order: TOrder) => (
         <p className="text text_type_digits-default mb-2 mr-4">
           {order.number}
         </p>
