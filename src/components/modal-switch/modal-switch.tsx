@@ -56,6 +56,11 @@ export const ModalSwitch = () => {
           <IngredientsDetails />
         </Route>
 
+        <Route path="/profile/orders/:ingredientId" exact>
+          <AppHeader />
+          <IngredientsDetails />
+        </Route>
+
         <Route path="/feed/:orderId" exact>
           <AppHeader />
           <OrderCardDetails />
@@ -146,6 +151,17 @@ export const ModalSwitch = () => {
           }
         />
       )}
+      {background && (
+        <Route
+          path="/profile/orders/:orderId"
+          children={
+            <Modal handleModalClose={handleModalClose}>
+              <OrderCardDetails />
+            </Modal>
+          }
+        />
+      )}
     </>
   );
 };
+

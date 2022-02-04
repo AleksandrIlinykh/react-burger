@@ -1,7 +1,6 @@
 import { useEffect } from "react";
 import { useSelector } from "../../services/hooks";
 import { Link, useLocation } from "react-router-dom";
-//import ingredientImg from "../../images/bun-01.png";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { RootState } from "../../services/types/index";
 import { parseDay } from "../../utils/utils";
@@ -40,7 +39,19 @@ export default function OrderCard({
   const totalPrice = ingredientsPrices.reduce(
     (acc, price) => acc && price && acc + price
   );
-  const location = useLocation();
+
+  interface LocationState {
+    from: {
+      pathname: string;
+    };
+  }
+
+  const location = useLocation<LocationState>();
+  const modalPathname =
+    location.pathname === "/profile/orders"
+      ? `/profile/orders/${id}`
+      : `/feed/${id}`;
+
   return (
     <section className={orderCardStyles.content}>
       <Link
@@ -48,7 +59,7 @@ export default function OrderCard({
         to={{
           // Тут мы формируем динамический путь для нашего ингредиента
           // а также сохраняем в свойство background роут, на котором была открыта наша модалка.
-          pathname: `/feed/${id}`,
+          pathname: modalPathname,
           state: { background: location },
         }}
         //className={styles.link}
