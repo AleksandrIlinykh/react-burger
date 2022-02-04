@@ -1,23 +1,33 @@
 import type { Middleware, MiddlewareAPI } from "redux";
-
+import { getCookie } from "../../utils/cookies";
 import type {
   TApplicationActions,
   TAppDispatch,
   RootState,
 } from "../types/index";
-import type { wsActions } from "../actions/wsActionTypes";
+import { WS_ENDPOINT } from "../../utils/api";
+import type { TwsActions } from "../actions/wsActionTypes";
 
-export const socketMiddleware = (wsUrl: string): Middleware => {
+export const socketMiddleware = (): Middleware => {
   return ((store: MiddlewareAPI<TAppDispatch, RootState>) => {
     let socket: WebSocket | null = null;
 
     return (next) => (action: TApplicationActions) => {
-      const { dispatch, getState } = store;
-      //const { type, payload } = action;
+      const { dispatch } = store;
 
       if (action.type === "WS_CONNECTION_START") {
-        // объект класса WebSocket
-        socket = new WebSocket(action.payload);
+        switch (action.payload) {
+          case "all":
+            socket = new WebSocket(`${WS_ENDPOINT}/all`);
+            break;
+          case "profile":
+            socket = new WebSocket(
+              `${WS_ENDPOINT}?token=${getCookie("acessToken")}`
+            );
+            break;
+          default:
+            break;
+        }
       }
       if (action.type === "WS_CONNECTION_СLOSE") {
         // объект класса WebSocket

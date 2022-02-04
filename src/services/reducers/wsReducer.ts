@@ -1,4 +1,4 @@
-import type { wsActions } from "../actions/wsActionTypes";
+import type { TwsActions } from "../actions/wsActionTypes";
 import type { TOrderMessage, TOrders } from "../types/data";
 import {
   WS_CONNECTION_START,
@@ -21,7 +21,7 @@ const wsInitialState: TWState = {
   orders: [],
 };
 
-export const wsReducer = (state = wsInitialState, action: wsActions) => {
+export const wsReducer = (state = wsInitialState, action: TwsActions) => {
   switch (action.type) {
     case WS_CONNECTION_SUCCESS:
       return {
@@ -42,7 +42,7 @@ export const wsReducer = (state = wsInitialState, action: wsActions) => {
         ...state,
         wsConnected: false,
         messages: [],
-          orders: [],
+        orders: [],
       };
 
     case WS_GET_MESSAGE:

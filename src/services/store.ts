@@ -10,14 +10,7 @@ declare global {
 }
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-const enhancer = composeEnhancers(
-  applyMiddleware(
-    thunk,
-    socketMiddleware(
-      `wss://norma.nomoreparties.space/orders/all`
-    )
-  )
-);
+const enhancer = composeEnhancers(applyMiddleware(thunk, socketMiddleware()));
 export const store = createStore(rootReducer, enhancer);
 
 ///*?token=${getCookie("acessToken")

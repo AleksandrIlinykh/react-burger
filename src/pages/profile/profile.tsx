@@ -49,14 +49,14 @@ function Profile() {
   };
 
   useEffect(() => {
-    dispatch(wsInit(`${WS_ENDPOINT}?token=${getCookie("acessToken")}`));
-    return () => {
-      dispatch(wsClose());
-    };
+    dispatch(wsInit(`profile`));
 
     if (updateUserInfoFailed) {
       dispatch(refreshToken(1));
     }
+    return () => {
+      dispatch(wsClose());
+    };
   }, [updateUserInfoFailed]);
 
   useEffect(() => {

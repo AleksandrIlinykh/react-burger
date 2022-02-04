@@ -8,30 +8,30 @@ import {
   WS_CONNECTION_СLOSE,
 } from "../constants/ws";
 
-export interface IwsInit {
+export type IwsInit = {
   readonly type: typeof WS_CONNECTION_START;
   readonly payload: string;
-}
-export interface IwsClose {
+};
+export type IwsClose = {
   readonly type: typeof WS_CONNECTION_СLOSE;
-}
-export interface IwsConnectionSuccess {
+};
+export type IwsConnectionSuccess = {
   readonly type: typeof WS_CONNECTION_SUCCESS;
-}
-export interface IwsConnectionError {
+};
+export type IwsConnectionError = {
   readonly type: typeof WS_CONNECTION_ERROR;
-}
-export interface IwsConnectionClosed {
+};
+export type IwsConnectionClosed = {
   readonly type: typeof WS_CONNECTION_CLOSED;
-}
-export interface IwsGetMessage {
+};
+export type IwsGetMessage = {
   readonly type: typeof WS_GET_MESSAGE;
   readonly payload: string;
-}
-export interface IwsSendMessage {
+};
+export type IwsSendMessage = {
   readonly type: typeof WS_SEND_MESSAGE;
   readonly payload: string;
-}
+};
 
 export const wsInit = (url: string) => {
   return {
@@ -78,7 +78,7 @@ export const wsSendMessage = (message: string) => {
   };
 };
 
-export type wsActions =
+export type TwsActions =
   | IwsInit
   | IwsClose
   | IwsConnectionSuccess

@@ -17,7 +17,7 @@ export default function Feed() {
   }));
 
   useEffect(() => {
-    dispatch(wsInit(`${WS_ENDPOINT}/all`));
+    dispatch(wsInit(`all`));
     return () => {
       dispatch(wsClose());
     };
