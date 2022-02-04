@@ -2,7 +2,7 @@ import { AUTH_ENDPOINT } from "../../utils/api";
 import { getCookie } from "../../utils/cookies";
 import { TUserData } from "../types/data";
 import { TAppThunk, TAppDispatch } from "../types/index";
-
+import { checkResponse } from "../../utils/utils";
 import {
   REGISTRATION_REQUEST,
   REGISTRATION_SUCCESS,
@@ -148,16 +148,7 @@ export const registration: TAppThunk =
       },
       body: JSON.stringify(userData),
     })
-      .then((res) => {
-        if (res.ok) {
-          return res;
-        } else {
-          dispatch({
-            type: REGISTRATION_ERROR,
-          });
-          throw new Error("Network response was not OK");
-        }
-      })
+      .then((res) => checkResponse(res))
       .then((res) => res.json())
       .then((data) => {
         dispatch({
@@ -167,6 +158,9 @@ export const registration: TAppThunk =
       })
 
       .catch((e) => {
+        dispatch({
+          type: REGISTRATION_ERROR,
+        });
         console.log("Error: " + e.message);
         console.log(e.response);
       });
@@ -184,16 +178,7 @@ export const authorization: TAppThunk =
       },
       body: JSON.stringify(userData),
     })
-      .then((res) => {
-        if (res.ok) {
-          return res;
-        } else {
-          dispatch({
-            type: AUTHORIZATION_ERROR,
-          });
-          throw new Error("Network response was not OK");
-        }
-      })
+      .then((res) => checkResponse(res))
       .then((res) => res.json())
       .then((data) => {
         dispatch({
@@ -203,6 +188,9 @@ export const authorization: TAppThunk =
       })
 
       .catch((e) => {
+        dispatch({
+          type: AUTHORIZATION_ERROR,
+        });
         console.log("Error: " + e.message);
         console.log(e.response);
       });
@@ -220,16 +208,7 @@ export const recoverPassword: TAppThunk =
       },
       body: JSON.stringify(emailData),
     })
-      .then((res) => {
-        if (res.ok) {
-          return res;
-        } else {
-          dispatch({
-            type: PASSWORD_RECOVERY_ERROR,
-          });
-          throw new Error("Network response was not OK");
-        }
-      })
+      .then((res) => checkResponse(res))
       .then((res) => res.json())
       .then((data) => {
         dispatch({
@@ -238,6 +217,9 @@ export const recoverPassword: TAppThunk =
       })
 
       .catch((e) => {
+        dispatch({
+          type: PASSWORD_RECOVERY_ERROR,
+        });
         console.log("Error: " + e.message);
         console.log(e.response);
       });
@@ -256,16 +238,7 @@ export const updatePassword: TAppThunk =
       },
       body: JSON.stringify(newPasswordData),
     })
-      .then((res) => {
-        if (res.ok) {
-          return res;
-        } else {
-          dispatch({
-            type: PASSWORD_UPDATING_ERROR,
-          });
-          throw new Error("Network response was not OK");
-        }
-      })
+      .then((res) => checkResponse(res))
       .then((res) => res.json())
       .then((data) => {
         dispatch({
@@ -274,6 +247,9 @@ export const updatePassword: TAppThunk =
       })
 
       .catch((e) => {
+        dispatch({
+          type: PASSWORD_UPDATING_ERROR,
+        });
         console.log("Error: " + e.message);
         console.log(e.response);
       });
@@ -295,16 +271,7 @@ export const logout: TAppThunk = () => {
       },
       body: JSON.stringify(data),
     })
-      .then((res) => {
-        if (res.ok) {
-          return res;
-        } else {
-          dispatch({
-            type: LOGOUT_ERROR,
-          });
-          throw new Error("Network response was not OK");
-        }
-      })
+      .then((res) => checkResponse(res))
       .then((res) => res.json())
       .then((data) => {
         dispatch({
@@ -313,6 +280,9 @@ export const logout: TAppThunk = () => {
       })
 
       .catch((e) => {
+        dispatch({
+          type: LOGOUT_ERROR,
+        });
         console.log("Error: " + e.message);
         console.log(e.response);
       });
@@ -332,16 +302,7 @@ export const getUserInfo: TAppThunk = () => (dispatch: TAppDispatch) => {
       Authorization: "Bearer " + getCookie("acessToken"),
     },
   })
-    .then((res) => {
-      if (res.ok) {
-        return res;
-      } else {
-        dispatch({
-          type: GET_USER_INFO_ERROR,
-        });
-        throw new Error(`${res.status}`);
-      }
-    })
+    .then((res) => checkResponse(res))
     .then((res) => res.json())
     .then((data) => {
       dispatch({
@@ -352,7 +313,6 @@ export const getUserInfo: TAppThunk = () => (dispatch: TAppDispatch) => {
 
     .catch((e) => {
       if ((e.message = "403")) {
-        //dispatch(refreshToken(false));
         dispatch({
           type: GET_USER_INFO_ERROR,
         });
@@ -375,16 +335,7 @@ export const updateUserInfo: TAppThunk =
       },
       body: JSON.stringify(data),
     })
-      .then((res) => {
-        if (res.ok) {
-          return res;
-        } else {
-          dispatch({
-            type: UPDATE_USER_INFO_ERROR,
-          });
-          throw new Error(`${res.status}`);
-        }
-      })
+      .then((res) => checkResponse(res))
       .then((res) => res.json())
       .then((data) => {
         dispatch({
@@ -395,7 +346,6 @@ export const updateUserInfo: TAppThunk =
 
       .catch((e) => {
         if ((e.message = "403")) {
-          //dispatch(refreshToken(false, data));
           dispatch({
             type: UPDATE_USER_INFO_ERROR,
           });
@@ -427,27 +377,19 @@ export const refreshToken: TAppThunk =
         token: `${getCookie("refreshToken")}`,
       }),
     })
-      .then((res) => {
-        if (res.ok) {
-          return res;
-        } else {
-          dispatch({
-            type: REFRESH_TOKEN_ERROR,
-          });
-          throw new Error("REFRESH_TOKEN_ERROR");
-        }
-      })
+      .then((res) => checkResponse(res))
       .then((res) => res.json())
       .then((data) => {
         dispatch({
           type: REFRESH_TOKEN_SUCCESS,
           payload: data,
         });
-        //if (isGettingUserInfo) dispatch(getUserInfo());
-        //else dispatch(updateUserInfo(data));
       })
 
       .catch((e) => {
+        dispatch({
+          type: REFRESH_TOKEN_ERROR,
+        });
         console.log("Error: " + e.message);
         console.log(e.response);
       });

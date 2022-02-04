@@ -28,3 +28,12 @@ export function parseDay(createdAt: string) {
   result += `, ${createdAt.slice(11, 16)} i-GMT+3`;
   return result;
 }
+
+
+export function checkResponse(res: any) {
+  if (res.ok) {
+    return res;
+  } else {
+    throw new Error(`${res.status}`);
+  }
+}

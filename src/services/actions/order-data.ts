@@ -1,6 +1,7 @@
 import { TAppThunk, TAppDispatch } from "../types/index";
 import { getCookie } from "../../utils/cookies";
 import { ENDPOINT } from "../../utils/api";
+import { checkResponse } from "../../utils/utils";
 
 import {
   GET_ORDER_NUMBER_REQUEST,
@@ -61,22 +62,16 @@ export const getOrderNumber: TAppThunk =
       },
       body: JSON.stringify(bodyData),
     })
-      .then((res) => {
-        if (res.ok) {
-          return res;
-        } else {
-          dispatch({
-            type: GET_ORDER_NUMBER_ERROR,
-          });
-          throw new Error("Network response was not OK");
-        }
-      })
+      .then((res) => checkResponse(res))
       .then((res) => res.json())
       .then((data) => {
         dispatch(getOrderNumberSuccess(data.order.number));
         dispatch({ type: CLEAR_INGREDIENTS });
       })
       .catch((e) => {
+        dispatch({
+          type: GET_ORDER_NUMBER_ERROR,
+        });
         console.log("Error: " + e.message);
         console.log(e.response);
       });
