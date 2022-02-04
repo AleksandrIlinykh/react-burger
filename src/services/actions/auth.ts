@@ -1,7 +1,7 @@
 import { AUTH_ENDPOINT } from "../../utils/api";
 import { getCookie } from "../../utils/cookies";
 import { TUserData } from "../types/data";
-import { TUserThunk, TUserDispatch } from "../types/auth";
+import { TAppThunk, TAppDispatch } from "../types/index";
 
 import {
   REGISTRATION_REQUEST,
@@ -136,8 +136,8 @@ export type TUserActions =
       type: typeof REFRESH_TOKEN_ERROR;
     };
 
-export const registration: TUserThunk =
-  (userData: TUserData) => (dispatch: TUserDispatch) => {
+export const registration: TAppThunk =
+  (userData: TUserData) => (dispatch: TAppDispatch) => {
     dispatch({
       type: REGISTRATION_REQUEST,
     });
@@ -172,8 +172,8 @@ export const registration: TUserThunk =
       });
   };
 
-export const authorization: TUserThunk =
-  (userData: TUserData) => (dispatch: TUserDispatch) => {
+export const authorization: TAppThunk =
+  (userData: TUserData) => (dispatch: TAppDispatch) => {
     dispatch({
       type: AUTHORIZATION_REQUEST,
     });
@@ -208,8 +208,8 @@ export const authorization: TUserThunk =
       });
   };
 
-export const recoverPassword: TUserThunk =
-  (emailData: { email: string }) => (dispatch: TUserDispatch) => {
+export const recoverPassword: TAppThunk =
+  (emailData: { email: string }) => (dispatch: TAppDispatch) => {
     dispatch({
       type: PASSWORD_RECOVERY_REQUEST,
     });
@@ -243,9 +243,9 @@ export const recoverPassword: TUserThunk =
       });
   };
 
-export const updatePassword: TUserThunk =
+export const updatePassword: TAppThunk =
   (newPasswordData: { password: string; token: string }) =>
-  (dispatch: TUserDispatch) => {
+  (dispatch: TAppDispatch) => {
     dispatch({
       type: PASSWORD_UPDATING_REQUEST,
     });
@@ -279,12 +279,12 @@ export const updatePassword: TUserThunk =
       });
   };
 
-export const logout: TUserThunk = () => {
+export const logout: TAppThunk = () => {
   const refreshToken = getCookie("refreshToken");
   const data = {
     token: `${refreshToken}`,
   };
-  return function (dispatch: TUserDispatch) {
+  return function (dispatch: TAppDispatch) {
     dispatch({
       type: LOGOUT_REQUEST,
     });
@@ -320,7 +320,7 @@ export const logout: TUserThunk = () => {
 };
 
 //---------------------------------------------------------------------------GET_USER_INFO-----------------------------
-export const getUserInfo: TUserThunk = () => (dispatch: TUserDispatch) => {
+export const getUserInfo: TAppThunk = () => (dispatch: TAppDispatch) => {
   dispatch({
     type: GET_USER_INFO_REQUEST,
   });
@@ -362,8 +362,8 @@ export const getUserInfo: TUserThunk = () => (dispatch: TUserDispatch) => {
 };
 
 //---------------------------------------------------------------------------UPDATE_USER_INFO-----------------------------
-export const updateUserInfo: TUserThunk =
-  (data: { name: string; email: string }) => (dispatch: TUserDispatch) => {
+export const updateUserInfo: TAppThunk =
+  (data: { name: string; email: string }) => (dispatch: TAppDispatch) => {
     dispatch({
       type: UPDATE_USER_INFO_REQUEST,
     });
@@ -405,7 +405,7 @@ export const updateUserInfo: TUserThunk =
   };
 
 //---------------------------------------------------------------------------UPDATE_TOKEN-----------------------------
-export const refreshToken: TUserThunk =
+export const refreshToken: TAppThunk =
   (
     isGettingUserInfo: boolean,
     data?: {
@@ -413,7 +413,7 @@ export const refreshToken: TUserThunk =
       email: string;
     }
   ) =>
-  (dispatch: TUserDispatch) => {
+  (dispatch: TAppDispatch) => {
     dispatch({
       type: REFRESH_TOKEN_REQUEST,
     });

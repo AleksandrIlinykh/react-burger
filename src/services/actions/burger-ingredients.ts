@@ -1,9 +1,6 @@
 import { ENDPOINT } from "../../utils/api";
 import { TIngredientType } from "../types/data";
-import {
-  TIngredientsDispatch,
-  TIngredientsThunk,
-} from "../types/burger-ingredients";
+import { TAppDispatch, TAppThunk } from "../types/index";
 
 import {
   GET_INGREDIENTS_REQUEST,
@@ -50,8 +47,8 @@ const getIngredientsError = (): IGetIngredientsError => {
   };
 };
 
-export const getBurgerIngredients: TIngredientsThunk =
-  () => (dispatch: TIngredientsDispatch) => {
+export const getBurgerIngredients: TAppThunk =
+  () => (dispatch: TAppDispatch) => {
     dispatch(getIngredientsRequest());
     fetch(`${ENDPOINT}/api/ingredients`)
       .then((res) => {

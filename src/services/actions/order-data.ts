@@ -1,5 +1,4 @@
-import { TOrderDataThunk } from "../types/order-data";
-import { TOrderDataDispatch } from "../types/order-data";
+import { TAppThunk, TAppDispatch } from "../types/index";
 import { getCookie } from "../../utils/cookies";
 import { ENDPOINT } from "../../utils/api";
 
@@ -48,8 +47,8 @@ const getOrderNumberError = () => {
   };
 };
 
-export const getOrderNumber: TOrderDataThunk =
-  (bodyData: Array<string>) => (dispatch: TOrderDataDispatch) => {
+export const getOrderNumber: TAppThunk =
+  (bodyData: Array<string>) => (dispatch: TAppDispatch) => {
     const accessToken = getCookie("acessToken");
 
     dispatch(getOrderNumberRequest());

@@ -11,7 +11,6 @@ import OrderDetails from "../order-details/order-details";
 import { addIngredient } from "../../services/actions/burger-constructor";
 import { useHistory } from "react-router-dom";
 import { getOrderNumber } from "../../services/actions/order-data";
-import { RootState } from "../../services/types/index";
 import { TIngredientType } from "../../services/types/data";
 
 import {
@@ -50,7 +49,7 @@ const BurgerConstructor = () => {
   });
 
   const { bun, sausesAndFillings, isOrderDetailsActive, isAuth } = useSelector(
-    (store: RootState) => ({
+    (store) => ({
       bun: store.burgerConstructor.bun,
       sausesAndFillings: store.burgerConstructor.sausesAndFillings,
       isOrderDetailsActive: store.orderDetails.isOrderDetailsActive,
@@ -107,7 +106,6 @@ const BurgerConstructor = () => {
       )}
     </div>
   );
-
 
   const sausesAndFillingsIngredients = sausesAndFillings.map(
     (chosenIngredient: TIngredientType, index: number) =>
