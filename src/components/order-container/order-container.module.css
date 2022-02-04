@@ -2,11 +2,7 @@
 	text-align: start;
 }
 
-
-
 .contentColumn {
-	background-color: #464668;
 	display: flex;
 	flex-direction: column;
-
 }

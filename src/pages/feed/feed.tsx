@@ -6,6 +6,7 @@ import OrderContainer from "../../components/order-container/order-container";
 import AppHeader from "../../components/app-header/app-header";
 import feedStyles from "./feed.module.css";
 import type { TOrder } from "../../services/types/data";
+import { WS_ENDPOINT } from "../../utils/api";
 export default function Feed() {
   const dispatch = useDispatch();
   const { orders, isDoneToday, isDoneAllTime } = useSelector(
@@ -17,7 +18,7 @@ export default function Feed() {
   );
 
   useEffect(() => {
-    dispatch(wsInit(`wss://norma.nomoreparties.space/orders/all`));
+    dispatch(wsInit(`${WS_ENDPOINT}/all`));
     return () => {
       dispatch(wsClose());
     };

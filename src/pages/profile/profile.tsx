@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import OrderCard from "../../components/order-card/order-card";
 import { wsInit, wsClose } from "../../services/actions/wsActionTypes";
-
+import { WS_ENDPOINT } from "../../utils/api";
 import { NavLink } from "react-router-dom";
 import {
   Input,
@@ -49,13 +49,7 @@ function Profile() {
   };
 
   useEffect(() => {
-    dispatch(
-      wsInit(
-        `wss://norma.nomoreparties.space/orders?token=${getCookie(
-          "acessToken"
-        )}`
-      )
-    );
+    dispatch(wsInit(`${WS_ENDPOINT}?token=${getCookie("acessToken")}`));
     return () => {
       dispatch(wsClose());
     };
