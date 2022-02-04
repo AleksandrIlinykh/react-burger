@@ -39,6 +39,6 @@ export const orderDataReducer = (
     }
 
     default:
-      return { ...state };
+      return state;
   }
 };

@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "../../services/hooks";
 import { wsInit, wsClose } from "../../services/actions/wsActionTypes";
-import { RootState } from "../../services/types/index";
+
 import OrderContainer from "../../components/order-container/order-container";
 import AppHeader from "../../components/app-header/app-header";
 import feedStyles from "./feed.module.css";
@@ -10,13 +10,11 @@ import { WS_ENDPOINT } from "../../utils/api";
 import { v4 as uuidv4 } from "uuid";
 export default function Feed() {
   const dispatch = useDispatch();
-  const { orders, isDoneToday, isDoneAllTime } = useSelector(
-    (store: RootState) => ({
-      orders: store.ws.orders,
-      isDoneToday: store.ws.messages[store.ws.messages.length - 1]?.totalToday,
-      isDoneAllTime: store.ws.messages[store.ws.messages.length - 1]?.total,
-    })
-  );
+  const { orders, isDoneToday, isDoneAllTime } = useSelector((store) => ({
+    orders: store.ws.orders,
+    isDoneToday: store.ws.messages[store.ws.messages.length - 1]?.totalToday,
+    isDoneAllTime: store.ws.messages[store.ws.messages.length - 1]?.total,
+  }));
 
   useEffect(() => {
     dispatch(wsInit(`${WS_ENDPOINT}/all`));

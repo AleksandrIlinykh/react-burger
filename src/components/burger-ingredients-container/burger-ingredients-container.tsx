@@ -1,9 +1,9 @@
 import React from "react";
 import burgerIngredientsContainerStyles from "./burger-ingredients-container.module.css";
-import { useSelector } from "react-redux";
+import { useSelector } from "../../services/hooks";
 import IngredientCard from "../ingredient-card/ingredient-card";
 import { TIngredientType } from "../../services/types/data";
-import { RootState } from "../../services/types/index";
+
 type TBurgerIngredientsContainerType = {
   header: string;
   reference: React.RefObject<HTMLDivElement>;
@@ -15,7 +15,7 @@ const BurgerIngredientsContainer = ({
   reference,
   type,
 }: TBurgerIngredientsContainerType) => {
-  const { ingredients } = useSelector((store: RootState) => ({
+  const { ingredients } = useSelector((store) => ({
     ingredients: store.burgerIngredients.ingredients,
   }));
 

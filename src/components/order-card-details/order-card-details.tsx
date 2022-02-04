@@ -1,7 +1,7 @@
 import orderCardDetailsStyles from "./order-card-details.module.css";
 import { useSelector } from "../../services/hooks";
 import { useParams } from "react-router-dom";
-import { RootState } from "../../services/types/index";
+
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { TIngredientType } from "../../services/types/data";
 import { parseDay } from "../../utils/utils";
@@ -9,7 +9,7 @@ import type { TOrder } from "../../services/types/data";
 
 function OrderCardDetails() {
   let { orderId } = useParams<{ orderId: string }>();
-  const { order, ingredients } = useSelector((store: RootState) => ({
+  const { order, ingredients } = useSelector((store) => ({
     order: store.ws.orders.filter(
       (order: TOrder) => order.number === Number(orderId)
     )[0],
@@ -45,7 +45,7 @@ function OrderCardDetails() {
 
   /*ingredientId = ingredientId.slice(0, -1);
   const ingredient = useSelector(
-    (store: RootState) =>
+    (store) =>
       store.burgerIngredients.ingredients.filter(
         (ingredient: TIngredientType) => ingredient._id === ingredientId
       )[0]

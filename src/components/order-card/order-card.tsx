@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useSelector } from "../../services/hooks";
 import { Link, useLocation } from "react-router-dom";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-import { RootState } from "../../services/types/index";
+
 import { parseDay } from "../../utils/utils";
 import orderCardStyles from "./order-card.module.css";
 import { TIngredientType } from "../../services/types/data";
@@ -20,17 +20,15 @@ export default function OrderCard({
   name,
   ingredientsIds,
 }: TOrderCard) {
-  const { ingredients, ingredientsPrices } = useSelector(
-    (store: RootState) => ({
-      ingredients: store.burgerIngredients.ingredients,
-      ingredientsPrices: ingredientsIds.map(
-        (ingredientsId: string) =>
-          store.burgerIngredients.ingredients.filter(
-            (ingredient: TIngredientType) => ingredientsId === ingredient._id
-          )[0].price
-      ),
-    })
-  );
+  const { ingredients, ingredientsPrices } = useSelector((store) => ({
+    ingredients: store.burgerIngredients.ingredients,
+    ingredientsPrices: ingredientsIds.map(
+      (ingredientsId: string) =>
+        store.burgerIngredients.ingredients.filter(
+          (ingredient: TIngredientType) => ingredientsId === ingredient._id
+        )[0].price
+    ),
+  }));
 
   type orderIngredientImgData = {
     img: string | undefined;

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "../../services/hooks";
 import OrderCard from "../../components/order-card/order-card";
 import { wsInit, wsClose } from "../../services/actions/wsActionTypes";
 import { WS_ENDPOINT } from "../../utils/api";
@@ -18,7 +18,7 @@ import {
 } from "../../services/actions/auth";
 import { getCookie } from "../../utils/cookies";
 import profileStyles from "./profile.module.css";
-import { RootState } from "../../services/types/index";
+
 import OrderContainer from "../../components/order-container/order-container";
 function Profile() {
   const {
@@ -26,7 +26,7 @@ function Profile() {
     storeUserName,
     updateUserInfoFailed,
     refreshTokenSucess,
-  } = useSelector((store: RootState) => ({
+  } = useSelector((store) => ({
     storeUserEmail: store.authData.email,
     storeUserName: store.authData.name,
     updateUserInfoFailed: store.authData.updateUserInfoFailed,

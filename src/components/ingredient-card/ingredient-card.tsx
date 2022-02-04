@@ -1,15 +1,13 @@
 import React, { useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "../../services/hooks";
 import { useDrag } from "react-dnd";
 import { Link, useLocation } from "react-router-dom";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Counter } from "@ya.praktikum/react-developer-burger-ui-components";
 
-
 import ingredientCardStyles from "./ingredient-card.module.css";
 import { showIngredientDetails } from "../../services/actions/ingredient-details";
 import { v4 as uuidv4 } from "uuid";
-import { RootState } from "../../services/types/index";
 
 export type TIngredientCardType = {
   image: string;
@@ -38,7 +36,7 @@ const IngredientCard = ({
 }: TIngredientCardType) => {
   const [orderCount, setOrderCount] = React.useState(0);
 
-  const { sausesAndFillings, bun } = useSelector((store: RootState) => ({
+  const { sausesAndFillings, bun } = useSelector((store) => ({
     sausesAndFillings: store.burgerConstructor.sausesAndFillings,
     bun: store.burgerConstructor.bun,
   }));
