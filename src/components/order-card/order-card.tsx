@@ -19,14 +19,17 @@ export default function OrderCard({
   name,
   ingredientsIds,
 }: TOrderCard) {
-  const { ingredientsImgs, ingredientsPrices } = useSelector(
+  const { ingredients, ingredientsPrices } = useSelector(
     (store: RootState) => ({
+      ingredients: store.burgerIngredients.ingredients,
+      /*
       ingredientsImgs: ingredientsIds.map(
         (ingredientsId: string) =>
           store.burgerIngredients.ingredients.filter(
             (ingredient: TIngredientType) => ingredientsId === ingredient._id
           )[0].image
       ),
+      */
       ingredientsPrices: ingredientsIds.map(
         (ingredientsId: string) =>
           store.burgerIngredients.ingredients.filter(
@@ -35,6 +38,32 @@ export default function OrderCard({
       ),
     })
   );
+
+  type orderIngredientImgData = {
+    img: string | undefined;
+    amount: number;
+  };
+
+  const orderIngredientImgData: Array<orderIngredientImgData> = [];
+
+  if (ingredientsIds && ingredients) {
+    let set = new Set(ingredientsIds);
+    const uniqueIds = Array.from(set);
+    for (const uniqueId of uniqueIds) {
+      let amount = 0;
+      for (const ingredientsId of ingredientsIds) {
+        if (ingredientsId === uniqueId) {
+          amount++;
+        }
+      }
+      const img = ingredients.filter(
+        (ingredient: TIngredientType) => uniqueId === ingredient._id
+      )[0].image;
+
+      orderIngredientImgData.push({ img, amount });
+      amount = 0;
+    }
+  }
 
   const totalPrice = ingredientsPrices.reduce(
     (acc, price) => acc && price && acc + price
@@ -77,10 +106,17 @@ export default function OrderCard({
         </h2>
         <div className={orderCardStyles.info + " m-5"}>
           <div className={orderCardStyles.images}>
-            {ingredientsImgs.map((ingredientImg: any) => (
+            {orderIngredientImgData.map((ingredientImg: any) => (
               <div className={orderCardStyles.imageContainer}>
+                <p
+                  className={
+                    orderCardStyles.amount + " text text_type_main-medium"
+                  }
+                >
+                  {ingredientImg.amount > 1 ? "+" + ingredientImg.amount : ""}
+                </p>
                 <img
-                  src={ingredientImg}
+                  src={ingredientImg.img}
                   alt=""
                   className={orderCardStyles.image}
                 />
