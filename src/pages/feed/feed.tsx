@@ -7,6 +7,7 @@ import AppHeader from "../../components/app-header/app-header";
 import feedStyles from "./feed.module.css";
 import type { TOrder } from "../../services/types/data";
 import { WS_ENDPOINT } from "../../utils/api";
+import { v4 as uuidv4 } from "uuid";
 export default function Feed() {
   const dispatch = useDispatch();
   const { orders, isDoneToday, isDoneAllTime } = useSelector(
@@ -28,7 +29,7 @@ export default function Feed() {
     return orders
       ?.filter((order: TOrder) => order.status === "done")
       .map((order: TOrder) => (
-        <p className="text text_type_digits-default mb-2 mr-4">
+        <p className="text text_type_digits-default mb-2 mr-4" key={uuidv4()}>
           {order.number}
         </p>
       ));
@@ -38,7 +39,7 @@ export default function Feed() {
     return orders
       ?.filter((order: TOrder) => order.status !== "done")
       .map((order: TOrder) => (
-        <p className="text text_type_digits-default mb-2 mr-4">
+        <p className="text text_type_digits-default mb-2 mr-4" key={uuidv4()}>
           {order.number}
         </p>
       ));

@@ -6,6 +6,7 @@ import { RootState } from "../../services/types/index";
 import { parseDay } from "../../utils/utils";
 import orderCardStyles from "./order-card.module.css";
 import { TIngredientType } from "../../services/types/data";
+import { v4 as uuidv4 } from "uuid";
 export type TOrderCard = {
   id: number;
   createdAt: string;
@@ -22,14 +23,6 @@ export default function OrderCard({
   const { ingredients, ingredientsPrices } = useSelector(
     (store: RootState) => ({
       ingredients: store.burgerIngredients.ingredients,
-      /*
-      ingredientsImgs: ingredientsIds.map(
-        (ingredientsId: string) =>
-          store.burgerIngredients.ingredients.filter(
-            (ingredient: TIngredientType) => ingredientsId === ingredient._id
-          )[0].image
-      ),
-      */
       ingredientsPrices: ingredientsIds.map(
         (ingredientsId: string) =>
           store.burgerIngredients.ingredients.filter(
@@ -107,7 +100,7 @@ export default function OrderCard({
         <div className={orderCardStyles.info + " m-5"}>
           <div className={orderCardStyles.images}>
             {orderIngredientImgData.map((ingredientImg: any) => (
-              <div className={orderCardStyles.imageContainer}>
+              <div className={orderCardStyles.imageContainer} key={uuidv4()}>
                 <p
                   className={
                     orderCardStyles.amount + " text text_type_main-medium"
