@@ -1,6 +1,6 @@
 import { TOrderDataThunk } from "../types/order-data";
 import { TOrderDataDispatch } from "../types/order-data";
-
+import { getCookie } from "../../utils/cookies";
 import { ENDPOINT } from "../../utils/api";
 
 import {
@@ -50,11 +50,16 @@ const getOrderNumberError = () => {
 
 export const getOrderNumber: TOrderDataThunk =
   (bodyData: Array<string>) => (dispatch: TOrderDataDispatch) => {
+    const accessToken = getCookie("acessToken");
+
     dispatch(getOrderNumberRequest());
 
     fetch(`${ENDPOINT}/api/orders`, {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + accessToken,
+      },
       body: JSON.stringify(bodyData),
     })
       .then((res) => {

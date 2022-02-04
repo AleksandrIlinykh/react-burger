@@ -108,7 +108,6 @@ const BurgerConstructor = () => {
     </div>
   );
 
-  console.log(sausesAndFillings);
 
   const sausesAndFillingsIngredients = sausesAndFillings.map(
     (chosenIngredient: TIngredientType, index: number) =>

@@ -17,7 +17,7 @@ export default function Feed() {
   );
 
   useEffect(() => {
-    dispatch(wsInit());
+    dispatch(wsInit(`wss://norma.nomoreparties.space/orders/all`));
     return () => {
       dispatch(wsClose());
     };

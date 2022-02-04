@@ -17,7 +17,7 @@ export const socketMiddleware = (wsUrl: string): Middleware => {
 
       if (action.type === "WS_CONNECTION_START") {
         // объект класса WebSocket
-        socket = new WebSocket(wsUrl);
+        socket = new WebSocket(action.payload);
       }
       if (action.type === "WS_CONNECTION_СLOSE") {
         // объект класса WebSocket

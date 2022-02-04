@@ -22,7 +22,6 @@ export default function App() {
 
   useEffect(() => {
     dispatch(getBurgerIngredients());
-    dispatch(wsInit());
     if (accessToken) {
       dispatch(getUserInfo());
     }

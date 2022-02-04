@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import OrderCard from "../../components/order-card/order-card";
+import { wsInit, wsClose } from "../../services/actions/wsActionTypes";
 
 import { NavLink } from "react-router-dom";
 import {
@@ -15,9 +16,10 @@ import {
   updateUserInfo,
   refreshToken,
 } from "../../services/actions/auth";
-
+import { getCookie } from "../../utils/cookies";
 import profileStyles from "./profile.module.css";
 import { RootState } from "../../services/types/index";
+import OrderContainer from "../../components/order-container/order-container";
 function Profile() {
   const {
     storeUserEmail,
@@ -47,6 +49,17 @@ function Profile() {
   };
 
   useEffect(() => {
+    dispatch(
+      wsInit(
+        `wss://norma.nomoreparties.space/orders?token=${getCookie(
+          "acessToken"
+        )}`
+      )
+    );
+    return () => {
+      dispatch(wsClose());
+    };
+
     if (updateUserInfoFailed) {
       dispatch(refreshToken(1));
     }
@@ -121,7 +134,9 @@ function Profile() {
 
         <Switch>
           <Route exact path="/profile/orders">
-            <div className={profileStyles.orderContainer}></div>
+            <div className={profileStyles.orderContainer}>
+              <OrderContainer />
+            </div>
           </Route>
 
           <Route path={match.path}>

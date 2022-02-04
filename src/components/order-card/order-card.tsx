@@ -40,7 +40,6 @@ export default function OrderCard({
   const totalPrice = ingredientsPrices.reduce(
     (acc, price) => acc && price && acc + price
   );
-  console.log(totalPrice);
   const location = useLocation();
   return (
     <section className={orderCardStyles.content}>

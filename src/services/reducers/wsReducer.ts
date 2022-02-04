@@ -41,11 +41,12 @@ export const wsReducer = (state = wsInitialState, action: wsActions) => {
       return {
         ...state,
         wsConnected: false,
+        messages: [],
+          orders: [],
       };
 
     case WS_GET_MESSAGE:
       const parsedMessage = JSON.parse(action.payload);
-      console.log(parsedMessage.orders);
       if (parsedMessage.orders.length)
         return {
           ...state,

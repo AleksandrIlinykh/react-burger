@@ -10,6 +10,7 @@ import {
 
 export interface IwsInit {
   readonly type: typeof WS_CONNECTION_START;
+  readonly payload: string;
 }
 export interface IwsClose {
   readonly type: typeof WS_CONNECTION_СLOSE;
@@ -32,9 +33,10 @@ export interface IwsSendMessage {
   readonly payload: string;
 }
 
-export const wsInit = () => {
+export const wsInit = (url: string) => {
   return {
     type: WS_CONNECTION_START,
+    payload: url,
   };
 };
 
