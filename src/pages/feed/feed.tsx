@@ -6,7 +6,6 @@ import OrderContainer from "../../components/order-container/order-container";
 import AppHeader from "../../components/app-header/app-header";
 import feedStyles from "./feed.module.css";
 import type { TOrder } from "../../services/types/data";
-import { WS_ENDPOINT } from "../../utils/api";
 import { v4 as uuidv4 } from "uuid";
 export default function Feed() {
   const dispatch = useDispatch();

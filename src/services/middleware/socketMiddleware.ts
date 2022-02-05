@@ -21,7 +21,6 @@ export const socketMiddleware = (): Middleware => {
     return (next) => (action) => {
       const { dispatch } = store;
       if (action.type === WS_CONNECTION_START) {
-        console.log("!!!START");
         switch (action.payload) {
           case "all":
             socket = new WebSocket(`${WS_ENDPOINT}/all`);
@@ -38,7 +37,6 @@ export const socketMiddleware = (): Middleware => {
       if (action.type === WS_CONNECTION_CLOSE) {
         // объект класса WebSocket
         if (socket) {
-          console.log("!!!CLOSED");
           socket.close();
         }
       }

@@ -1,6 +1,6 @@
 import React from "react";
-import { Link, useLocation, Redirect } from "react-router-dom";
-import { useSelector, useDispatch } from "../../services/hooks";
+import { Link } from "react-router-dom";
+import { useDispatch } from "../../services/hooks";
 import {
   Input,
   Button,
@@ -8,22 +8,11 @@ import {
 import logInStyles from "./log-in.module.css";
 import { authorization } from "../../services/actions/auth";
 
-type TLocationState = {
-  from: {
-    pathname: string;
-    search: string;
-    hash: string;
-    state: any;
-  };
-};
-
 function LogIn() {
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
 
   const dispatch = useDispatch();
-  const location = useLocation<TLocationState>();
-  const isAuth = useSelector((store) => store.authData.isAuth);
 
   const handleSubmit = (event: React.SyntheticEvent) => {
     event.preventDefault();
