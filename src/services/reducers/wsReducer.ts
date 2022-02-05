@@ -7,6 +7,7 @@ import {
   WS_CONNECTION_CLOSED,
   WS_GET_MESSAGE,
   WS_SEND_MESSAGE,
+  WS_CONNECTION_CLOSE,
 } from "../constants/ws";
 
 type TWState = {
@@ -38,6 +39,7 @@ export const wsReducer = (state = wsInitialState, action: TwsActions) => {
       };
 
     case WS_CONNECTION_CLOSED:
+      console.log(action.payload);
       return {
         ...state,
         wsConnected: false,

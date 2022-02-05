@@ -11,21 +11,23 @@ import {
   WS_CONNECTION_SUCCESS,
   WS_CONNECTION_ERROR,
   WS_CONNECTION_CLOSED,
+  WS_CONNECTION_CLOSE,
   WS_GET_MESSAGE,
   WS_SEND_MESSAGE,
 } from "../constants/ws";
 
 import { WS_ENDPOINT } from "../../utils/api";
 import type { TwsActions } from "../actions/wsActionTypes";
+import { off } from "process";
 
 export const socketMiddleware = (): Middleware => {
-  return ((store: MiddlewareAPI<TAppDispatch, RootState>) => {
+  return ((store: MiddlewareAPI) => {
     let socket: WebSocket | null = null;
 
-    return (next) => (action: TApplicationActions) => {
+    return (next) => (action) => {
       const { dispatch } = store;
-
       if (action.type === WS_CONNECTION_START) {
+        console.log("!!!START");
         switch (action.payload) {
           case "all":
             socket = new WebSocket(`${WS_ENDPOINT}/all`);
@@ -39,9 +41,12 @@ export const socketMiddleware = (): Middleware => {
             break;
         }
       }
-      if (action.type === WS_CONNECTION_CLOSED) {
+      if (action.type === WS_CONNECTION_CLOSE) {
         // объект класса WebSocket
-        if (socket) socket.close(1000);
+        if (socket) {
+          console.log("!!!CLOSED");
+          socket.close();
+        }
       }
       if (socket) {
         // функция, которая вызывается при открытии сокета

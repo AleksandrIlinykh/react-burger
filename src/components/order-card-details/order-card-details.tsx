@@ -1,13 +1,28 @@
 import orderCardDetailsStyles from "./order-card-details.module.css";
-import { useSelector } from "../../services/hooks";
-import { useParams } from "react-router-dom";
-
+import { useSelector, useDispatch } from "../../services/hooks";
+import { useParams, useLocation } from "react-router-dom";
+import { useEffect } from "react";
+import { wsInit, wsClose } from "../../services/actions/wsActionTypes";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { TIngredientType } from "../../services/types/data";
 import { parseDay } from "../../utils/utils";
 import type { TOrder } from "../../services/types/data";
 
 function OrderCardDetails() {
+  const location = useLocation();
+  const dispatch = useDispatch();
+
+  const feedRegex = new RegExp("/feed/");
+  const orderRegex = new RegExp("/profile/orders");
+
+  useEffect(() => {
+    if (feedRegex.test(location.pathname)) dispatch(wsInit(`all`));
+    if (orderRegex.test(location.pathname)) dispatch(wsInit(`order`));
+    return () => {
+      dispatch(wsClose());
+    };
+  }, [dispatch]);
+
   let { orderId } = useParams<{ orderId: string }>();
   const { order, ingredients } = useSelector((store) => ({
     order: store.ws.orders.filter(
@@ -43,14 +58,6 @@ function OrderCardDetails() {
       .reduce((acc: any, price: any) => acc && price && acc + price);
   }
 
-  /*ingredientId = ingredientId.slice(0, -1);
-  const ingredient = useSelector(
-    (store) =>
-      store.burgerIngredients.ingredients.filter(
-        (ingredient: TIngredientType) => ingredient._id === ingredientId
-      )[0]
-  );
-*/
   return (
     <>
       {order && ingredients && (
@@ -61,7 +68,10 @@ function OrderCardDetails() {
               " text text_type_digits-default mb-10 mt-5"
             }
           >
-            {"#" + orderId}
+            {"#" +
+              feedRegex.test(location.pathname) +
+              " " +
+              orderRegex.test(location.pathname)}
           </h3>
           <h2
             className={

@@ -5,7 +5,7 @@ import {
   WS_CONNECTION_CLOSED,
   WS_GET_MESSAGE,
   WS_SEND_MESSAGE,
-  WS_CONNECTION_СLOSE,
+  WS_CONNECTION_CLOSE,
 } from "../constants/ws";
 
 export type IwsInit = {
@@ -13,7 +13,7 @@ export type IwsInit = {
   readonly payload: string;
 };
 export type IwsClose = {
-  readonly type: typeof WS_CONNECTION_СLOSE;
+  readonly type: typeof WS_CONNECTION_CLOSE;
 };
 export type IwsConnectionSuccess = {
   readonly type: typeof WS_CONNECTION_SUCCESS;
@@ -23,6 +23,7 @@ export type IwsConnectionError = {
 };
 export type IwsConnectionClosed = {
   readonly type: typeof WS_CONNECTION_CLOSED;
+  readonly payload: any;
 };
 export type IwsGetMessage = {
   readonly type: typeof WS_GET_MESSAGE;
@@ -33,45 +34,46 @@ export type IwsSendMessage = {
   readonly payload: string;
 };
 
-export const wsInit = (url: string) => {
+export const wsInit = (url: string): IwsInit => {
   return {
     type: WS_CONNECTION_START,
     payload: url,
   };
 };
 
-export const wsClose = () => {
+export const wsClose = (): IwsClose => {
   return {
-    type: WS_CONNECTION_СLOSE,
+    type: WS_CONNECTION_CLOSE,
   };
 };
 
-export const wsConnectionSuccess = () => {
+export const wsConnectionSuccess = (): IwsConnectionSuccess => {
   return {
     type: WS_CONNECTION_SUCCESS,
   };
 };
 
-export const wsConnectionError = () => {
+export const wsConnectionError = (): IwsConnectionError => {
   return {
     type: WS_CONNECTION_ERROR,
   };
 };
 
-export const wsConnectionClosed = () => {
+export const wsConnectionClosed = (event: any): IwsConnectionClosed => {
   return {
     type: WS_CONNECTION_CLOSED,
+    payload: event,
   };
 };
 
-export const wsGetMessage = (message: string) => {
+export const wsGetMessage = (message: string): IwsGetMessage => {
   return {
     type: WS_GET_MESSAGE,
     payload: message,
   };
 };
 
-export const wsSendMessage = (message: string) => {
+export const wsSendMessage = (message: string): IwsSendMessage => {
   return {
     type: WS_SEND_MESSAGE,
     payload: message,
@@ -86,3 +88,5 @@ export type TwsActions =
   | IwsConnectionClosed
   | IwsGetMessage
   | IwsSendMessage;
+
+  
