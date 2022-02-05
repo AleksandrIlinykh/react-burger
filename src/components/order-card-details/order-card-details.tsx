@@ -15,6 +15,7 @@ function OrderCardDetails() {
   const feedRegex = new RegExp("/feed/");
   const orderRegex = new RegExp("/profile/orders");
 
+  /*
   useEffect(() => {
     if (feedRegex.test(location.pathname)) dispatch(wsInit(`all`));
     if (orderRegex.test(location.pathname)) dispatch(wsInit(`order`));
@@ -22,12 +23,11 @@ function OrderCardDetails() {
       dispatch(wsClose());
     };
   }, [dispatch]);
+*/
 
   let { orderId } = useParams<{ orderId: string }>();
   const { order, ingredients } = useSelector((store) => ({
-    order: store.ws.orders.filter(
-      (order: TOrder) => order.number === Number(orderId)
-    )[0],
+    order: store.ws.orders.filter((order: TOrder) => order._id === orderId)[0],
     ingredients: store.burgerIngredients.ingredients,
   }));
 
@@ -68,10 +68,7 @@ function OrderCardDetails() {
               " text text_type_digits-default mb-10 mt-5"
             }
           >
-            {"#" +
-              feedRegex.test(location.pathname) +
-              " " +
-              orderRegex.test(location.pathname)}
+            {"#" + order.number}
           </h3>
           <h2
             className={

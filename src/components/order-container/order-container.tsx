@@ -15,7 +15,7 @@ export default function OrderContainer() {
       (orderData: TOrder) =>
         orderData.number && (
           <OrderCard
-            id={orderData.number}
+            id={orderData._id}
             createdAt={orderData.createdAt}
             name={orderData.name}
             ingredientsIds={orderData.ingredients}
