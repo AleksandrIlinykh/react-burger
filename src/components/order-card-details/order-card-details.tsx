@@ -7,6 +7,8 @@ import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components
 import { TIngredientType } from "../../services/types/data";
 import { parseDay } from "../../utils/utils";
 import type { TOrder } from "../../services/types/data";
+import { v4 as uuidv4 } from "uuid";
+
 import {
   getOrder,
   getUserOrder,
@@ -17,16 +19,14 @@ function OrderCardDetails() {
   const dispatch = useDispatch();
 
   const feedRegex = new RegExp("/feed/");
-  const orderRegex = new RegExp("/profile/orders");
+  const orderRegex = new RegExp("/profile/");
 
   let { orderId } = useParams<{ orderId: string }>();
 
   useEffect(() => {
-    if (orderId) {
-      if (feedRegex.test(location.pathname)) dispatch(getOrder(orderId));
-      if (orderRegex.test(location.pathname)) dispatch(getUserOrder(orderId));
-    }
-  }, [dispatch]);
+    if (feedRegex.test(location.pathname)) dispatch(getOrder(orderId));
+    if (orderRegex.test(location.pathname)) dispatch(getUserOrder(orderId));
+  }, [dispatch, orderId]);
 
   const { order, ingredients } = useSelector((store) => ({
     order: store.ws.modalOrder,
@@ -83,7 +83,7 @@ function OrderCardDetails() {
             {order.status === "done" ? "Выполнен" : "Готовится"}
           </p>
           <p className="text text_type_main-medium mb-6">{"Состав:"}</p>
-          <div className={orderCardDetailsStyles.consist}>
+          <div className={orderCardDetailsStyles.consist} key={uuidv4()}>
             {orderIngredientData.map((ingredientData) => (
               <div className={orderCardDetailsStyles.ingredient}>
                 <div className={orderCardDetailsStyles.ingredientContainer}>

@@ -62,12 +62,16 @@ export const ModalSwitch = () => {
           redirectTo={"/login"}
         >
           <AppHeader />
-          <OrderCardDetails />
+          <div className={appStyles.modal}>
+            <OrderCardDetails />
+          </div>
         </ProtectedRoute>
 
         <Route path="/feed/:orderId" exact>
           <AppHeader />
-          <OrderCardDetails />
+          <div className={appStyles.modal}>
+            <OrderCardDetails />
+          </div>
         </Route>
 
         <ProtectedRoute
