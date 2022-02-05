@@ -49,7 +49,6 @@ export const wsReducer = (
       };
 
     case WS_CONNECTION_CLOSED:
-      console.log(action.payload);
       return {
         ...state,
         wsConnected: false,
@@ -75,7 +74,6 @@ export const wsReducer = (
         ...state,
       };
     case GET_ORDER_INFO_SUCCESS:
-      console.log(action.payload);
       return {
         ...state,
         modalOrder: action.payload.orders[0],
