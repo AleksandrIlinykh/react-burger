@@ -13,13 +13,14 @@ const modalRoot = document.getElementById("root-portal") as HTMLElement;
 
 export function Modal({ handleModalClose, children }: TModalType) {
   const el = useRef(document.createElement("div"));
-  const onKeypress = (event: KeyboardEvent) => {
-    if (event.key === "Escape") {
-      handleModalClose();
-    }
-  };
+
 
   React.useEffect(() => {
+    const onKeypress = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        handleModalClose();
+      }
+    };
     const current = el.current;
     modalRoot!.appendChild(current);
     document.addEventListener("keydown", onKeypress);
@@ -27,7 +28,7 @@ export function Modal({ handleModalClose, children }: TModalType) {
       document.removeEventListener("keydown", onKeypress);
       modalRoot!.removeChild(current);
     };
-  }, [onKeypress]);
+  }, [handleModalClose]);
 
   return ReactDOM.createPortal(
     <ModalOverlay handleModalClose={handleModalClose}>

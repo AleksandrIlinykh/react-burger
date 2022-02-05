@@ -21,19 +21,6 @@ import {
 type TDropableIngredient = {
   ingredient: TIngredientType;
 };
-type TItem = {
-  calories: number;
-  carbohydrates: number;
-  fat: number;
-  image: string;
-  image_large: string;
-  name: string;
-  price: number;
-  proteins: number;
-  type: string;
-  _id: string;
-  key: string;
-};
 
 const BurgerConstructor = () => {
   const dispatch = useDispatch();

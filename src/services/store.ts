@@ -3,7 +3,6 @@ import { socketMiddleware } from "./middleware/socketMiddleware";
 import thunk from "redux-thunk";
 import { rootReducer } from "./reducers/index";
 
-import { getCookie } from "../utils/cookies";
 declare global {
   interface Window {
     __REDUX_DEVTOOLS_EXTENSION_COMPOSE__?: typeof compose;

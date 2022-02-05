@@ -42,12 +42,6 @@ const getOrderNumberSuccess = (orderNumber: number) => {
   };
 };
 
-const getOrderNumberError = () => {
-  return {
-    type: GET_ORDER_NUMBER_ERROR,
-  };
-};
-
 export const getOrderNumber: TAppThunk =
   (bodyData: Array<string>) => (dispatch: TAppDispatch) => {
     const accessToken = getCookie("acessToken");

@@ -1,10 +1,6 @@
 import type { Middleware, MiddlewareAPI } from "redux";
 import { getCookie } from "../../utils/cookies";
-import type {
-  TApplicationActions,
-  TAppDispatch,
-  RootState,
-} from "../types/index";
+
 
 import {
   WS_CONNECTION_START,
@@ -17,8 +13,6 @@ import {
 } from "../constants/ws";
 
 import { WS_ENDPOINT } from "../../utils/api";
-import type { TwsActions } from "../actions/wsActionTypes";
-import { off } from "process";
 
 export const socketMiddleware = (): Middleware => {
   return ((store: MiddlewareAPI) => {

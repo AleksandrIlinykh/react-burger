@@ -41,12 +41,6 @@ const getIngredientsSuccess = (
   };
 };
 
-const getIngredientsError = (): IGetIngredientsError => {
-  return {
-    type: GET_INGREDIENTS_ERROR,
-  };
-};
-
 export const getBurgerIngredients: TAppThunk =
   () => (dispatch: TAppDispatch) => {
     dispatch(getIngredientsRequest());

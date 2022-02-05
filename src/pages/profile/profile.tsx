@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "../../services/hooks";
-import OrderCard from "../../components/order-card/order-card";
 import { wsInit, wsClose } from "../../services/actions/wsActionTypes";
-import { WS_ENDPOINT } from "../../utils/api";
 import { NavLink } from "react-router-dom";
 import {
   Input,
@@ -16,7 +14,6 @@ import {
   updateUserInfo,
   refreshToken,
 } from "../../services/actions/auth";
-import { getCookie } from "../../utils/cookies";
 import profileStyles from "./profile.module.css";
 
 import OrderContainer from "../../components/order-container/order-container";
@@ -57,7 +54,7 @@ function Profile() {
     return () => {
       dispatch(wsClose());
     };
-  }, [updateUserInfoFailed]);
+  }, [updateUserInfoFailed, dispatch]);
 
   useEffect(() => {
     if (refreshTokenSucess) {
@@ -68,7 +65,7 @@ function Profile() {
         })
       );
     }
-  }, [refreshTokenSucess]);
+  }, [refreshTokenSucess, userName, userEmail, dispatch]);
 
   const handleCancel = () => {
     setUserEmail(storeUserEmail);

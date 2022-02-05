@@ -5,7 +5,6 @@ import { BrowserRouter as Router } from "react-router-dom";
 import { getBurgerIngredients } from "../../services/actions/burger-ingredients";
 import { getUserInfo, refreshToken } from "../../services/actions/auth";
 import { ModalSwitch } from "../modal-switch/modal-switch";
-import { wsInit } from "../../services/actions/wsActionTypes";
 
 export default function App() {
   const { getUserInfoFailed, refreshTokenSucess } = useSelector((store) => ({
@@ -28,13 +27,13 @@ export default function App() {
     if (getUserInfoFailed) {
       dispatch(refreshToken(1));
     }
-  }, [getUserInfoFailed]);
+  }, [getUserInfoFailed, dispatch]);
 
   useEffect(() => {
     if (refreshTokenSucess) {
       dispatch(getUserInfo());
     }
-  }, [refreshTokenSucess]);
+  }, [refreshTokenSucess, dispatch]);
 
   return (
     <>

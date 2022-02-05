@@ -55,8 +55,3 @@ export const moveIngredients = (dragIndex: number, hoverIndex: number) => {
   };
 };
 
-export const clearIngredients = () => {
-  return {
-    type: CLEAR_INGREDIENTS,
-  };
-};

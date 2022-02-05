@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { useSelector } from "../../services/hooks";
 import { Link, useLocation } from "react-router-dom";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
