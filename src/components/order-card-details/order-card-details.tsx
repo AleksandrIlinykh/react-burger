@@ -7,6 +7,10 @@ import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components
 import { TIngredientType } from "../../services/types/data";
 import { parseDay } from "../../utils/utils";
 import type { TOrder } from "../../services/types/data";
+import {
+  getOrder,
+  getUserOrder,
+} from "../../services/actions/order-ingredients";
 
 function OrderCardDetails() {
   const location = useLocation();
@@ -15,19 +19,17 @@ function OrderCardDetails() {
   const feedRegex = new RegExp("/feed/");
   const orderRegex = new RegExp("/profile/orders");
 
-  /*
-  useEffect(() => {
-    if (feedRegex.test(location.pathname)) dispatch(wsInit(`all`));
-    if (orderRegex.test(location.pathname)) dispatch(wsInit(`order`));
-    return () => {
-      dispatch(wsClose());
-    };
-  }, [dispatch]);
-*/
-
   let { orderId } = useParams<{ orderId: string }>();
+
+  useEffect(() => {
+    if (orderId) {
+      if (feedRegex.test(location.pathname)) dispatch(getOrder(orderId));
+      if (orderRegex.test(location.pathname)) dispatch(getUserOrder(orderId));
+    }
+  }, [dispatch]);
+
   const { order, ingredients } = useSelector((store) => ({
-    order: store.ws.orders.filter((order: TOrder) => order._id === orderId)[0],
+    order: store.ws.modalOrder,
     ingredients: store.burgerIngredients.ingredients,
   }));
 

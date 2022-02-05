@@ -62,8 +62,6 @@ export const ModalSwitch = () => {
           redirectTo={"/login"}
         >
           <AppHeader />
-          <AppHeader />
-          <AppHeader />
           <OrderCardDetails />
         </ProtectedRoute>
 

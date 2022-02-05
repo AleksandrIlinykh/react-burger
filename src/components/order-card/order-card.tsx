@@ -9,7 +9,7 @@ import { TIngredientType } from "../../services/types/data";
 import { v4 as uuidv4 } from "uuid";
 
 export type TOrderCard = {
-  id: string;
+  id: number;
   createdAt: string;
   name: string;
   ingredientsIds: Array<string>;
@@ -31,7 +31,7 @@ export default function OrderCard({
           )[0].price
       ),
       orderNumber: store.ws.orders.filter(
-        (order: TOrder) => order._id === id
+        (order: TOrder) => order.number === Number(id)
       )[0].number,
     })
   );

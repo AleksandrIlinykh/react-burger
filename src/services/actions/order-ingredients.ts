@@ -20,33 +20,65 @@ export type TOrderIngredientsActions =
       type: typeof GET_ORDER_INFO_ERROR;
     };
 
-export const getOrder: TAppThunk = (orderId) => (dispatch: TAppDispatch) => {
-  dispatch({
-    type: GET_ORDER_INFO_REQUEST,
-  });
-
-  fetch(`https://norma.nomoreparties.space/api/orders/:${orderId}`, {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: "Bearer " + getCookie("acessToken"),
-    },
-  })
-    .then((res) => checkResponse(res))
-    .then((res) => res.json())
-    .then((data) => {
-      dispatch({
-        type: GET_ORDER_INFO_SUCCESS,
-        payload: data,
-      });
-    })
-
-    .catch((e) => {
-      if ((e.message = "403")) {
-        dispatch({
-          type: GET_ORDER_INFO_ERROR,
-        });
-        console.log(((e.message = "403"), "GET_USER_INFO_ERROR"));
-      }
+export const getOrder: TAppThunk =
+  (orderNumber) => (dispatch: TAppDispatch) => {
+    dispatch({
+      type: GET_ORDER_INFO_REQUEST,
     });
-};
+
+    fetch(`https://norma.nomoreparties.space/api/orders/${orderNumber}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => checkResponse(res))
+      .then((res) => res.json())
+      .then((data) => {
+        dispatch({
+          type: GET_ORDER_INFO_SUCCESS,
+          payload: data,
+        });
+      })
+
+      .catch((e) => {
+        if ((e.message = "403")) {
+          dispatch({
+            type: GET_ORDER_INFO_ERROR,
+          });
+          console.log(((e.message = "403"), "GET_USER_INFO_ERROR"));
+        }
+      });
+  };
+
+export const getUserOrder: TAppThunk =
+  (orderNumber) => (dispatch: TAppDispatch) => {
+    dispatch({
+      type: GET_ORDER_INFO_REQUEST,
+    });
+
+    fetch(`https://norma.nomoreparties.space/api/orders/${orderNumber}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + getCookie("acessToken"),
+      },
+    })
+      .then((res) => checkResponse(res))
+      .then((res) => res.json())
+      .then((data) => {
+        dispatch({
+          type: GET_ORDER_INFO_SUCCESS,
+          payload: data,
+        });
+      })
+
+      .catch((e) => {
+        if ((e.message = "403")) {
+          dispatch({
+            type: GET_ORDER_INFO_ERROR,
+          });
+          console.log(((e.message = "403"), "GET_USER_INFO_ERROR"));
+        }
+      });
+  };

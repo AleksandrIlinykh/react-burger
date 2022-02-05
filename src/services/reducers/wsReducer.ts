@@ -22,12 +22,14 @@ type TWState = {
   wsConnected: boolean;
   messages: Array<TOrderMessage>;
   orders: Array<TOrders>;
+  modalOrder: TOrders | null;
   error?: any;
 };
 const wsInitialState: TWState = {
   wsConnected: false,
   messages: [],
   orders: [],
+  modalOrder: null,
 };
 
 export const wsReducer = (
@@ -79,6 +81,7 @@ export const wsReducer = (
       console.log(action.payload);
       return {
         ...state,
+        modalOrder: action.payload.orders[0],
       };
 
     case GET_ORDER_INFO_ERROR:
