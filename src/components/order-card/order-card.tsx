@@ -2,13 +2,14 @@ import { useEffect } from "react";
 import { useSelector } from "../../services/hooks";
 import { Link, useLocation } from "react-router-dom";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-
+import type { TOrder } from "../../services/types/data";
 import { parseDay } from "../../utils/utils";
 import orderCardStyles from "./order-card.module.css";
 import { TIngredientType } from "../../services/types/data";
 import { v4 as uuidv4 } from "uuid";
+
 export type TOrderCard = {
-  id: number;
+  id: string;
   createdAt: string;
   name: string;
   ingredientsIds: Array<string>;
@@ -20,15 +21,20 @@ export default function OrderCard({
   name,
   ingredientsIds,
 }: TOrderCard) {
-  const { ingredients, ingredientsPrices } = useSelector((store) => ({
-    ingredients: store.burgerIngredients.ingredients,
-    ingredientsPrices: ingredientsIds.map(
-      (ingredientsId: string) =>
-        store.burgerIngredients.ingredients.filter(
-          (ingredient: TIngredientType) => ingredientsId === ingredient._id
-        )[0].price
-    ),
-  }));
+  const { orderNumber, ingredients, ingredientsPrices } = useSelector(
+    (store) => ({
+      ingredients: store.burgerIngredients.ingredients,
+      ingredientsPrices: ingredientsIds.map(
+        (ingredientsId: string) =>
+          store.burgerIngredients.ingredients.filter(
+            (ingredient: TIngredientType) => ingredientsId === ingredient._id
+          )[0].price
+      ),
+      orderNumber: store.ws.orders.filter(
+        (order: TOrder) => order._id === id
+      )[0].number,
+    })
+  );
 
   type orderIngredientImgData = {
     img: string | undefined;
@@ -85,7 +91,7 @@ export default function OrderCard({
         //className={styles.link}
       >
         <div className={orderCardStyles.header + " m-5"}>
-          <p className="text text_type_digits-default">#{id}</p>
+          <p className="text text_type_digits-default">#{orderNumber}</p>
           <p className="text text_type_main-default text_color_inactive">
             {parseDay(createdAt)}
           </p>
