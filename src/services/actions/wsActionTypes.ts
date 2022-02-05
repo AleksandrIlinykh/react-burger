@@ -80,6 +80,7 @@ export const wsSendMessage = (message: string): IwsSendMessage => {
   };
 };
 
+
 export type TwsActions =
   | IwsInit
   | IwsClose

@@ -1,5 +1,7 @@
 import type { TwsActions } from "../actions/wsActionTypes";
 import type { TOrderMessage, TOrders } from "../types/data";
+import type { TOrderIngredientsActions } from "../actions/order-ingredients";
+
 import {
   WS_CONNECTION_START,
   WS_CONNECTION_SUCCESS,
@@ -9,6 +11,12 @@ import {
   WS_SEND_MESSAGE,
   WS_CONNECTION_CLOSE,
 } from "../constants/ws";
+
+import {
+  GET_ORDER_INFO_REQUEST,
+  GET_ORDER_INFO_SUCCESS,
+  GET_ORDER_INFO_ERROR,
+} from "../constants/order-ingredients";
 
 type TWState = {
   wsConnected: boolean;
@@ -22,7 +30,10 @@ const wsInitialState: TWState = {
   orders: [],
 };
 
-export const wsReducer = (state = wsInitialState, action: TwsActions) => {
+export const wsReducer = (
+  state = wsInitialState,
+  action: TwsActions | TOrderIngredientsActions
+) => {
   switch (action.type) {
     case WS_CONNECTION_SUCCESS:
       return {
@@ -60,6 +71,20 @@ export const wsReducer = (state = wsInitialState, action: TwsActions) => {
         messages: [...state.messages, action.payload],
       };
 
+    case GET_ORDER_INFO_REQUEST:
+      return {
+        ...state,
+      };
+    case GET_ORDER_INFO_SUCCESS:
+      console.log(action.payload);
+      return {
+        ...state,
+      };
+
+    case GET_ORDER_INFO_ERROR:
+      return {
+        ...state,
+      };
     default:
       return state;
   }
