@@ -90,4 +90,15 @@ export type TwsActions =
   | IwsGetMessage
   | IwsSendMessage;
 
+
+  export type TwsThunkActions = {
+    wsInit: typeof WS_CONNECTION_START;
+    wsClose: typeof WS_CONNECTION_CLOSE;
+  };
+
+  export const wsThunkActions = {
+    wsInit: WS_CONNECTION_START,
+    wsClose: WS_CONNECTION_CLOSE,
+  };
+
   

@@ -1,26 +1,27 @@
 import type { Middleware, MiddlewareAPI } from "redux";
 import { getCookie } from "../../utils/cookies";
 
+import { TwsThunkActions } from "../actions/wsActionTypes";
 
 import {
-  WS_CONNECTION_START,
   WS_CONNECTION_SUCCESS,
   WS_CONNECTION_ERROR,
   WS_CONNECTION_CLOSED,
-  WS_CONNECTION_CLOSE,
   WS_GET_MESSAGE,
   WS_SEND_MESSAGE,
 } from "../constants/ws";
 
 import { WS_ENDPOINT } from "../../utils/api";
 
-export const socketMiddleware = (): Middleware => {
+export const socketMiddleware = (
+  wsThunkActions: TwsThunkActions
+): Middleware => {
   return ((store: MiddlewareAPI) => {
     let socket: WebSocket | null = null;
 
     return (next) => (action) => {
       const { dispatch } = store;
-      if (action.type === WS_CONNECTION_START) {
+      if (action.type === wsThunkActions.wsInit) {
         switch (action.payload) {
           case "all":
             socket = new WebSocket(`${WS_ENDPOINT}/all`);
@@ -34,7 +35,7 @@ export const socketMiddleware = (): Middleware => {
             break;
         }
       }
-      if (action.type === WS_CONNECTION_CLOSE) {
+      if (action.type === wsThunkActions.wsClose) {
         // объект класса WebSocket
         if (socket) {
           socket.close();
@@ -42,12 +43,12 @@ export const socketMiddleware = (): Middleware => {
       }
       if (socket) {
         // функция, которая вызывается при открытии сокета
-        socket.onopen = (event) => {
+        socket.onopen = () => {
           dispatch({ type: WS_CONNECTION_SUCCESS });
         };
 
         // функция, которая вызывается при ошибке соединения
-        socket.onerror = (event) => {
+        socket.onerror = () => {
           dispatch({ type: WS_CONNECTION_ERROR });
         };
 
