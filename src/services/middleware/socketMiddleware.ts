@@ -44,29 +44,23 @@ export const socketMiddleware = (
       if (socket) {
         // функция, которая вызывается при открытии сокета
         socket.onopen = () => {
-          dispatch({ type: WS_CONNECTION_SUCCESS });
+          dispatch({ type: wsThunkActions.wsSuccess });
         };
 
         // функция, которая вызывается при ошибке соединения
         socket.onerror = () => {
-          dispatch({ type: WS_CONNECTION_ERROR });
+          dispatch({ type: wsThunkActions.wsError });
         };
 
         // функция, которая вызывается при получения события от сервера
         socket.onmessage = (event) => {
           const { data } = event;
-          dispatch({ type: WS_GET_MESSAGE, payload: data });
+          dispatch({ type: wsThunkActions.wsGetMessage, payload: data });
         };
         // функция, которая вызывается при закрытии соединения
         socket.onclose = (event) => {
-          dispatch({ type: WS_CONNECTION_CLOSED, payload: event });
+          dispatch({ type: wsThunkActions.wsClosed, payload: event });
         };
-
-        if (action.type === WS_SEND_MESSAGE) {
-          const message = action.payload;
-          // функция для отправки сообщения на сервер
-          socket.send(JSON.stringify(message));
-        }
       }
 
       next(action);

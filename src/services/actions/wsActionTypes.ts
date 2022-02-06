@@ -94,11 +94,21 @@ export type TwsActions =
   export type TwsThunkActions = {
     wsInit: typeof WS_CONNECTION_START;
     wsClose: typeof WS_CONNECTION_CLOSE;
+    wsSuccess: typeof WS_CONNECTION_SUCCESS;
+    wsError: typeof WS_CONNECTION_ERROR;
+    wsStart: typeof WS_CONNECTION_START;
+    wsClosed: typeof WS_CONNECTION_CLOSED;
+    wsGetMessage: typeof WS_GET_MESSAGE;
   };
 
   export const wsThunkActions = {
     wsInit: WS_CONNECTION_START,
     wsClose: WS_CONNECTION_CLOSE,
+    wsSuccess: WS_CONNECTION_SUCCESS,
+    wsError: WS_CONNECTION_ERROR,
+    wsStart: WS_CONNECTION_START,
+    wsClosed: WS_CONNECTION_CLOSED,
+    wsGetMessage: WS_GET_MESSAGE,
   };
 
   
