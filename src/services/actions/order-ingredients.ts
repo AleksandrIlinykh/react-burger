@@ -7,6 +7,7 @@ import {
 import { TAppThunk, TAppDispatch } from "../types/index";
 import { getCookie } from "../../utils/cookies";
 import { checkResponse } from "../../utils/utils";
+import { ORDER_ENDPOINT } from "../../utils/api";
 
 export type TOrderIngredientsActions =
   | {
@@ -26,7 +27,7 @@ export const getOrder: TAppThunk =
       type: GET_ORDER_INFO_REQUEST,
     });
 
-    fetch(`https://norma.nomoreparties.space/api/orders/${orderNumber}`, {
+    fetch(`${ORDER_ENDPOINT}${orderNumber}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -57,7 +58,7 @@ export const getUserOrder: TAppThunk =
       type: GET_ORDER_INFO_REQUEST,
     });
 
-    fetch(`https://norma.nomoreparties.space/api/orders/${orderNumber}`, {
+    fetch(`${ORDER_ENDPOINT}${orderNumber}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
