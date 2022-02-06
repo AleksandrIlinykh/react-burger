@@ -36,7 +36,7 @@ function OrderCardDetails() {
   const orderIngredientData = [];
   let totalPrice = 0;
 
-  if (order && ingredients) {
+  if (order && ingredients.length && order.ingredients) {
     let set = new Set(order.ingredients);
     const uniqueIds = Array.from(set);
     for (const uniqueId of uniqueIds) {
@@ -62,7 +62,7 @@ function OrderCardDetails() {
 
   return (
     <>
-      {order && ingredients && (
+      {order && ingredients.length && (
         <section className={orderCardDetailsStyles.ingredientdetails + " p-10"}>
           <h3
             className={
