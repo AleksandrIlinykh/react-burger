@@ -1,16 +1,27 @@
+import type { TOrderDataActions } from "../actions/order-data";
+
 import {
   GET_ORDER_NUMBER_REQUEST,
   GET_ORDER_NUMBER_SUCCESS,
   GET_ORDER_NUMBER_ERROR,
-} from "../actions/order-data";
+} from "../constants/order-data";
 
-const initialStateOrder = {
-  orderNumber: 0,
-  loading: false,
-  error: "",
+type TOrderDataState = {
+  orderNumber: number;
+  loading: boolean;
+  error: boolean;
 };
 
-export const orderDataReducer = (state = initialStateOrder, action) => {
+const initialStateOrder: TOrderDataState = {
+  orderNumber: 0,
+  loading: false,
+  error: false,
+};
+
+export const orderDataReducer = (
+  state = initialStateOrder,
+  action: TOrderDataActions
+) => {
   switch (action.type) {
     case GET_ORDER_NUMBER_REQUEST: {
       return {
@@ -28,6 +39,6 @@ export const orderDataReducer = (state = initialStateOrder, action) => {
     }
 
     default:
-      return { ...state };
+      return state;
   }
 };

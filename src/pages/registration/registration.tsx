@@ -1,11 +1,11 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector, useDispatch } from "../../services/hooks";
 import { Link, useHistory } from "react-router-dom";
 import {
   Input,
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { registration } from "../../services/actions/auth/authActions";
+import { registration } from "../../services/actions/auth";
 import registrationStyles from "./registration.module.css";
 
 function Registration() {
@@ -16,7 +16,7 @@ function Registration() {
   const history = useHistory();
   const dispatch = useDispatch();
   const isRegistrationSucess = useSelector(
-    (store: any) => store.authData.isRegistrationSucess
+    (store) => store.authData.isRegistrationSucess
   );
 
   const handleSubmit = (event: React.SyntheticEvent) => {

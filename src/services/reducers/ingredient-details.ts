@@ -1,16 +1,23 @@
+import type { TIngredientDetailsActions } from "../actions/ingredient-details";
+
 import {
   SHOW_INGREDIENT_DETAILS,
   HIDE_INGREDIENT_DETAILS,
-} from "../actions/ingredient-details";
+} from "../constants/ingredient-details";
 
-const ingredientDetailsInitialState = {
+type TIngredientDetailsState = {
+  iSIngredientDetailsActive: boolean;
+  ingredientDetailsId: string;
+};
+
+const ingredientDetailsInitialState: TIngredientDetailsState = {
   iSIngredientDetailsActive: false,
-  ingredientDetailsId: 0,
+  ingredientDetailsId: "",
 };
 
 export const ingredientDetailsReducer = (
   state = ingredientDetailsInitialState,
-  action
+  action: TIngredientDetailsActions
 ) => {
   switch (action.type) {
     case SHOW_INGREDIENT_DETAILS: {

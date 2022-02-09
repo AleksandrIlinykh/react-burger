@@ -3,7 +3,7 @@
 	max-width: 1920px;
 	display: flex;
 	justify-content: center;
-	background-color: #1C1C21;
+
 }
 
 .header__container {
@@ -59,4 +59,8 @@
   display: flex;
   align-items: center;
   color: #ffffff
+}
+
+.orderContainer{
+  width: 860px;
 }

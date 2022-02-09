@@ -1,6 +1,6 @@
-import React, { useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
-
+import React, { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "../../services/hooks";
+import { wsInit, wsClose } from "../../services/actions/wsActionTypes";
 import { NavLink } from "react-router-dom";
 import {
   Input,
@@ -12,20 +12,29 @@ import { Switch, Route, useRouteMatch } from "react-router-dom";
 import {
   logout,
   updateUserInfo,
-} from "../../services/actions/auth/authActions";
-
+  refreshToken,
+} from "../../services/actions/auth";
 import profileStyles from "./profile.module.css";
 
+import OrderContainer from "../../components/order-container/order-container";
 function Profile() {
-  const { storeUserEmail, storeUserName } = useSelector((store: any) => ({
+  const {
+    storeUserEmail,
+    storeUserName,
+    updateUserInfoFailed,
+    refreshTokenSucess,
+  } = useSelector((store) => ({
     storeUserEmail: store.authData.email,
     storeUserName: store.authData.name,
+    updateUserInfoFailed: store.authData.updateUserInfoFailed,
+    refreshTokenSucess: store.authData.refreshTokenSucess,
   }));
   const [userEmail, setUserEmail] = useState(storeUserEmail);
   const [userName, setUserName] = useState(storeUserName);
   const [password, setPassword] = useState("");
 
   const dispatch = useDispatch();
+
   const handleSubmit = (event: React.SyntheticEvent) => {
     event.preventDefault();
     dispatch(
@@ -35,6 +44,28 @@ function Profile() {
       })
     );
   };
+
+  useEffect(() => {
+    dispatch(wsInit(`profile`));
+
+    if (updateUserInfoFailed) {
+      dispatch(refreshToken(1));
+    }
+    return () => {
+      dispatch(wsClose());
+    };
+  }, [updateUserInfoFailed, dispatch]);
+
+  useEffect(() => {
+    if (refreshTokenSucess) {
+      dispatch(
+        updateUserInfo({
+          name: userName,
+          email: userEmail,
+        })
+      );
+    }
+  }, [refreshTokenSucess, userName, userEmail, dispatch]);
 
   const handleCancel = () => {
     setUserEmail(storeUserEmail);
@@ -94,7 +125,9 @@ function Profile() {
 
         <Switch>
           <Route exact path="/profile/orders">
-            <div></div>
+            <div className={profileStyles.orderContainer}>
+              <OrderContainer />
+            </div>
           </Route>
 
           <Route path={match.path}>

@@ -1,16 +1,13 @@
 import React, { useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "../../services/hooks";
 import { useDrag } from "react-dnd";
 import { Link, useLocation } from "react-router-dom";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Counter } from "@ya.praktikum/react-developer-burger-ui-components";
 
-
 import ingredientCardStyles from "./ingredient-card.module.css";
 import { showIngredientDetails } from "../../services/actions/ingredient-details";
 import { v4 as uuidv4 } from "uuid";
-
-import { TIngredientType } from "../../utils/types";
 
 export type TIngredientCardType = {
   image: string;
@@ -39,19 +36,17 @@ const IngredientCard = ({
 }: TIngredientCardType) => {
   const [orderCount, setOrderCount] = React.useState(0);
 
-  const { sausesAndFillings, bun } = useSelector((store: any) => ({
+  const { sausesAndFillings, bun } = useSelector((store) => ({
     sausesAndFillings: store.burgerConstructor.sausesAndFillings,
     bun: store.burgerConstructor.bun,
   }));
 
   useEffect(() => {
     const theSameIngredientsAmount =
-      sausesAndFillings.filter(
-        (ingredient: TIngredientType) => ingredient._id === _id
-      ).length +
-        (bun._id === _id) && 2;
+      sausesAndFillings.filter((ingredient) => ingredient._id === _id).length +
+      (bun?._id === _id ? 2 : 0);
     setOrderCount(theSameIngredientsAmount);
-  }, [sausesAndFillings.length, bun._id, _id, sausesAndFillings]);
+  }, [sausesAndFillings.length, bun?._id, _id, sausesAndFillings]);
 
   const dispatch = useDispatch();
 

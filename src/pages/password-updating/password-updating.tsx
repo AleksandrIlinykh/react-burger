@@ -1,12 +1,12 @@
 import React from "react";
 import { Link, useHistory } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch } from "../../services/hooks";
 import {
   Input,
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import passwordUpdatingStyles from "./password-updating.module.css";
-import { updatePassword } from "../../services/actions/auth/authActions";
+import { updatePassword } from "../../services/actions/auth";
 function PasswordUpdating() {
   const [password, setPassword] = React.useState("");
   const [token, setToken] = React.useState("");

@@ -1,15 +1,21 @@
+import type { TOrderDetailsActions } from "../actions/order-details";
+
 import {
   SHOW_ORDER_DETAILS,
   HIDE_ORDER_DETAILS,
-} from "../actions/order-details";
+} from "../constants/order-details";
 
-const orderDetailsInitialState = {
+type TOrderDetailsState = {
+  isOrderDetailsActive: boolean;
+};
+
+const orderDetailsInitialState: TOrderDetailsState = {
   isOrderDetailsActive: false,
 };
 
 export const orderDetailsReducer = (
   state = orderDetailsInitialState,
-  action
+  action: TOrderDetailsActions
 ) => {
   switch (action.type) {
     case SHOW_ORDER_DETAILS: {

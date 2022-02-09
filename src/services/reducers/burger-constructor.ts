@@ -1,18 +1,29 @@
 import update from "immutability-helper";
+import { TBurgerConstructorActions } from "../actions/burger-constructor";
+import { TIngredientType } from "../types/data";
+
 
 import {
   ADD_INGREDIENT,
   DELETE_INGREDIENT,
   MOVE_INGREDIENTS,
   CLEAR_INGREDIENTS,
-} from "../actions/burger-constructor";
+} from "../constants/burger-constructor";
 
-const initialState = {
-  bun: {},
+type TBurgerConstructorState = {
+  bun: TIngredientType | null;
+  sausesAndFillings: Array<TIngredientType>;
+};
+
+const initialState: TBurgerConstructorState = {
+  bun: null,
   sausesAndFillings: [],
 };
 
-export const burgerConstructorReducer = (state = initialState, action) => {
+export const burgerConstructorReducer = (
+  state = initialState,
+  action: TBurgerConstructorActions
+) => {
   switch (action.type) {
     case ADD_INGREDIENT: {
       if (action.payload.type === "bun") {
@@ -55,6 +66,6 @@ export const burgerConstructorReducer = (state = initialState, action) => {
       };
     }
     default:
-      return { ...state };
+      return state;
   }
 };

@@ -1,29 +1,18 @@
 import React from "react";
-import { Link, useLocation, Redirect } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+import { useDispatch } from "../../services/hooks";
 import {
   Input,
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import logInStyles from "./log-in.module.css";
-import { authorization } from "../../services/actions/auth/authActions";
-
-type TLocationState = {
-  from: {
-    pathname: string;
-    search: string;
-    hash: string;
-    state: any;
-  };
-};
+import { authorization } from "../../services/actions/auth";
 
 function LogIn() {
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
 
   const dispatch = useDispatch();
-  const location = useLocation<TLocationState>();
-  const isAuth = useSelector((store: any) => store.authData.isAuth);
 
   const handleSubmit = (event: React.SyntheticEvent) => {
     event.preventDefault();

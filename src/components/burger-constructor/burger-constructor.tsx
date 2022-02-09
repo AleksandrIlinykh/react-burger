@@ -1,5 +1,5 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector, useDispatch } from "../../services/hooks";
 import { useDrop } from "react-dnd";
 import { ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-components";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
@@ -11,38 +11,15 @@ import OrderDetails from "../order-details/order-details";
 import { addIngredient } from "../../services/actions/burger-constructor";
 import { useHistory } from "react-router-dom";
 import { getOrderNumber } from "../../services/actions/order-data";
+import { TIngredientType } from "../../services/types/data";
+
 import {
   showOrderDetails,
   hideOrderDetails,
 } from "../../services/actions/order-details";
 
 type TDropableIngredient = {
-  ingredient: {
-    calories: number;
-    carbohydrates: number;
-    fat: number;
-    image: string;
-    image_large: string;
-    name: string;
-    price: number;
-    proteins: number;
-    type: string;
-    _id: string;
-    key: string;
-  };
-};
-type TItem = {
-  calories: number;
-  carbohydrates: number;
-  fat: number;
-  image: string;
-  image_large: string;
-  name: string;
-  price: number;
-  proteins: number;
-  type: string;
-  _id: string;
-  key: string;
+  ingredient: TIngredientType;
 };
 
 const BurgerConstructor = () => {
@@ -59,7 +36,7 @@ const BurgerConstructor = () => {
   });
 
   const { bun, sausesAndFillings, isOrderDetailsActive, isAuth } = useSelector(
-    (store: any) => ({
+    (store) => ({
       bun: store.burgerConstructor.bun,
       sausesAndFillings: store.burgerConstructor.sausesAndFillings,
       isOrderDetailsActive: store.orderDetails.isOrderDetailsActive,
@@ -77,9 +54,9 @@ const BurgerConstructor = () => {
 
     const chosenIngredientsData = [bun, ...sausesAndFillings];
     const bodyData = {
-      ingredients: chosenIngredientsData.map(
-        (ingredientData) => ingredientData._id
-      ),
+      ingredients: chosenIngredientsData.map((ingredientData) => {
+        if (ingredientData) return ingredientData._id;
+      }),
     };
     dispatch(getOrderNumber(bodyData));
     dispatch(showOrderDetails());
@@ -91,34 +68,56 @@ const BurgerConstructor = () => {
 
   const bunTopIngredient = (
     <div className={burgerConstructorStyles.element + " pl-8"}>
-      <ConstructorElement
-        type="top"
-        isLocked
-        text={bun.name + " (верх)"}
-        price={bun.price}
-        thumbnail={bun.image}
-      />
+      {bun && bun.price && bun.image && (
+        <ConstructorElement
+          type="top"
+          isLocked
+          text={bun.name + " (верх)"}
+          price={bun.price}
+          thumbnail={bun.image}
+        />
+      )}
     </div>
   );
 
   const bunBottomIngredient = (
     <div className={burgerConstructorStyles.element + " pl-8"}>
-      <ConstructorElement
-        type="bottom"
-        isLocked
-        text={bun.name + " (низ)"}
-        price={bun.price}
-        thumbnail={bun.image}
-      />
+      {bun && bun.price && bun.image && (
+        <ConstructorElement
+          type="bottom"
+          isLocked
+          text={bun.name + " (низ)"}
+          price={bun.price}
+          thumbnail={bun.image}
+        />
+      )}
     </div>
   );
 
-  const totalPrice =
-    (bun.hasOwnProperty("_id") && bun.price) +
-    (sausesAndFillings.length &&
-      sausesAndFillings
-        .map((elem: TItem) => elem.price)
-        .reduce((sum: number, price: number) => sum + price));
+  const sausesAndFillingsIngredients = sausesAndFillings.map(
+    (chosenIngredient: TIngredientType, index: number) =>
+      chosenIngredient.name &&
+      chosenIngredient.price &&
+      chosenIngredient.image && (
+        <BurgerConstructorElement
+          name={chosenIngredient.name}
+          price={chosenIngredient.price}
+          image={chosenIngredient.image}
+          key={index}
+          index={index}
+        />
+      )
+  );
+
+  const bunPrice = bun && bun.price;
+  const innerPrice =
+    sausesAndFillings.length &&
+    sausesAndFillings
+      .map((elem: TIngredientType) => elem.price)
+      .reduce((sum: any, price: any) => sum + price);
+
+  const totalPrice = (innerPrice ? innerPrice : 0) + (bunPrice ? bunPrice : 0);
+
   return (
     <>
       {isOrderDetailsActive && (
@@ -132,24 +131,13 @@ const BurgerConstructor = () => {
         ref={dropTarget}
       >
         <>
-          {!bun.hasOwnProperty("_id") || bunTopIngredient}
+          {!bun || bunTopIngredient}
 
           <div className={burgerConstructorStyles.ingredientsconstructor}>
-            {!sausesAndFillings.length ||
-              sausesAndFillings.map(
-                (chosenIngredient: TItem, index: number) => (
-                  <BurgerConstructorElement
-                    name={chosenIngredient.name}
-                    price={chosenIngredient.price}
-                    image={chosenIngredient.image}
-                    key={index}
-                    index={index}
-                  />
-                )
-              )}
+            {sausesAndFillingsIngredients}
           </div>
 
-          {!bun.hasOwnProperty("_id") || bunBottomIngredient}
+          {!bun || bunBottomIngredient}
 
           {
             <div

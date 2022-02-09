@@ -1,8 +1,8 @@
 import React from "react";
 import burgerIngredientsContainerStyles from "./burger-ingredients-container.module.css";
-import { useSelector } from "react-redux";
+import { useSelector } from "../../services/hooks";
 import IngredientCard from "../ingredient-card/ingredient-card";
-import { TIngredientType } from "../../utils/types";
+import { TIngredientType } from "../../services/types/data";
 
 type TBurgerIngredientsContainerType = {
   header: string;
@@ -15,7 +15,7 @@ const BurgerIngredientsContainer = ({
   reference,
   type,
 }: TBurgerIngredientsContainerType) => {
-  const { ingredients } = useSelector((store: any) => ({
+  const { ingredients } = useSelector((store) => ({
     ingredients: store.burgerIngredients.ingredients,
   }));
 
@@ -34,19 +34,30 @@ const BurgerIngredientsContainer = ({
             .filter((cardData: TIngredientType) => cardData.type === type)
             .map((cardData: TIngredientType) => (
               <div key={cardData._id}>
-                <IngredientCard
-                  image={cardData.image}
-                  image_large={cardData.image_large}
-                  name={cardData.name}
-                  price={cardData.price}
-                  calories={cardData.calories}
-                  proteins={cardData.proteins}
-                  fat={cardData.fat}
-                  carbohydrates={cardData.carbohydrates}
-                  _id={cardData._id}
-                  key={cardData._id}
-                  type={cardData.type}
-                />
+                {cardData.image &&
+                  cardData.image_large &&
+                  cardData.name &&
+                  cardData.price &&
+                  cardData.calories &&
+                  cardData.proteins &&
+                  cardData.fat &&
+                  cardData.carbohydrates &&
+                  cardData._id &&
+                  cardData.type && (
+                    <IngredientCard
+                      image={cardData.image}
+                      image_large={cardData.image_large}
+                      name={cardData.name}
+                      price={cardData.price}
+                      calories={cardData.calories}
+                      proteins={cardData.proteins}
+                      fat={cardData.fat}
+                      carbohydrates={cardData.carbohydrates}
+                      _id={cardData._id}
+                      key={cardData._id}
+                      type={cardData.type}
+                    />
+                  )}
               </div>
             ))}
         </div>

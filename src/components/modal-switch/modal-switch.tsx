@@ -5,8 +5,8 @@ import BurgerIngredients from "../burger-ingredients/burger-ingredients";
 import BurgerConstructor from "../burger-constructor/burger-constructor";
 import { ProtectedRoute } from "../protected-route/protected-route ";
 import appStyles from "./app.module.css";
-import { useDispatch, useSelector } from "react-redux";
-
+import { useSelector, useDispatch } from "../../services/hooks";
+import OrderCardDetails from "../order-card-details/order-card-details";
 import { Route, Switch, useLocation, useHistory } from "react-router-dom";
 import { hideIngredientDetails } from "../../services/actions/ingredient-details";
 
@@ -17,6 +17,8 @@ import PasswordUpdating from "../../pages/password-updating/password-updating";
 import Profile from "../../pages/profile/profile";
 import IngredientsDetails from "../ingredient-details/ingredient-details";
 import Modal from "../modal/modal";
+
+import Feed from "../../pages/feed/feed";
 
 type TLocationState = {
   from: {
@@ -38,12 +40,11 @@ export const ModalSwitch = () => {
   const history = useHistory();
   const background = location.state && location.state.background;
   const dispatch = useDispatch();
-  const { isPasswordRecoverySucess } = useSelector((store: any) => ({
+  const { isPasswordRecoverySucess } = useSelector((store) => ({
     isPasswordRecoverySucess: store.authData.isPasswordRecoverySucess,
   }));
   const handleModalClose = () => {
     dispatch(hideIngredientDetails());
-
     history.goBack();
   };
 
@@ -53,6 +54,24 @@ export const ModalSwitch = () => {
         <Route path="/ingredients/:ingredientId" exact>
           <AppHeader />
           <IngredientsDetails />
+        </Route>
+
+        <ProtectedRoute
+          path="/profile/orders/:orderId"
+          forAuth={false}
+          redirectTo={"/login"}
+        >
+          <AppHeader />
+          <div className={appStyles.modal}>
+            <OrderCardDetails />
+          </div>
+        </ProtectedRoute>
+
+        <Route path="/feed/:orderId" exact>
+          <AppHeader />
+          <div className={appStyles.modal}>
+            <OrderCardDetails />
+          </div>
         </Route>
 
         <ProtectedRoute
@@ -95,6 +114,10 @@ export const ModalSwitch = () => {
           <Profile />
         </ProtectedRoute>
 
+        <Route path="/feed">
+          <Feed />
+        </Route>
+
         <Route path="/">
           <AppHeader />
           <>
@@ -126,6 +149,27 @@ export const ModalSwitch = () => {
           }
         />
       )}
+      {background && (
+        <Route
+          path="/feed/:orderId"
+          children={
+            <Modal handleModalClose={handleModalClose}>
+              <OrderCardDetails />
+            </Modal>
+          }
+        />
+      )}
+      {background && (
+        <Route
+          path="/profile/orders/:orderId"
+          children={
+            <Modal handleModalClose={handleModalClose}>
+              <OrderCardDetails />
+            </Modal>
+          }
+        />
+      )}
     </>
   );
 };
+

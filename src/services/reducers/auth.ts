@@ -1,5 +1,5 @@
-import { setCookie, deleteCookie } from "../../../utils/cookies";
-
+import { setCookie, deleteCookie } from "../../utils/cookies";
+import { TUserActions } from "../actions/auth";
 import {
   REGISTRATION_REQUEST,
   REGISTRATION_SUCCESS,
@@ -25,9 +25,43 @@ import {
   REFRESH_TOKEN_REQUEST,
   REFRESH_TOKEN_SUCCESS,
   REFRESH_TOKEN_ERROR,
-} from "../../actions/auth/authActions";
+} from "../constants/auth";
 
-const userState = {
+type TUserState = {
+  isAuth: boolean;
+  email: string;
+  name: string;
+  accessToken: string;
+  accessTokenExpired: boolean;
+  requestToken: string;
+  isRegistrationInProcess: boolean;
+  isRegistrationSucess: boolean;
+  isRegistrationFailed: boolean;
+  isAuthorizationInProcess: boolean;
+  isAuthorizationSucess: boolean;
+  isAuthorizationFailed: boolean;
+
+  isPasswordRecoveryInProcess: boolean;
+  isPasswordRecoverySucess: boolean;
+  isPasswordRecoveryFailed: boolean;
+
+  isPasswordUpdatingInProcess: boolean;
+  isPasswordUpdatingFailed: boolean;
+
+  getUserInfoInProcess: boolean;
+  getUserInfoSucess: boolean;
+  getUserInfoFailed: boolean;
+
+  updateUserInfoInProcess: boolean;
+  updateUserInfoSucess: boolean;
+  updateUserInfoFailed: boolean;
+
+  refreshTokenInProcess: boolean;
+  refreshTokenSucess: boolean;
+  refreshTokenFailed: boolean;
+};
+
+const userState: TUserState = {
   isAuth: false,
   email: "",
   name: "",
@@ -53,10 +87,15 @@ const userState = {
   getUserInfoFailed: false,
 
   updateUserInfoInProcess: false,
-  updateUserInfoInFailed: false,
+  updateUserInfoSucess: false,
+  updateUserInfoFailed: false,
+
+  refreshTokenInProcess: false,
+  refreshTokenSucess: false,
+  refreshTokenFailed: false,
 };
 
-export const authReducer = (state = userState, action) => {
+export const authReducer = (state = userState, action: TUserActions) => {
   switch (action.type) {
     //---------------------------------------------------------------------------REGISTRATION-----------------------------
     case REGISTRATION_REQUEST: {
@@ -236,6 +275,7 @@ export const authReducer = (state = userState, action) => {
     case REFRESH_TOKEN_REQUEST: {
       return {
         ...state,
+        refreshTokenInProcess: true,
       };
     }
     case REFRESH_TOKEN_SUCCESS: {
@@ -243,11 +283,15 @@ export const authReducer = (state = userState, action) => {
       setCookie("refreshToken", action.payload.refreshToken);
       return {
         ...state,
+        refreshTokenInProcess: false,
+        refreshTokenSucess: true,
+        refreshTokenFailed: false,
       };
     }
     case REFRESH_TOKEN_ERROR: {
       return {
         ...state,
+        refreshTokenInProcess: false,
       };
     }
     default:
