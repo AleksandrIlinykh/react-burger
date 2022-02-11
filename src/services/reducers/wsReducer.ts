@@ -21,12 +21,19 @@ type TWState = {
   orders: Array<TOrders>;
   modalOrder: TOrders | null;
   error?: any;
+  isOrderInfoGettingSuccess: boolean;
+  isOrderInfoGettingError: boolean;
+  isOrderInfoGettingInProcess: boolean;
 };
-const wsInitialState: TWState = {
+
+export const wsInitialState: TWState = {
   wsConnected: false,
   messages: [],
   orders: [],
   modalOrder: null,
+  isOrderInfoGettingSuccess: false,
+  isOrderInfoGettingError: false,
+  isOrderInfoGettingInProcess: false,
 };
 
 export const wsReducer = (
@@ -72,16 +79,24 @@ export const wsReducer = (
     case GET_ORDER_INFO_REQUEST:
       return {
         ...state,
+        isOrderInfoGettingInProcess: true,
       };
     case GET_ORDER_INFO_SUCCESS:
       return {
         ...state,
         modalOrder: action.payload.orders[0],
+        isOrderInfoGettingInProcess: false,
+        isOrderInfoGettingSuccess: true,
+        isOrderInfoGettingError: false,
       };
 
     case GET_ORDER_INFO_ERROR:
       return {
         ...state,
+        modalOrder: null,
+        isOrderInfoGettingInProcess: false,
+        isOrderInfoGettingSuccess: false,
+        isOrderInfoGettingError: true,
       };
     default:
       return state;

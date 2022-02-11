@@ -34,9 +34,11 @@ type TUserState = {
   accessToken: string;
   accessTokenExpired: boolean;
   requestToken: string;
+
   isRegistrationInProcess: boolean;
   isRegistrationSucess: boolean;
   isRegistrationFailed: boolean;
+
   isAuthorizationInProcess: boolean;
   isAuthorizationSucess: boolean;
   isAuthorizationFailed: boolean;
@@ -46,6 +48,7 @@ type TUserState = {
   isPasswordRecoveryFailed: boolean;
 
   isPasswordUpdatingInProcess: boolean;
+  isPasswordUpdatingSucess: boolean;
   isPasswordUpdatingFailed: boolean;
 
   getUserInfoInProcess: boolean;
@@ -61,16 +64,18 @@ type TUserState = {
   refreshTokenFailed: boolean;
 };
 
-const userState: TUserState = {
+export const userState: TUserState = {
   isAuth: false,
-  email: "",
-  name: "",
-  accessToken: "",
+  email: '',
+  name: '',
+  accessToken: '',
   accessTokenExpired: false,
-  requestToken: "",
+  requestToken: '',
+
   isRegistrationInProcess: false,
   isRegistrationSucess: false,
   isRegistrationFailed: false,
+
   isAuthorizationInProcess: false,
   isAuthorizationSucess: false,
   isAuthorizationFailed: false,
@@ -80,6 +85,7 @@ const userState: TUserState = {
   isPasswordRecoveryFailed: false,
 
   isPasswordUpdatingInProcess: false,
+  isPasswordUpdatingSucess: false,
   isPasswordUpdatingFailed: false,
 
   getUserInfoInProcess: false,
@@ -105,21 +111,27 @@ export const authReducer = (state = userState, action: TUserActions) => {
       };
     }
     case REGISTRATION_SUCCESS: {
-      setCookie("acessToken", action.payload.accessToken.split("Bearer ")[1]);
-      setCookie("refreshToken", action.payload.refreshToken);
+      setCookie('acessToken', action.payload.accessToken.split('Bearer ')[1]);
+      setCookie('refreshToken', action.payload.refreshToken);
       return {
         ...state,
         isAuth: true,
         email: action.payload.user.email,
         name: action.payload.user.name,
-        accessToken: action.payload.accessToken.split("Bearer ")[1],
+        accessToken: action.payload.accessToken.split('Bearer ')[1],
         refreshToken: action.payload.refreshToken,
         isRegistrationInProcess: false,
+        isRegistrationSucess: true,
       };
     }
     case REGISTRATION_ERROR: {
       return {
         ...state,
+        isAuth: false,
+        email: '',
+        name: '',
+        accessToken: '',
+        refreshToken: '',
         isRegistrationFailed: true,
         isRegistrationInProcess: false,
       };
@@ -132,14 +144,14 @@ export const authReducer = (state = userState, action: TUserActions) => {
       };
     }
     case AUTHORIZATION_SUCCESS: {
-      setCookie("acessToken", action.payload.accessToken.split("Bearer ")[1]);
-      setCookie("refreshToken", action.payload.refreshToken);
+      setCookie('acessToken', action.payload.accessToken.split('Bearer ')[1]);
+      setCookie('refreshToken', action.payload.refreshToken);
       return {
         ...state,
         isAuth: true,
         email: action.payload.user.email,
         name: action.payload.user.name,
-        accessToken: action.payload.accessToken.split("Bearer ")[1],
+        accessToken: action.payload.accessToken.split('Bearer ')[1],
         refreshToken: action.payload.refreshToken,
         isAuthorizationInProcess: false,
         isAuthorizationSucess: true,
@@ -148,9 +160,14 @@ export const authReducer = (state = userState, action: TUserActions) => {
     case AUTHORIZATION_ERROR: {
       return {
         ...state,
-        isAuthorizationFailed: true,
+        isAuth: false,
+        email: '',
+        name: '',
+        accessToken: '',
+        refreshToken: '',
         isAuthorizationInProcess: false,
         isAuthorizationSucess: false,
+        isAuthorizationFailed: true,
       };
     }
     //---------------------------------------------------------------------------PASSWORD_RECOVERY-----------------------------
@@ -171,6 +188,7 @@ export const authReducer = (state = userState, action: TUserActions) => {
     case PASSWORD_RECOVERY_ERROR: {
       return {
         ...state,
+        isPasswordRecoverySucess: false,
         isPasswordRecoveryInProcess: false,
         isPasswordRecoveryFailed: true,
       };
@@ -185,6 +203,7 @@ export const authReducer = (state = userState, action: TUserActions) => {
     case PASSWORD_UPDATING_SUCCESS: {
       return {
         ...state,
+        isPasswordUpdatingSucess: true,
         isPasswordUpdatingInProcess: false,
         isPasswordUpdatingFailed: false,
       };
@@ -192,6 +211,7 @@ export const authReducer = (state = userState, action: TUserActions) => {
     case PASSWORD_UPDATING_ERROR: {
       return {
         ...state,
+        isPasswordUpdatingSucess: false,
         isPasswordUpdatingInProcess: false,
         isPasswordUpdatingFailed: true,
       };
@@ -204,13 +224,14 @@ export const authReducer = (state = userState, action: TUserActions) => {
       };
     }
     case LOGOUT_SUCCESS: {
-      deleteCookie("acessToken");
-      deleteCookie("refreshToken");
+      deleteCookie('acessToken');
+      deleteCookie('refreshToken');
       return {
         ...userState,
         isAuth: false,
         isLogoutInProcess: false,
         isLogoutFailed: false,
+        isLogoutSucess: true,
       };
     }
     case LOGOUT_ERROR: {
@@ -218,6 +239,7 @@ export const authReducer = (state = userState, action: TUserActions) => {
         ...state,
         isLogoutInProcess: false,
         isLogoutFailed: true,
+        isLogoutSucess: false,
       };
     }
     //---------------------------------------------------------------------------GET_USER_INFO-----------------------------
@@ -241,6 +263,7 @@ export const authReducer = (state = userState, action: TUserActions) => {
     case GET_USER_INFO_ERROR: {
       return {
         ...state,
+        isAuth: false,
         getUserInfoSucess: false,
         getUserInfoInProcess: false,
         getUserInfoFailed: true,
@@ -257,7 +280,9 @@ export const authReducer = (state = userState, action: TUserActions) => {
     case UPDATE_USER_INFO_SUCCESS: {
       return {
         ...state,
+        isAuth: true,
         updateUserInfoInProcess: false,
+        updateUserInfoSucess: true,
         updateUserInfoFailed: false,
         email: action.payload.user.email,
         name: action.payload.user.name,
@@ -266,8 +291,11 @@ export const authReducer = (state = userState, action: TUserActions) => {
     case UPDATE_USER_INFO_ERROR: {
       return {
         ...state,
+        isAuth: false,
+        accessTokenExpired: true,
         updateUserInfoInProcess: false,
         updateUserInfoFailed: true,
+        updateUserInfoSucess: false,
       };
     }
 
@@ -279,8 +307,8 @@ export const authReducer = (state = userState, action: TUserActions) => {
       };
     }
     case REFRESH_TOKEN_SUCCESS: {
-      setCookie("acessToken", action.payload.accessToken.split("Bearer ")[1]);
-      setCookie("refreshToken", action.payload.refreshToken);
+      setCookie('acessToken', action.payload.accessToken.split('Bearer ')[1]);
+      setCookie('refreshToken', action.payload.refreshToken);
       return {
         ...state,
         refreshTokenInProcess: false,
@@ -292,6 +320,8 @@ export const authReducer = (state = userState, action: TUserActions) => {
       return {
         ...state,
         refreshTokenInProcess: false,
+        refreshTokenSucess: false,
+        refreshTokenFailed: true,
       };
     }
     default:
