@@ -36,29 +36,29 @@ function LogIn() {
   return (
     <form onSubmit={handleSubmit} className={logInStyles.logInContainer}>
       <p className="text text_type_main-medium">Вход</p>
-      <div className="mt-6">
+      <div className="mt-6" data-test-id={'log-in__e-mail'}>
         <Input
-          type={"text"}
-          placeholder={"E-mail"}
+          type={'text'}
+          placeholder={'E-mail'}
           onChange={(e) => setEmail(e.target.value)}
           value={email}
-          name={"email"}
+          name={'email'}
           error={false}
-          errorText={"Ошибка"}
-          size={"default"}
+          errorText={'Ошибка'}
+          size={'default'}
         />
       </div>
-      <div className="mt-6">
+      <div className="mt-6" data-test-id={'log-in__password'}>
         <Input
-          type={"text"}
-          placeholder={"Пароль"}
+          type={'text'}
+          placeholder={'Пароль'}
           onChange={(e) => setPassword(e.target.value)}
-          icon={"ShowIcon"}
+          icon={'ShowIcon'}
           value={password}
-          name={"password"}
+          name={'password'}
           error={false}
-          errorText={"Ошибка"}
-          size={"default"}
+          errorText={'Ошибка'}
+          size={'default'}
         />
       </div>
       <div className="mt-10">
@@ -69,7 +69,7 @@ function LogIn() {
 
       <div className="mt-20">
         <p className="text text_type_main-default text_color_inactive">
-          Вы новый пользователь?{" "}
+          Вы новый пользователь?{' '}
           <Link to="/registration" className={logInStyles.anchor}>
             Зарегистрироваться
           </Link>
@@ -78,7 +78,7 @@ function LogIn() {
 
       <div className="mt-4">
         <p className="text text_type_main-default text_color_inactive">
-          Забыли пароль?{" "}
+          Забыли пароль?{' '}
           <Link to="/forgot-password" className={logInStyles.anchor}>
             Восстановить пароль
           </Link>
