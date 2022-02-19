@@ -6,6 +6,7 @@
     "plugin:cypress/recommended"
   ],
   "name": "react-burger",
+  "homepage": "https://alexanderilinykhdev.github.io/react-burger/",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
