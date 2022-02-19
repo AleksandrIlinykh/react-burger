@@ -33,7 +33,7 @@ const BurgerIngredientsContainer = ({
           {ingredients
             .filter((cardData: TIngredientType) => cardData.type === type)
             .map((cardData: TIngredientType) => (
-              <div key={cardData._id}>
+              <div key={cardData._id} data-test-id={cardData._id}>
                 {cardData.image &&
                   cardData.image_large &&
                   cardData.name &&

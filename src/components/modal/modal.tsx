@@ -43,6 +43,7 @@ export function Modal({ handleModalClose, children }: TModalType) {
           className={modalStyles.closeicon}
           src={closeIcon}
           alt="close button"
+          data-test-id={'modal-close-icon'}
         />
         {children}
       </div>
