@@ -37,48 +37,48 @@ function Registration() {
       onSubmit={handleSubmit}
       className={registrationStyles.registrationContainer}
     >
-      <p className="text text_type_main-medium">Вход</p>
+      <p className="text text_type_main-medium">Регистрация</p>
       <div className="mt-6">
         <Input
-          type={"text"}
-          placeholder={"Имя"}
+          type={'text'}
+          placeholder={'Имя'}
           onChange={(e) => {
             setName(e.target.value);
           }}
           value={name}
-          name={"name"}
+          name={'name'}
           error={false}
-          errorText={"Ошибка"}
-          size={"default"}
+          errorText={'Ошибка'}
+          size={'default'}
         />
       </div>
       <div className="mt-6">
         <Input
-          type={"text"}
-          placeholder={"E-mail"}
+          type={'text'}
+          placeholder={'E-mail'}
           onChange={(e) => {
             setEmail(e.target.value);
           }}
           value={email}
-          name={"email"}
+          name={'email'}
           error={false}
-          errorText={"Ошибка"}
-          size={"default"}
+          errorText={'Ошибка'}
+          size={'default'}
         />
       </div>
       <div className="mt-6">
         <Input
-          type={"text"}
-          placeholder={"Пароль"}
+          type={'text'}
+          placeholder={'Пароль'}
           onChange={(e) => {
             setPassword(e.target.value);
           }}
-          icon={"ShowIcon"}
+          icon={'ShowIcon'}
           value={password}
-          name={"password"}
+          name={'password'}
           error={false}
-          errorText={"Ошибка"}
-          size={"default"}
+          errorText={'Ошибка'}
+          size={'default'}
         />
       </div>
       <div className="mt-10">
@@ -89,7 +89,7 @@ function Registration() {
 
       <div className="mt-20">
         <p className="text text_type_main-default text_color_inactive">
-          Уже зарегистрированны?{" "}
+          Уже зарегистрированны?{' '}
           <Link to="login" className={registrationStyles.anchor}>
             Войти
           </Link>

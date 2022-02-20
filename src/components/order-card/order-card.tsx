@@ -25,9 +25,9 @@ export default function OrderCard({
       ingredients: store.burgerIngredients.ingredients,
       ingredientsPrices: ingredientsIds.map(
         (ingredientsId: string) =>
-          store.burgerIngredients.ingredients.filter(
+          store.burgerIngredients?.ingredients?.filter(
             (ingredient: TIngredientType) => ingredientsId === ingredient._id
-          )[0].price
+          )[0]?.price
       ),
       orderNumber: store.ws.orders.filter(
         (order: TOrder) => order.number === Number(id)
@@ -52,9 +52,9 @@ export default function OrderCard({
           amount++;
         }
       }
-      const img = ingredients.filter(
+      const img = ingredients?.filter(
         (ingredient: TIngredientType) => uniqueId === ingredient._id
-      )[0].image;
+      )[0]?.image;
 
       orderIngredientImgData.push({ img, amount });
       amount = 0;

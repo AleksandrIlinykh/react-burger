@@ -28,7 +28,7 @@ function IngredientDetails() {
           </h2>
           <div className={ingredientDetailsStyles.content}>
             <img src={ingredient.image_large} alt="Тут картинка из props" />
-            <p className="text text_type_main-medium mt-4">{ingredient.name}</p>
+            <p className="text text_type_main-medium mt-4" data-test-id={'ingredient-name'}>{ingredient.name}</p>
             <ul
               className={
                 ingredientDetailsStyles.parameters +
@@ -37,25 +37,25 @@ function IngredientDetails() {
             >
               <li className={ingredientDetailsStyles.parameter}>
                 <p className="text text_type_main-small">Каллории, ккал</p>
-                <p className="text text_type_digits-default mt-2">
+                <p className="text text_type_digits-default mt-2" data-test-id={'ingredient-calories'}>
                   {ingredient.calories}
                 </p>
               </li>
               <li className={ingredientDetailsStyles.parameter}>
                 <p className="text text_type_main-small">Белки, г</p>
-                <p className="text text_type_digits-default mt-2">
+                <p className="text text_type_digits-default mt-2" data-test-id={'ingredient-proteins'}>
                   {ingredient.proteins}
                 </p>
               </li>
               <li className={ingredientDetailsStyles.parameter}>
                 <p className="text text_type_main-small">Жиры, г</p>
-                <p className="text text_type_digits-default mt-2">
+                <p className="text text_type_digits-default mt-2" data-test-id={'ingredient-fat'}>
                   {ingredient.fat}
                 </p>
               </li>
               <li className={ingredientDetailsStyles.parameter}>
                 <p className="text text_type_main-small">Углеводы, г</p>
-                <p className="text text_type_digits-default mt-2">
+                <p className="text text_type_digits-default mt-2" data-test-id={'ingredient-carbohydrates'}>
                   {ingredient.carbohydrates}
                 </p>
               </li>

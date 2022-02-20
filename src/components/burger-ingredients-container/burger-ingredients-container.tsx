@@ -21,7 +21,11 @@ const BurgerIngredientsContainer = ({
 
   return (
     <div>
-      <h1 className="mt-10" id={type} ref={reference}>
+      <h1
+        className="text text_type_main-medium mt-10"
+        id={type}
+        ref={reference}
+      >
         {header}
       </h1>
       <div className="ml-4 mt-6 mb-10">
@@ -33,7 +37,7 @@ const BurgerIngredientsContainer = ({
           {ingredients
             .filter((cardData: TIngredientType) => cardData.type === type)
             .map((cardData: TIngredientType) => (
-              <div key={cardData._id}>
+              <div key={cardData._id} data-test-id={cardData._id}>
                 {cardData.image &&
                   cardData.image_large &&
                   cardData.name &&

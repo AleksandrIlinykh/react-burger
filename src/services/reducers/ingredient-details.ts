@@ -31,7 +31,7 @@ export const ingredientDetailsReducer = (
       return {
         ...state,
         iSIngredientDetailsActive: false,
-        ingredientDetailsId: 0,
+        ingredientDetailsId: '',
       };
     }
     default:

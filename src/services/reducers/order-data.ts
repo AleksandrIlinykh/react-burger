@@ -35,7 +35,12 @@ export const orderDataReducer = (
     }
 
     case GET_ORDER_NUMBER_ERROR: {
-      return { ...initialStateOrder, error: true, loading: false };
+      return {
+        ...initialStateOrder,
+        error: true,
+        loading: false,
+        orderNumber: 0,
+      };
     }
 
     default:

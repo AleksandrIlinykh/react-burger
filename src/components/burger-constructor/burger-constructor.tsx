@@ -67,14 +67,15 @@ const BurgerConstructor = () => {
   }
 
   const bunTopIngredient = (
-    <div className={burgerConstructorStyles.element + " pl-8"}>
+    <div className={burgerConstructorStyles.element + ' pl-8'}>
       {bun && bun.price && bun.image && (
         <ConstructorElement
           type="top"
           isLocked
-          text={bun.name + " (верх)"}
+          text={bun.name + ' (верх)'}
           price={bun.price}
           thumbnail={bun.image}
+          data-test-id={bun._id}
         />
       )}
     </div>
@@ -127,8 +128,9 @@ const BurgerConstructor = () => {
       )}
 
       <div
-        className={burgerConstructorStyles.container + " mt-25 ml-16"}
+        className={burgerConstructorStyles.container + ' mt-25 ml-16'}
         ref={dropTarget}
+        data-test-id={'burger-constructor'}
       >
         <>
           {!bun || bunTopIngredient}
@@ -142,7 +144,7 @@ const BurgerConstructor = () => {
           {
             <div
               className={
-                burgerConstructorStyles.priceandconfirmation + " mt-10 mb-10"
+                burgerConstructorStyles.priceandconfirmation + ' mt-10 mb-10'
               }
             >
               <p className="text text_type_digits-medium">{totalPrice}</p>
@@ -154,6 +156,7 @@ const BurgerConstructor = () => {
                   onClick={handleMakeOrderClick}
                   type="primary"
                   size="large"
+                  data-test-id={'submit-order-button'}
                 >
                   Оформить заказ
                 </Button>

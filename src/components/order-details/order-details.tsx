@@ -14,12 +14,20 @@ function OrderDetails() {
     return isLoading ? (
       <p className="text text_type_digits-medium mt-30">Загрузка...</p>
     ) : (
-      <p className="text text_type_digits-large mt-30">{orderNumber}</p>
+      <p
+        className="text text_type_digits-large mt-30"
+        data-test-id={'order-number'}
+      >
+        {orderNumber}
+      </p>
     );
   }, [orderNumber, isLoading]);
 
   return (
-    <section className={orderDetailsStyles.orderdetails}>
+    <section
+      className={orderDetailsStyles.orderdetails}
+      data-test-id={'order-details-modal'}
+    >
       {content}
       <p className="text text_type_main-medium mt-8">идентификатор заказа</p>
       <img className="mt-15" src={doneGif} alt="done!" />
