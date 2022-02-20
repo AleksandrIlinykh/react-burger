@@ -21,7 +21,11 @@ const BurgerIngredientsContainer = ({
 
   return (
     <div>
-      <h1 className="mt-10" id={type} ref={reference}>
+      <h1
+        className="text text_type_main-medium mt-10"
+        id={type}
+        ref={reference}
+      >
         {header}
       </h1>
       <div className="ml-4 mt-6 mb-10">
