@@ -9,7 +9,6 @@ describe('page is available', function () {
 
   it('should login', function () {
     cy.get('button').contains('Оформить заказ').click();
-    cy.get('button').contains('Войти').click();
     cy.get('[data-test-id=log-in__e-mail]')
       .click()
       .type('Alexanderilinykhdev@yandex.ru');
