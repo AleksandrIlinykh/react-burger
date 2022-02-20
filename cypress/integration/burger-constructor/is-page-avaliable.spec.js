@@ -15,6 +15,8 @@ describe('page is available', function () {
       .type('Alexanderilinykhdev@yandex.ru');
     cy.get('[data-test-id=log-in__password]').click().type('password');
     cy.get('button').contains('Войти').click();
+    cy.wait(1000);
+    cy.get('[data-test-id=log-in__e-mail]').should('not.exist');
   });
 
   it('should drag & drop & make order', function () {
@@ -37,6 +39,7 @@ describe('page is available', function () {
     cy.wait(4000);
     cy.get('[data-test-id=modal-close-icon]').click();
     cy.wait(1000);
+    cy.get('[data-test-id=modal-close-icon]').should('not.exist');
   });
 
   it('should open correct ingredients details modal  & close', function () {
@@ -48,6 +51,8 @@ describe('page is available', function () {
     cy.get('[data-test-id=ingredient-carbohydrates]').contains('53');
     cy.wait(4000);
     cy.get('[data-test-id=modal-close-icon]').click();
+    cy.wait(1000);
+    cy.get('[data-test-id=modal-close-icon]').should('not.exist');
   });
 
 });
